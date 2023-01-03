@@ -20,19 +20,6 @@
 
 - Arial photos of Camp and Nearby [Shasta Dam](https://en.wikipedia.org/wiki/Shasta_Dam)
 
-<div class="row"> <!--- make a new row -->
-  <!-- each column is one-third of width -->
-  <div class="column">
-    <img src="/images/coram-ranch-arial.png" alt="site" style="width:100%">
-  </div>
-   <div class="column">
-    <img src="/images/coram-ranch-dam.png" alt="trail" style="width:100%">
-  </div>
-   <div class="column">
-  </div>
-</div>
-
-
 ### Wednesday Afternoon
 > Spelunking coordinated by Johnner and Lora.  The Mortensen's frequent through the California corridor.  On each pass we have been wanting to visit the [Lake Shasta Caverns](https://lakeshastacaverns.clickforward.com/).   This is highly recommended by all locals and the trip include bus, boat ride, and cave adventure.   
 - Pack up lunch and leave by about 12:45pm
@@ -42,19 +29,6 @@
 - 600 stairs in cavern and 1 hour hike, there are options for bus/boat only and a half-way turnout in cave
 - 2 hours of bus, boat and hike
 - Options for Gem Stone mining on site
-
-<div class="row"> <!--- make a new row -->
-  <!-- each column is one-third of width -->
-  <div class="column">
-    <img src="/images/Shasta_Caverns1.jpg" alt="cavern1" style="width:100%">
-  </div>
-   <div class="column">
-    <img src="/images/Shasta_Caverns2.jpeg" alt="cavern1" style="width:100%">
-  </div>
-   <div class="column">
-    <img src="/images/Shasta_Caverns3.jpeg" alt="cavern1" style="width:100%">
-  </div>
-</div>
 
 ### Thursday Afternoon
 > Boating coordinated by Jared.  In the Eugene days the family had several boating trips at the surrounding lakes.  UJ (Frank's brother) was the center of many of these trips.  Picking up for UJ, Jared is coordinating a boating adventure and will be providing us updates.
