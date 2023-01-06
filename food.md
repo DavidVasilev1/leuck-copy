@@ -1,4 +1,34 @@
-<!DOCTYPE html>
+<html>
+<div id="stopwatch">
+  <p id="time">00:00:00</p>
+  <button onclick="start()">Start</button>
+  <button onclick="stop()">Stop</button>
+  <button onclick="reset()">Reset</button>
+</div>
+<script>
+let time = 0;
+let interval;
+function start() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function stop() {
+  clearInterval(interval);
+}
+function reset() {
+  stop();
+  time = 0;
+  displayTime();
+}
+function displayTime() {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  document.getElementById('time').innerHTML = `${minutes}:${seconds}`;
+}
+
+</script>
+
+
+
+
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title>Stopwatch</title>
@@ -23,23 +53,12 @@
         margin: 0;
       }
       
-      #laps {
-        list-style: none;
-        padding: 0;
-      }
-      
-      #laps li {
-        font-size: 1.5em;
-        margin-bottom: 0.5em;
-      }
     </style>
-    
-<script>
+     -->
+<!-- <script>
       const stopwatch = document.querySelector("#stopwatch");
       const time = document.querySelector("#time");
       const startStopBtn = document.querySelector("#start-stop-btn");
-      const lapBtn = document.querySelector("#lap-btn");
-      const laps = document.querySelector("#laps");
       
       let isRunning = false;
       let interval;
@@ -57,32 +76,6 @@
           isRunning = true;
           startStopBtn.textContent = "Stop";
         }
-      }
+      } -->
       
-      function updateTime() {
-        elapsedTime += 10;
-        lapTime += 10;
-        
-        let minutes = Math.floor(elapsedTime / 6000);
-        let seconds = Math.floor(elapsedTime / 100) % 60;
-        let milliseconds = elapsedTime % 100;
-        
-        minutes = minutes.toString().padStart(2, "0");
-        seconds = seconds.toString().padStart(2, "0");
-        milliseconds = milliseconds.toString().padStart(2, "0");
-        
-        time.textContent = `${minutes}:${seconds}:${milliseconds}`;
-      }
       
-      function lap() {
-        const lapTimeFormatted = formatTime(lapTime);
-        laps.insertAdjacentHTML("beforeend", `<li>${lapTimeFormatted}</li>`);
-        lapTime = 0;
-      }
-      
-      function formatTime(time) {
-        let minutes = Math.floor(time / 6000);
-        let seconds = Math.floor(time / 100) % 60;
-        let milliseconds = time % 100;
-        
-        minutes = minutes.to
