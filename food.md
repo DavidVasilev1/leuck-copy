@@ -1,42 +1,88 @@
-## Planned Meals
-> The Alpine lodge extra-large kitchen seats 44 people.  The kitchens are perfect for large group meals and all come equipped with appropriate appliances and utensils. There is an outdoor barbecue!  There is a fridge and individual kitchens in the homes.   So there is a place to store snacks, make sure you stock up for the little ones.
-
-### Monday Dinner
-
- 
-### Tuesday Breakfast (8-9:30am)
-> Grits and Sausage Links in the main hall
-
-### Tuesday Lunch
-> Make lunch at dinning room.  Pack and Go.  Eat outside or at your housing, pick up trash and leave no mess in dinning hall or grounds.
-
-### Tuesday Dinner
-
-
-### Wednesday Breakfast (8-9:30am)
-
-### Wednesday Lunch
-> Make lunch at dinning room.  Pack and Go.  Leave no mess please.  There is option to purchase food at the caverns, there is a picnic are at the site.
-
-
-### Wednesday Dinner
-
-
-### Thursday Breakfast (8-9:30am)
-
-### Thursday Lunch
-> Make lunch at dinning room.  Pack and Go.  Leave no mess please.  There will likely be some down time and extra snacks will be wanted while boating.
-
-### Thursday Dinner
-
-
-### Friday Breakfast (8-9:30am)
-
-### Friday Lunch
-> Make lunch at dinning room.  Pack and Go.  There are lots of places to explore and eat in the community of Shasta Lakes and Redding.
-
-### Friday Dinner
-
-
-### Saturday Breakfast (8-9:30am)
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stopwatch</title>
+  </head>
+  <body>
+    <div id="stopwatch">
+      <p id="time">00:00:00</p>
+      <button id="start-stop-btn">Start</button>
+      <button id="lap-btn">Lap</button>
+    </div>
+    <ul id="laps"></ul>
+    
+<style>
+      #stopwatch {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      #time {
+        font-size: 2em;
+        margin: 0;
+      }
+      
+      #laps {
+        list-style: none;
+        padding: 0;
+      }
+      
+      #laps li {
+        font-size: 1.5em;
+        margin-bottom: 0.5em;
+      }
+    </style>
+    
+<script>
+      const stopwatch = document.querySelector("#stopwatch");
+      const time = document.querySelector("#time");
+      const startStopBtn = document.querySelector("#start-stop-btn");
+      const lapBtn = document.querySelector("#lap-btn");
+      const laps = document.querySelector("#laps");
+      
+      let isRunning = false;
+      let interval;
+      let elapsedTime = 0;
+      let lapTime = 0;
+      
+      function startStop() {
+        if (isRunning) {
+          clearInterval(interval);
+          isRunning = false;
+          lapTime = 0;
+          startStopBtn.textContent = "Start";
+        } else {
+          interval = setInterval(updateTime, 10);
+          isRunning = true;
+          startStopBtn.textContent = "Stop";
+        }
+      }
+      
+      function updateTime() {
+        elapsedTime += 10;
+        lapTime += 10;
+        
+        let minutes = Math.floor(elapsedTime / 6000);
+        let seconds = Math.floor(elapsedTime / 100) % 60;
+        let milliseconds = elapsedTime % 100;
+        
+        minutes = minutes.toString().padStart(2, "0");
+        seconds = seconds.toString().padStart(2, "0");
+        milliseconds = milliseconds.toString().padStart(2, "0");
+        
+        time.textContent = `${minutes}:${seconds}:${milliseconds}`;
+      }
+      
+      function lap() {
+        const lapTimeFormatted = formatTime(lapTime);
+        laps.insertAdjacentHTML("beforeend", `<li>${lapTimeFormatted}</li>`);
+        lapTime = 0;
+      }
+      
+      function formatTime(time) {
+        let minutes = Math.floor(time / 6000);
+        let seconds = Math.floor(time / 100) % 60;
+        let milliseconds = time % 100;
+        
+        minutes = minutes.to
