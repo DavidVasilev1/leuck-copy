@@ -5,6 +5,23 @@
   <button onclick="stop()">Stop</button>
   <button onclick="reset()">Reset</button>
 </div>
+<div class='container'>
+    
+<h3> Add Item </h3>
+
+    <input id='newTask' type='text'>
+    <button id='addTaskButton'>Add</button>
+    
+<h3> To-Do </h3>
+        <table id="toDo">
+          <tr>
+            <th>Task</th>
+            <th>Timer</th>
+          </tr>
+        </table>
+</div>
+
+
 <script>
 let time = 0;
 let interval;
@@ -22,6 +39,20 @@ function displayTime() {
   const seconds = time % 60;
   document.getElementById('time').innerHTML = `${minutes}:${seconds}`;
 }
+
+var taskInput = document.getElementById('newTask');
+var addTaskButton = document.getElementById('addTaskButton');
+var completedTask = document.getElementById('completedTasks');
+var incompleteTasks = document.getElementById('toDo');
+
+var addTask = function () {
+    var text = taskInput.value;
+    var table = document.createElement('tr');
+    table.innerHTML = "<th>" + text + "</th>";
+    incompleteTasks.appendChild(table);
+}
+
+addTaskButton.onclick = addTask;
 
 </script>
 
