@@ -1,4 +1,13 @@
 <html>
+<style>
+  .table {
+    border:1px solid;
+  }
+  .cell {
+    border:1px solid;
+  }
+</style>
+
 <div id="stopwatch">
   <p id="time">00:00:00</p>
   <button onclick="start()">Start</button>
@@ -13,10 +22,10 @@
     <button id='addTaskButton'>Add</button>
     
 <h3> To-Do </h3>
-        <table id="toDo">
+        <table class="table" id="toDo">
           <tr>
-            <th>Task</th>
-            <th>Timer</th>
+            <th class="cell" style="text-align: center">Task</th>
+            <th class="cell" style="text-align: center">Timer</th>
           </tr>
         </table>
 </div>
@@ -48,7 +57,7 @@ var incompleteTasks = document.getElementById('toDo');
 var addTask = function () {
     var text = taskInput.value;
     var table = document.createElement('tr');
-    table.innerHTML = "<th>" + text + "</th>";
+    table.innerHTML = "<th class='cell'>" + text + "</th>";
     incompleteTasks.appendChild(table);
 }
 
