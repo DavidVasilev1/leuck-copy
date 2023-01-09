@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <h2>AP Calculus Note-Taker</h2>
+   <style>
+      .box {
+         width: 500px;
+         background-color: white;
+         padding: 10px;
+         margin: 20px;
+         border: 5px #cca300 solid;
+         border-radius: 20px;
+         float: left;
+         color: black;
+      }
+      .input{
+         width: 500px;
+         resize: none;
+         height: 750px;
+         border-radius: 15px;
+         padding: 0.5rem;
+
+      }
+      .button{
+         width: 100px;
+         height: 50px;
+         margin-top: 20px;
+      }
+
+   </style>
+   </head>
+
+   <body>
+      <div type="text" class="box" id="box">
+         <textarea class="input" placeholder="Take some notes!" id="input2"></textarea>
+      <button onclick="del_data()" id="delete" class="button">Delete All</button>
+      <button onclick="save_data()" id="save" class="button">Save</button>
+      </div>
+     
+   </body>
+   <script>
+      function save_data() {
+      let data = document.getElementById("input2").value.split(" ");
+      localStorage.setItem("x", JSON.stringify(data))
+    } 
+   document.getElementById("input2").value = JSON.parse(localStorage.getItem("x")).join(" ")
+      
+   function del_data(){
+      let mt = [];
+      localStorage.setItem("x", JSON.stringify(mt))
+      document.getElementById("input2").value = ""
+   }
+   </script>
+</body>
+
+</html>
