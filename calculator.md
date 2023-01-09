@@ -3,21 +3,23 @@
 
 <head>
 <style>
-.button {
-  background-color: #ffcc00;
-  border: none;
-  color: #1E1E1E;
-  padding: 10px 24px;
-  text-align: center;
-  text-decoration: none;
+.input {
+  width: 83%;
+  height: 50px;
+  padding: 12px 20px;
+  margin: 8px 0;
   display: inline-block;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
   font-size: 20px;
-  margin: 4px 2px;
-  cursor: pointer;
 }
 .buttonEquals {
+  width: 15%;
+  height: 50px;
   background-color: #ffcc00;
-  border: 2px solid white;
+  border: 2px solid #ccc;
+  border-radius: 4px;
   color: #1E1E1E;
   padding: 10px 24px;
   text-align: center;
@@ -27,22 +29,22 @@
   margin: 4px 2px;
   cursor: pointer;
 }
-
-.button:hover {background-color: #ffeb9b;}
 .buttonEquals:hover {background-color: #ffeb9b;}
 
 </style>
 </head>
 <body>
+  <p>Type out an expression with a number, followed by a sign (+, -, *, /), and then the second number. Ex: 2+9</p>
   <pre id="result"></pre>
+  <input id='expression' class = 'input' type='text'>
+  <button class="buttonEquals" id="equals" on>=</button>
 </body>
-<input id='expression' type='text'>
-<br>
-<button class="buttonEquals" id="equals" on>=</button>
+
 
 
 
 <script>
+  const CALC_KEY = "CALCULATOR";
   var expression = document.getElementById('expression');
   var equals = document.getElementById('equals');
   var result = document.getElementById('result');
@@ -53,7 +55,16 @@
   var num2 = 0;
   var operator = -1;
   var position = 0;
-  
+  var initial = window.localStorage.getItem(CALC_KEY);
+  result.innerHTML = initial
+
+  expression.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("equals").click();
+  }
+  });
+
   equals.addEventListener("click", function(){ separate();});
   
   function separate() {
@@ -78,13 +89,17 @@
       operator = 3;
     } else {
       alert("Try Again");
+      expression.value = "";
+      expression.focus();
       return
     }
     console.log("op"+operator)
 
     num1 = str.slice(0, position).trim();
     num2 = str.slice(position + 1, str.length).trim();
-     solve(num1, num2, operator);
+    expression.value = "";
+    expression.focus();
+    solve(num1, num2, operator);
   }
 
   function solve(num1, num2, operator) {
@@ -98,6 +113,8 @@
       answer = parseInt(num1) / parseInt(num2);
     }
     result.textContent += num1 + signs[operator] + num2 + "=" + answer + "\r\n"
+    window.localStorage.setItem(CALC_KEY, result.innerHTML);
+
   }
 
 </script>
