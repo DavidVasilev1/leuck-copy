@@ -3,7 +3,7 @@
 cd _todo-ts
 
 npm install
-npm build
+npm run build
 
 [ -d ../todos ] && rm -rf ../todos
 mv dist/ ../todos
