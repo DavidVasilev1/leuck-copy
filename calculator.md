@@ -33,13 +33,14 @@
 
 </style>
 </head>
-<input id='expression' type='text'>
-<br>
-<button class="buttonEquals" id="equals" on>=</button>
-<br>
 <body>
   <pre id="result"></pre>
 </body>
+<input id='expression' type='text'>
+<br>
+<button class="buttonEquals" id="equals" on>=</button>
+
+
 
 <script>
   var expression = document.getElementById('expression');
