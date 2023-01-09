@@ -1,24 +1,34 @@
 <html>
+<div class="div">
 <a href="http://127.0.0.1:4000/calc">
-   <button id="calc" type="button">Calc Notes</button>
+   <button class="button" id="calc" type="button">Calc Notes</button>
 </a>
 <a href="https://davidvasilev1.github.io/leuck-copy/bio">
-   <button id="bio" type="button">Bio Notes</button>
+   <button class="button" id="bio" type="button">Bio Notes</button>
 </a>
 <a href="https://davidvasilev1.github.io/leuck-copy/poe">
-   <button id="poe" type="button">Engineering Notes</button>
+   <button class="button" id="poe" type="button">Engineering Notes</button>
 </a>
 <a href="https://davidvasilev1.github.io/leuck-copy/csp">
-   <button id="csp" type="button">CS Notes</button>
+   <button class="button" id="csp" type="button">CS Notes</button>
 </a>
 <a href="https://davidvasilev1.github.io/leuck-copy/ush">
-   <button id="ush" type="button">US History Notes</button>
+   <button class="button" id="ush" type="button">US History Notes</button>
 </a>
-
-
-
-<script>
-
-
-
-</script>
+</div>
+<style>
+.button{
+   margin: 15px;
+   color: #cca300;
+   background-color: black;
+   border: 2px #cca300 solid;
+   border-radius: 5px;
+   font-size:20px;
+   width:200px;
+   height:70px;
+}
+.div{
+   text-align: center;
+}
+</style>
+</html>

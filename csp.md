@@ -1,6 +1,6 @@
 <html>
 <body>
-   <h2>AP Calculus Note-Taker</h2>
+   <h2>AP Biology Note-Taker</h2>
    <style>
       .box {
          width: 500px;
@@ -36,12 +36,12 @@
    <script>
       function save_data() {
       let data = document.getElementById("input2").value.split(" ");
-      localStorage.setItem("x", JSON.stringify(data))
+      localStorage.setItem("c", JSON.stringify(data))
     } 
-   document.getElementById("input2").value = JSON.parse(localStorage.getItem("x")).join(" ")
+   document.getElementById("input2").value = JSON.parse(localStorage.getItem("c")).join(" ")
    function del_data(){
       let mt = [];
-      localStorage.setItem("x", JSON.stringify(mt))
+      localStorage.setItem("c", JSON.stringify(mt))
       document.getElementById("input2").value = ""
    }
    </script>
