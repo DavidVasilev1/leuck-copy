@@ -2,8 +2,8 @@
 
 cd _todo-ts
 
-pnpm install
-pnpm build
+npm install
+npm build
 
 [ -d ../todos ] && rm -rf ../todos
 mv dist/ ../todos
