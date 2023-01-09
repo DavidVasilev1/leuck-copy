@@ -1,0 +1,300 @@
+<!-- 
+  _layouts/default.html
+  customization to original Midnight theme 
+  found through GitHub Pages Themes
+ -->
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Calculator | Group SAAKD</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Calculator" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Modified Site" />
+<meta property="og:description" content="Modified Site" />
+<link rel="canonical" href="https://github.com/pages/DavidVasilev1/leuck-copy/calculator.html" />
+<meta property="og:url" content="https://github.com/pages/DavidVasilev1/leuck-copy/calculator.html" />
+<meta property="og:site_name" content="Group SAAKD" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Calculator" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Modified Site","headline":"Calculator","url":"https://github.com/pages/DavidVasilev1/leuck-copy/calculator.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/pages/DavidVasilev1/leuck-copy/assets/css/style.css?v=">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="/pages/DavidVasilev1/leuck-copy/assets/js/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/pages/DavidVasilev1/leuck-copy/assets/css/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#353535">
+<meta name="msapplication-navbutton-color" content="#353535">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/pages/DavidVasilev1/leuck-copy/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+  </head>
+  <body>
+      
+    <div class="wrapper">
+
+      <section>
+        <!-- nighthawk coding society has altered arrangement and inserted navigation that is updated in independent file -->
+        <div id="title">
+          <h1><a href=https://github.com/DavidVasilev1/leuck-copy>Group SAAKD</a></h1>
+          <p>Modified Site</p>
+          <hr>
+          <table>
+	<tr>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/">Home</a></td>
+		<!-- <td><a href="/housing">Housing</a></td> -->
+		<td><a href="/pages/DavidVasilev1/leuck-copy/timer">Timed Tasks</a></td>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/notetaker">Notebook</a></td>
+		<!-- <td><a href="/sports">Sports</a></td> -->
+		<!-- <td><a href="/activities">Activities</a></td> -->
+		<!-- <td><a href="/family-night">Family-Night</a></td> -->
+		<td><a href="/pages/DavidVasilev1/leuck-copy/calculator">Calculator</a></td>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/todos">Todos</a></td>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/gallery">Gallery</a></td>
+	</tr>
+</table>
+
+        </div>
+
+        <!-- this is Jekyll magic, each md file in site will be inserted here -->
+        <h2 id="calculator">Calculator</h2>
+<h3 id="arithmetic-calculator">Arithmetic Calculator</h3>
+
+<head>
+<style>
+.input {
+  width: 83%;
+  height: 50px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+.button {
+  width: 15%;
+  height: 50px;
+  background-color: #ffcc00;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  color: #1E1E1E;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button:hover {background-color: #ffeb9b;}
+
+</style>
+</head>
+<body>
+  <p>Type out an expression with a number, followed by a sign (+, -, *, /), and then the second number. Ex: 2+9 (PEMDAS does not work)</p>
+  <pre id="result"></pre>
+  <input id="expression" class="input" type="text" />
+  <button class="button" id="equals" on="">=</button>
+  <button class="button" id="clear" on="">Clear</button>
+</body>
+
+<script>
+  const CALC_KEY = "CALCULATOR";
+  var expression = document.getElementById('expression');
+  var equals = document.getElementById('equals');
+  var clear = document.getElementById('clear');
+  var result = document.getElementById('result');
+  var answer = 0;
+  const operators = ["\\+","\\-","\\*","\\/"]
+  const signs = ["+","-","*","/"]
+  var num = 0;
+  var operator = -1;
+  var position = 0;
+  var initial = window.localStorage.getItem(CALC_KEY);
+  var str = "";
+  var array = [];
+  var count = 0;
+  var numbers = [];
+  var operatorss = [];
+  var positions = [];
+  var total = 0;
+  result.innerHTML = initial
+
+
+  expression.focus();
+  expression.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("equals").click();
+  }
+  });
+
+  equals.addEventListener("click", function(){ countString(); }); //separate();
+  clear.addEventListener("click", function(){ clearEntry();});
+
+  function clearEntry() {
+    console.log("test")
+    window.localStorage.clear();
+    expression.value = "";
+    result.innerHTML = "";
+    expression.focus();
+  }
+  // program to check the number of occurrence of a character
+
+  function countString() {
+    str = expression.value;
+    array = Array.from(str)
+      count = 0;
+      for (let j = 0; j < signs.length; j++) {
+        for (let i = 0; i < str.length; i++) {
+          if (array[i] == signs[j]) {
+              count += 1;
+          }
+        }
+      }
+      console.log(count)
+      separate(count, str, array)
+  }
+  function separate(count, str, array) {
+    // str = expression.value;
+    // console.log(str);
+    // array = Array.from(str)
+    // console.log(array);
+    for (let j = 0; j < signs.length; j++) {
+      for (let i = 0; i < str.length; i++) {
+        if (array[i] == signs[j]) {
+          positions.push(i)
+        }
+        if (positions.length == count) {
+          break
+        }
+      }
+    }
+    positions.sort(function(a, b){return b - a});
+    console.log("positionsreverse",positions);
+    for (let i = 0; i < count; i++) {
+      console.log("testt",array[positions[i]])
+      var sign = array[positions[i]]
+        if (sign == "+") {
+        operator = 0;
+        operatorss.push(operator)
+      } else if (sign == "-") {
+        console.log("minus")
+        operator = 1;
+        operatorss.push(operator)
+      } else if (sign == "*") {
+        operator = 2;
+        operatorss.push(operator)
+      } else if (sign == "/") {
+        operator = 3;
+        operatorss.push(operator)
+      } 
+    // else {
+    //   alert("Try Again");
+    //   expression.value = "";
+    //   expression.focus();
+    //   return
+    // }
+    }
+    if (operatorss.length == 0) {
+      alert("Try Again");
+       expression.value = "";
+       expression.focus();
+       return
+    }
+    
+    
+    // operatorss.push(operator)
+    console.log("op"+operator)
+    operatorss.reverse()
+    console.log("operators:",operatorss)
+    for (let i = 0; i < count; i++) {
+      // var newLength = positions.length - i
+      num = str.slice(positions[i] + 1, str.length).trim();
+      str = str.slice(0, positions[i]);
+      numbers.unshift(parseInt(num))
+      console.log(num)
+      console.log(str)
+      console.log("numbers:",numbers)
+    }
+    numbers.unshift(parseInt(str))
+    
+    console.log("numbers:",numbers)
+    console.log("operators:",operatorss)
+    console.log("positionsreverse",positions);
+    // num1 = str.slice(0, position).trim();
+    // num2 = str.slice(position + 1, str.length).trim();
+    expression.value = "";
+    expression.focus();
+    solve(numbers, operatorss);
+  }
+
+  function solve(numbers, operatorss) {
+    num1 = numbers[0]
+    total = parseInt(num1);
+    for (let i = 0; i < count; i++) {
+      operator = operatorss[i]
+      num2 = numbers[i+1]
+      if (operator == 0) {
+        total = total + parseInt(num2);
+      } else if (operator == 1) {
+        total = total - parseInt(num2);
+      } else if (operator == 2) {
+        total = total * parseInt(num2);
+      } else{
+        total = total / parseInt(num2);
+      }
+      total += answer
+    }
+    result.textContent += num1
+    for (let i = 0; i < count; i++) {
+      result.textContent += signs[operatorss[i]] + numbers[i+1]
+    }
+    // result.textContent += num1 + signs[operator] + num2 + "=" + answer + "\r\n"
+    result.textContent += "=" + total + "\r\n"
+    window.localStorage.setItem(CALC_KEY, result.innerHTML);
+    operatorss.length = 0;
+    numbers.length = 0;
+    console.log(";;")
+    positions.length = 0;
+  }
+
+</script>
+
+<h3 id="graphing-calculator">Graphing Calculator</h3>
+
+
+      </section>
+
+    </div>
+  </body>
+</html>

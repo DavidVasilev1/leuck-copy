@@ -1,0 +1,303 @@
+<!-- 
+  _layouts/default.html
+  customization to original Midnight theme 
+  found through GitHub Pages Themes
+ -->
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Group SAAKD | Modified Site</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Group SAAKD" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Modified Site" />
+<meta property="og:description" content="Modified Site" />
+<link rel="canonical" href="https://github.com/pages/DavidVasilev1/leuck-copy/timer.html" />
+<meta property="og:url" content="https://github.com/pages/DavidVasilev1/leuck-copy/timer.html" />
+<meta property="og:site_name" content="Group SAAKD" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Group SAAKD" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Modified Site","headline":"Group SAAKD","url":"https://github.com/pages/DavidVasilev1/leuck-copy/timer.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/pages/DavidVasilev1/leuck-copy/assets/css/style.css?v=">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="/pages/DavidVasilev1/leuck-copy/assets/js/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/pages/DavidVasilev1/leuck-copy/assets/css/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#353535">
+<meta name="msapplication-navbutton-color" content="#353535">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/pages/DavidVasilev1/leuck-copy/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+  </head>
+  <body>
+      
+    <div class="wrapper">
+
+      <section>
+        <!-- nighthawk coding society has altered arrangement and inserted navigation that is updated in independent file -->
+        <div id="title">
+          <h1><a href=https://github.com/DavidVasilev1/leuck-copy>Group SAAKD</a></h1>
+          <p>Modified Site</p>
+          <hr>
+          <table>
+	<tr>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/">Home</a></td>
+		<!-- <td><a href="/housing">Housing</a></td> -->
+		<td><a href="/pages/DavidVasilev1/leuck-copy/timer">Timed Tasks</a></td>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/notetaker">Notebook</a></td>
+		<!-- <td><a href="/sports">Sports</a></td> -->
+		<!-- <td><a href="/activities">Activities</a></td> -->
+		<!-- <td><a href="/family-night">Family-Night</a></td> -->
+		<td><a href="/pages/DavidVasilev1/leuck-copy/calculator">Calculator</a></td>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/todos">Todos</a></td>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/gallery">Gallery</a></td>
+	</tr>
+</table>
+
+        </div>
+
+        <!-- this is Jekyll magic, each md file in site will be inserted here -->
+        <html>
+<style>
+  .table {
+    border: #cca300 solid;
+    border-radius: 10px;
+    border-collapse:separate;
+  }
+  .cell {
+    border: 1px solid;
+    text-align: center;
+  }
+  .container {
+  }
+  input {
+    padding: 10px;
+    background-color: #4a4a48;
+    border: 0px;
+    color: #fce277;
+    border-radius: 15px;
+  }
+  input:focus, textarea:focus, select:focus{
+    outline: none;
+  }
+  h3 {
+    color: #ffcc00;
+    padding: 10px;
+    padding-left: 0px;
+    font-size: 25px;
+  }
+  .title {
+    color: #ffcc00;
+    padding: 10px;
+    font-size: 30px;
+    text-align: center;
+  }
+  .button {
+    border-radius: 10px;
+    width: 50px;
+    height: 30px;
+    background: #4a4a4a;
+    font-size: 15px;
+    color: #ffcc00;
+    border-color: #cca300;
+  }
+  .timerButton {
+    border-radius: 10px;
+    background: #4a4a4a;
+    font-size: 15px;
+    color: #ffcc00;
+    border-color: #cca300;
+  }
+</style>
+
+<div class="container">
+    
+<h3> Add Item </h3>
+    <input id="newTask" type="text" />
+<h3> Set Expected Time (hh:mm:ss)</h3>
+    <input id="newTime" type="text" />
+<br />
+<br />
+<button class="button" id="addTaskButton" onclick="addTask()">Add</button>
+<h3 class="title"> To-Do </h3>
+        <table class="table" id="toDo" style="width: 100%; margin-left: auto; margin-right: auto;">
+          <tr>
+            <th class="cell">Task</th>
+            <th class="cell">Expected Time</th>
+            <th class="cell">Actual Time</th>
+            <th class="cell">Timer Controls</th>
+          </tr>
+        </table>
+</div>
+
+<script>
+
+var taskInput = document.getElementById('newTask');
+var addTaskButton = document.getElementById('addTaskButton');
+var timeInput = document.getElementById('newTime');
+var addTimeButton = document.getElementById('addTimeButton');
+var completedTask = document.getElementById('completedTasks');
+var incompleteTasks = document.getElementById('toDo');
+
+var i = 0
+
+function addTask() {
+    var text = taskInput.value;
+    var timeExp = timeInput.value;
+    
+    i++;
+
+    var table = document.createElement('tr');
+    table.innerHTML = "<th class='cell'>" + text + "</th>" + 
+                      "<th id=timeExp" + i + "' class='cell'>" + timeExp + "</th>" + 
+                      "<th id='time" + i + "' class='cell'>" + "00:00:00" + "</th>" + 
+                      "<th class='cell'>" + 
+                      "<button class='timerButton' onclick='start" + i + "()'>" + "Start" + "</button>" + 
+                      "<button class='timerButton' onclick='stop" + i + "()'>" + "Stop" + "</button>" + 
+                      "<button class='timerButton' onclick='reset" + i + "()'>" + "Reset" + "</button>" + 
+                      "</th>";
+    incompleteTasks.appendChild(table);
+}
+
+let time = 0;
+let interval;
+function start1() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function stop1() {
+  clearInterval(interval);
+}
+function reset1() {
+  stop();
+  time = 0;
+  displayTime();
+}
+function displayTime() {
+  const hours = Math.floor(time / 3600)
+  const hours2 = String(hours).padStart(2,'0')
+  const minutes = Math.floor(time / 60);
+  const minutes2 =  String(minutes).padStart(2,'0')
+  const seconds = time % 60;
+  const seconds2 =  String(seconds).padStart(2,'0')
+  document.getElementById('time1').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
+}
+
+
+
+function start2() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function stop2() {
+  clearInterval(interval);
+}
+function reset2() {
+  stop();
+  time = 0;
+  displayTime();
+}
+function displayTime() {
+  const hours = Math.floor(time / 3600)
+  const hours2 = String(hours).padStart(2,'0')
+  const minutes = Math.floor(time / 60);
+  const minutes2 =  String(minutes).padStart(2,'0')
+  const seconds = time % 60;
+  const seconds2 =  String(seconds).padStart(2,'0')
+  document.getElementById('time2').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
+}
+
+
+
+function start3() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function stop3() {
+  clearInterval(interval);
+}
+function reset3() {
+  stop();
+  time = 0;
+  displayTime();
+}
+function displayTime() {
+  const hours = Math.floor(time / 3600)
+  const hours2 = String(hours).padStart(2,'0')
+  const minutes = Math.floor(time / 60);
+  const minutes2 =  String(minutes).padStart(2,'0')
+  const seconds = time % 60;
+  const seconds2 =  String(seconds).padStart(2,'0')
+  document.getElementById('time3').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
+}
+
+
+
+function start4() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function stop4() {
+  clearInterval(interval);
+}
+function reset4() {
+  stop();
+  time = 0;
+  displayTime();
+}
+function displayTime() {
+  const hours = Math.floor(time / 3600)
+  const hours2 = String(hours).padStart(2,'0')
+  const minutes = Math.floor(time / 60);
+  const minutes2 =  String(minutes).padStart(2,'0')
+  const seconds = time % 60;
+  const seconds2 =  String(seconds).padStart(2,'0')
+  document.getElementById('time4').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
+}
+
+
+
+function start5() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function stop5() {
+  clearInterval(interval);
+}
+function reset5() {
+  stop();
+  time = 0;
+  displayTime();
+}
+function displayTime() {
+  const hours = Math.floor(time / 3600)
+  const hours2 = String(hours).padStart(2,'0')
+  const minutes = Math.floor(time / 60);
+  const minutes2 =  String(minutes).padStart(2,'0')
+  const seconds = time % 60;
+  const seconds2 =  String(seconds).padStart(2,'0')
+  document.getElementById('time5').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
+}
+
+</script>
+
+</html>
+
+
+      </section>
+
+    </div>
+  </body>
+</html>

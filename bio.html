@@ -1,0 +1,142 @@
+<!-- 
+  _layouts/default.html
+  customization to original Midnight theme 
+  found through GitHub Pages Themes
+ -->
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Group SAAKD | Modified Site</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Group SAAKD" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Modified Site" />
+<meta property="og:description" content="Modified Site" />
+<link rel="canonical" href="https://github.com/pages/DavidVasilev1/leuck-copy/bio.html" />
+<meta property="og:url" content="https://github.com/pages/DavidVasilev1/leuck-copy/bio.html" />
+<meta property="og:site_name" content="Group SAAKD" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Group SAAKD" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Modified Site","headline":"Group SAAKD","url":"https://github.com/pages/DavidVasilev1/leuck-copy/bio.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/pages/DavidVasilev1/leuck-copy/assets/css/style.css?v=">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="/pages/DavidVasilev1/leuck-copy/assets/js/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/pages/DavidVasilev1/leuck-copy/assets/css/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#353535">
+<meta name="msapplication-navbutton-color" content="#353535">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/pages/DavidVasilev1/leuck-copy/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+  </head>
+  <body>
+      
+    <div class="wrapper">
+
+      <section>
+        <!-- nighthawk coding society has altered arrangement and inserted navigation that is updated in independent file -->
+        <div id="title">
+          <h1><a href=https://github.com/DavidVasilev1/leuck-copy>Group SAAKD</a></h1>
+          <p>Modified Site</p>
+          <hr>
+          <table>
+	<tr>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/">Home</a></td>
+		<!-- <td><a href="/housing">Housing</a></td> -->
+		<td><a href="/pages/DavidVasilev1/leuck-copy/timer">Timed Tasks</a></td>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/notetaker">Notebook</a></td>
+		<!-- <td><a href="/sports">Sports</a></td> -->
+		<!-- <td><a href="/activities">Activities</a></td> -->
+		<!-- <td><a href="/family-night">Family-Night</a></td> -->
+		<td><a href="/pages/DavidVasilev1/leuck-copy/calculator">Calculator</a></td>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/todos">Todos</a></td>
+		<td><a href="/pages/DavidVasilev1/leuck-copy/gallery">Gallery</a></td>
+	</tr>
+</table>
+
+        </div>
+
+        <!-- this is Jekyll magic, each md file in site will be inserted here -->
+        <html>
+<body>
+   <h2>AP Biology Note-Taker</h2>
+   <style>
+      .box {
+         width: 500px;
+         background-color: white;
+         padding: 10px;
+         margin: 20px;
+         border: 7.5px #cca300 solid;
+         border-radius: 20px;
+         float: left;
+         color: black;
+      }
+      .input{
+         width: 500px;
+         resize: none;
+         height: 750px;
+         border-radius: 15px;
+         padding: 0.5rem;
+      }
+      .button{
+         width: 100px;
+         height: 50px;
+         margin-top: 20px;
+      }
+
+   </style>
+   <body>
+      <div type="text" class="box" id="box">
+         <textarea class="input" placeholder="Take some notes!" id="input2"></textarea>
+      <button onclick="del_data()" id="delete" class="button">Delete All</button>
+      <button onclick="save_data()" id="save" class="button">Save</button>
+      </div>
+   </body>
+   <script>
+      function save_data() {
+      let data = document.getElementById("input2").value.split(" ");
+      localStorage.setItem("a", JSON.stringify(data))
+    } 
+   document.getElementById("input2").value = JSON.parse(localStorage.getItem("a")).join(" ")
+   function del_data(){
+      let mt = [];
+      localStorage.setItem("a", JSON.stringify(mt))
+      document.getElementById("input2").value = ""
+   }
+   </script>
+</body>
+</html>
+
+
+      </section>
+
+    </div>
+  </body>
+</html>
