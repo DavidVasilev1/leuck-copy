@@ -1,6 +1,6 @@
 <html>
 <div class="div">
-<a href="http://127.0.0.1:4000/calc">
+<a href="http://davidvasilev1.github.io/leuck-copy/calc">
    <button class="button" id="calc" type="button">Calc Notes</button>
 </a>
 <a href="https://davidvasilev1.github.io/leuck-copy/bio">
