@@ -1,6 +1,6 @@
 <html>
 <body>
-   <h2>AP Biology Note-Taker</h2>
+   <h2>US History Note-Taker</h2>
    <style>
       .box {
          width: 500px;
