@@ -59,7 +59,7 @@
     <input id='newTime' type='text'>
 <br>
 <br>
-<button class='button' id='addTaskButton'>Add</button>
+<button class='button' id='addTaskButton' onclick="addTask()">Add</button>
 <h3 class="title"> To-Do </h3>
         <table class="table" id="toDo" style="width: 100%; margin-left: auto; margin-right: auto;">
           <tr>
@@ -80,35 +80,25 @@ var addTimeButton = document.getElementById('addTimeButton');
 var completedTask = document.getElementById('completedTasks');
 var incompleteTasks = document.getElementById('toDo');
 
-let btn = document.getElementById("addTaskButton"), btn = null;
-
 var i = 0
 
-for (let i = 0;  i < btn.length; i += 1) {
-  btn[i].onclick = function () {
+function addTask() {
     var text = taskInput.value;
-        var timeExp = timeInput.value;
-        
-        i++;
+    var timeExp = timeInput.value;
+    
+    i++;
 
-        var table = document.createElement('tr');
-        table.innerHTML = "<th class='cell'>" + text + "</th>" + 
-                          "<th id=timeExp" + i + "' class='cell'>" + timeExp + "</th>" + 
-                          "<th id='time" + i + "' class='cell'>" + "00:00:00" + "</th>" + 
-                          "<th class='cell'>" + 
-                          "<button class='timerButton' onclick='start" + i + "()'>" + "Start" + "</button>" + 
-                          "<button class='timerButton' onclick='stop" + i + "()'>" + "Stop" + "</button>" + 
-                          "<button class='timerButton' onclick='reset" + i + "()'>" + "Reset" + "</button>" + 
-                          "</th>";
-        incompleteTasks.appendChild(table);
-        this.setAttribute('data-clicks', Number(this.getAttribute('data-clicks')) + 1)
-        
-        if (this.getAttribute('data-clicks') === '5') {
-            this.setAttribute('disabled', 'disabled');
-        }
-    }
+    var table = document.createElement('tr');
+    table.innerHTML = "<th class='cell'>" + text + "</th>" + 
+                      "<th id=timeExp" + i + "' class='cell'>" + timeExp + "</th>" + 
+                      "<th id='time" + i + "' class='cell'>" + "00:00:00" + "</th>" + 
+                      "<th class='cell'>" + 
+                      "<button class='timerButton' onclick='start" + i + "()'>" + "Start" + "</button>" + 
+                      "<button class='timerButton' onclick='stop" + i + "()'>" + "Stop" + "</button>" + 
+                      "<button class='timerButton' onclick='reset" + i + "()'>" + "Reset" + "</button>" + 
+                      "</th>";
+    incompleteTasks.appendChild(table);
 }
-
 
 let time = 0;
 let interval;
@@ -130,6 +120,9 @@ function displayTime() {
   const seconds2 =  String(seconds).padStart(2,'0')
   document.getElementById('time1').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
 }
+
+
+
 function start2() { interval = setInterval(() => {time++; displayTime();}, 1000);}
 function stop2() {
   clearInterval(interval);
@@ -148,6 +141,9 @@ function displayTime() {
   const seconds2 =  String(seconds).padStart(2,'0')
   document.getElementById('time2').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
 }
+
+
+
 function start3() { interval = setInterval(() => {time++; displayTime();}, 1000);}
 function stop3() {
   clearInterval(interval);
@@ -166,6 +162,9 @@ function displayTime() {
   const seconds2 =  String(seconds).padStart(2,'0')
   document.getElementById('time3').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
 }
+
+
+
 function start4() { interval = setInterval(() => {time++; displayTime();}, 1000);}
 function stop4() {
   clearInterval(interval);
@@ -184,6 +183,9 @@ function displayTime() {
   const seconds2 =  String(seconds).padStart(2,'0')
   document.getElementById('time4').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
 }
+
+
+
 function start5() { interval = setInterval(() => {time++; displayTime();}, 1000);}
 function stop5() {
   clearInterval(interval);
