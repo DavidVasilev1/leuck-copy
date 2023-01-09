@@ -14,7 +14,7 @@
   box-sizing: border-box;
   font-size: 20px;
 }
-.buttonEquals {
+.button {
   width: 15%;
   height: 50px;
   background-color: #ffcc00;
@@ -29,7 +29,7 @@
   margin: 4px 2px;
   cursor: pointer;
 }
-.buttonEquals:hover {background-color: #ffeb9b;}
+.button:hover {background-color: #ffeb9b;}
 
 </style>
 </head>
@@ -37,7 +37,8 @@
   <p>Type out an expression with a number, followed by a sign (+, -, *, /), and then the second number. Ex: 2+9 (only 2 numbers)</p>
   <pre id="result"></pre>
   <input id='expression' class = 'input' type='text'>
-  <button class="buttonEquals" id="equals" on>=</button>
+  <button class="button" id="equals" on>=</button>
+  <button class="button" id="clear" on>Clear</button>
 </body>
 
 
@@ -47,6 +48,7 @@
   const CALC_KEY = "CALCULATOR";
   var expression = document.getElementById('expression');
   var equals = document.getElementById('equals');
+  var clear = document.getElementById('clear');
   var result = document.getElementById('result');
   var answer = 0;
   const operators = ["\\+","\\-","\\*","\\/"]
@@ -66,6 +68,15 @@
   });
 
   equals.addEventListener("click", function(){ separate();});
+  clear.addEventListener("click", function(){ clearEntry();});
+
+  function clearEntry() {
+    console.log("test")
+    window.localStorage.clear();
+    expression.value = "";
+    result.innerHTML = "";
+    expression.focus();
+  }
   
   function separate() {
     var str = expression.value;
