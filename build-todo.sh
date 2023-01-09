@@ -7,4 +7,4 @@ pnpm run build
 
 [ -d ../todos ] && rm -rf ../todos
 mv dist/ ../todos
-sed -i.bak "s/\/{{site.baseurl}}\/\/assets\//\/todos\/assets\//g" ../todos/index.html
+sed -i.bak "s/\/assets\//\/todos\/assets\//g" ../todos/index.html
