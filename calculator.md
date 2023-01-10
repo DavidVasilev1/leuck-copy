@@ -142,7 +142,13 @@
     //   return
     // }
     }
-    if (operatorss.length == 0) {
+    if (str.toLowerCase() == "kaiden is a csp genius" || (str.toLowerCase().includes("kaiden") && str.toLowerCase().includes("genius") && !str.toLowerCase().includes("not") && !str.toLowerCase().includes("isn't") && !str.toLowerCase().includes("isnt"))) {
+      result.textContent += "True: " + str + ". Kaiden is number 1."
+      expression.value = "";
+      expression.focus();
+      window.localStorage.setItem(CALC_KEY, result.innerHTML);
+      return
+    } else if (operatorss.length == 0) {
       alert("Try Again");
        expression.value = "";
        expression.focus();
