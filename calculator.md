@@ -1,4 +1,5 @@
 ## Calculator
+
 ### Arithmetic Calculator
 
 <head>
@@ -40,9 +41,6 @@
   <button class="button" id="equals" on>=</button>
   <button class="button" id="clear" on>Clear</button>
 </body>
-
-
-
 
 <script>
   const CALC_KEY = "CALCULATOR";
