@@ -17,24 +17,30 @@
     justify-content: center;
     height: 500px;
 }
-.vl {
-  border: 10px green;
-  height: 500px;
+.vertical {
+    border-left: 1px solid white;
+    height: 65%;
+    left: 50%;
+    float: left;
+    width: 1%;
+    padding-left: 5px;
+    padding-bottom: 20px;
+    vertical-align: middle;
 }
 .one {   
     float: left;
-    width: 40%;  
+    width: 39%;  
 }
 .two {
     float: left;
-    width: 60%;
+    width: 59%;
 }
 .p1 {
     text-indent: 50px;
 }
 </style>
 <body>
-<div1 class="one">
+<div1 style="vertical-align: middle;" class="one">
     <span class="spanCapital">S</span>
     <span class="spanNormal">afin</span><br>
     <span class="spanCapital">A</span>
@@ -46,7 +52,7 @@
     <span class="spanCapital">D</span>
     <span class="spanNormal">avid</span>
 </div1>
-<div2 class="vl"></div2>
+<div class = "vertical"></div>
 <div1 class="two">
 <h1>Agile Manifesto</h1>
 
@@ -69,8 +75,4 @@
 <p1>
 Safin, Alex, David, Amay, Kaiden
 </p1>
-<br>
-<br>
-<br>
-<br>
 </div1>
