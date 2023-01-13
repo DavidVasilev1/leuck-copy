@@ -18,18 +18,17 @@
     height: 500px;
 }
 .vertical {
-    border-left: 1px solid white;
-    height: 65%;
-    left: 50%;
     float: left;
-    width: 1%;
-    padding-left: 5px;
-    padding-bottom: 20px;
-    vertical-align: middle;
+    width: 1px;
+    height: 580px;
+    border-left: gray solid 2px;
+    padding-left: 10px;
 }
 .one {   
     float: left;
-    width: 39%;  
+    width: 39%;
+    padding-top: 25px;
+    padding-right: -10px;
 }
 .two {
     float: left;
@@ -76,3 +75,5 @@
 Safin, Alex, David, Amay, Kaiden
 </p1>
 </div1>
+<br>
+<br>
