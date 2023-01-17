@@ -15,6 +15,10 @@
   padding: 5px;
 }
 
+img {
+  border-radius: 20px;
+}
+
 section #title {
   padding-bottom: 10px !important;
   margin-bottom: 10px !important;
@@ -25,6 +29,6 @@ section {
   display: inherit !important;
 }
 
-html, body, div {
+html, body {
   display: inherit !important;
 }

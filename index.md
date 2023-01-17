@@ -21,7 +21,7 @@
     float: left;
     width: 1px;
     height: 580px;
-    border-left: gray solid 2px;
+    border-left: #ccc4b4 solid 2px;
     padding-left: 10px;
 }
 .one {   
@@ -75,5 +75,8 @@
 Safin, Alex, David, Amay, Kaiden
 </p1>
 </div1>
+<br>
+<br>
+<br>
 <br>
 <br>
