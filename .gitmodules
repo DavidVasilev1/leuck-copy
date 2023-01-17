@@ -1,3 +1,4 @@
 [submodule "_todo-ts"]
-	path = _todo-ts
-	url = https://github.com/safinsingh/todo-ts
+path = _todo-ts
+url = https://github.com/safinsingh/todo-ts
+branch = main
