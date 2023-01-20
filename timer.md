@@ -101,8 +101,12 @@ function addTask() {
 }
 
 let time = 0;
+let time2 = 0;
+let time3 = 0;
+let time4 = 0;
+let time5 = 0;
 let interval;
-function start1() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function start1() { interval = setInterval(() => {time++; displayTime1();}, 1000);}
 function stop1() {
   clearInterval(interval);
 }
@@ -111,7 +115,7 @@ function reset1() {
   time = 0;
   displayTime();
 }
-function displayTime() {
+function displayTime1() {
   const hours = Math.floor(time / 3600)
   const hours2 = String(hours).padStart(2,'0')
   const minutes = Math.floor(time / 60);
@@ -123,7 +127,7 @@ function displayTime() {
 
 
 
-function start2() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function start2() { interval = setInterval(() => {time2++; displayTime2();}, 1000);}
 function stop2() {
   clearInterval(interval);
 }
@@ -132,19 +136,19 @@ function reset2() {
   time = 0;
   displayTime();
 }
-function displayTime() {
-  const hours = Math.floor(time / 3600)
+function displayTime2() {
+  const hours = Math.floor(time2 / 3600)
   const hours2 = String(hours).padStart(2,'0')
-  const minutes = Math.floor(time / 60);
+  const minutes = Math.floor(time2 / 60);
   const minutes2 =  String(minutes).padStart(2,'0')
-  const seconds = time % 60;
+  const seconds = time2 % 60;
   const seconds2 =  String(seconds).padStart(2,'0')
   document.getElementById('time2').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
 }
 
 
 
-function start3() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function start3() { interval = setInterval(() => {time3++; displayTime();}, 1000);}
 function stop3() {
   clearInterval(interval);
 }
@@ -154,18 +158,18 @@ function reset3() {
   displayTime();
 }
 function displayTime() {
-  const hours = Math.floor(time / 3600)
+  const hours = Math.floor(time3 / 3600)
   const hours2 = String(hours).padStart(2,'0')
-  const minutes = Math.floor(time / 60);
+  const minutes = Math.floor(time3 / 60);
   const minutes2 =  String(minutes).padStart(2,'0')
-  const seconds = time % 60;
+  const seconds = time3 % 60;
   const seconds2 =  String(seconds).padStart(2,'0')
   document.getElementById('time3').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
 }
 
 
 
-function start4() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function start4() { interval = setInterval(() => {time4++; displayTime();}, 1000);}
 function stop4() {
   clearInterval(interval);
 }
@@ -175,18 +179,18 @@ function reset4() {
   displayTime();
 }
 function displayTime() {
-  const hours = Math.floor(time / 3600)
+  const hours = Math.floor(time4 / 3600)
   const hours2 = String(hours).padStart(2,'0')
-  const minutes = Math.floor(time / 60);
+  const minutes = Math.floor(time4 / 60);
   const minutes2 =  String(minutes).padStart(2,'0')
-  const seconds = time % 60;
+  const seconds = time4 % 60;
   const seconds2 =  String(seconds).padStart(2,'0')
   document.getElementById('time4').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
 }
 
 
 
-function start5() { interval = setInterval(() => {time++; displayTime();}, 1000);}
+function start5() { interval = setInterval(() => {time5++; displayTime();}, 1000);}
 function stop5() {
   clearInterval(interval);
 }
@@ -196,11 +200,11 @@ function reset5() {
   displayTime();
 }
 function displayTime() {
-  const hours = Math.floor(time / 3600)
+  const hours = Math.floor(time5 / 3600)
   const hours2 = String(hours).padStart(2,'0')
-  const minutes = Math.floor(time / 60);
+  const minutes = Math.floor(time5 / 60);
   const minutes2 =  String(minutes).padStart(2,'0')
-  const seconds = time % 60;
+  const seconds = time5 % 60;
   const seconds2 =  String(seconds).padStart(2,'0')
   document.getElementById('time5').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
 }
