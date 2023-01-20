@@ -1,10 +1,10 @@
 <style>
 .spanCapital {
     font-size: 70px;
-    color: #ffeb9b;
+    color: #e2d4fc;
 }
 .spanNormal {
-    color: #ffcc00;
+    color: #a881f7;
     font-size: 70px;
 }
 .div1 {
@@ -21,7 +21,7 @@
     float: left;
     width: 1px;
     height: 580px;
-    border-left: #ccc4b4 solid 2px;
+    border-left: #e7dff7 solid 2px;
     padding-left: 10px;
 }
 .one {   
