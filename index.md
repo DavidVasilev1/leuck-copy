@@ -1,10 +1,10 @@
 <style>
 .spanCapital {
     font-size: 70px;
-    color: #ffeb9b;
+    color: #e2d4fc;
 }
 .spanNormal {
-    color: #ffcc00;
+    color: #a881f7;
     font-size: 70px;
 }
 .div1 {
@@ -18,18 +18,17 @@
     height: 500px;
 }
 .vertical {
-    border-left: 1px solid white;
-    height: 65%;
-    left: 50%;
     float: left;
-    width: 1%;
-    padding-left: 5px;
-    padding-bottom: 20px;
-    vertical-align: middle;
+    width: 1px;
+    height: 580px;
+    border-left: #e7dff7 solid 2px;
+    padding-left: 10px;
 }
 .one {   
     float: left;
-    width: 39%;  
+    width: 39%;
+    padding-top: 25px;
+    padding-right: -10px;
 }
 .two {
     float: left;
@@ -76,3 +75,8 @@
 Safin, Alex, David, Amay, Kaiden
 </p1>
 </div1>
+<br>
+<br>
+<br>
+<br>
+<br>
