@@ -209,6 +209,29 @@
     positions.length = 0;
   }
 
-</script>
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
 
-### Graphing Calculator
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+
+  fetch("http://localhost:8086/calculatorList", requestOptions)
+    .then(response => response.text())
+    .then(function(result) {
+      
+    })
+    .catch(error => console.log('error', error)); 
+  
+  var requestOptions = {
+    method: 'POST',
+    redirect: 'follow'
+  };
+
+  fetch("http://172.31.210.10:8086/calculator", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+</script>
