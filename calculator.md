@@ -18,7 +18,7 @@
 .button {
   width: 15%;
   height: 50px;
-  background-color: #ffcc00;
+  background-color: #A881F7;
   border: 2px solid #ccc;
   border-radius: 4px;
   color: #1E1E1E;
@@ -30,7 +30,7 @@
   margin: 4px 2px;
   cursor: pointer;
 }
-.button:hover {background-color: #ffeb9b;}
+.button:hover {background-color: #E2D4FC;}
 
 </style>
 </head>
@@ -141,7 +141,7 @@
     // }
     }
     if (str.toLowerCase() == "kaiden is a csp genius" || (str.toLowerCase().includes("kaiden") && str.toLowerCase().includes("genius") && !str.toLowerCase().includes("not") && !str.toLowerCase().includes("isn't") && !str.toLowerCase().includes("isnt"))) {
-      result.textContent += "True: " + str + ". Kaiden is number 1."
+      result.textContent += "True: " + str + ". Kaiden is number 1." + "\r\n"
       expression.value = "";
       expression.focus();
       window.localStorage.setItem(CALC_KEY, result.innerHTML);
