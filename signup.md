@@ -10,15 +10,15 @@
     width: 50%;
     font-size: 20px;
     background-color: #282827;
-    color: #fcf6d9;
+    color: #b89cf0;
     border: none;
     border-radius: 5px;
-    border-bottom: 2px solid #f1cc0c;
+    border-bottom: 2px solid #A881F7;
     transition-duration: 0.3s;
     padding: 5px;
   }
   input[type=date]:invalid::-webkit-datetime-edit {
-    color: #fcf6d9;
+    color: #b89cf0;
   }
   input.login:focus {
     background-color: #4d4c4b;
@@ -31,14 +31,14 @@
     margin: 0px 10px 10px 0px;
     padding: 1% 10% 1% 10%;
     border-radius: 8px;
-    background-color: #302f2f;
-    color: #f1cc0c;
+    background-color: #A881F7;
+    color: #1E1E1E;
     border: none;
     transition-duration: 0.3s;
   }
   button:hover {
     color: #242424;
-    background-color: #f1cc0c;
+    background-color: #E2D4FC;
   }
   .box, button {
     text-align: center;

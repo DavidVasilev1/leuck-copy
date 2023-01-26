@@ -1,7 +1,7 @@
 <html>
 <style>
   .table {
-    border: #cca300 solid;
+    border: #795db3 solid;
     border-radius: 10px;
     border-collapse:separate;
   }
@@ -15,20 +15,20 @@
     padding: 10px;
     background-color: #4a4a48;
     border: 0px;
-    color: #fce277;
+    color: #b89cf0;
     border-radius: 15px;
   }
   input:focus, textarea:focus, select:focus{
     outline: none;
   }
   h3 {
-    color: #ffcc00;
+    color: #A881F7;
     padding: 10px;
     padding-left: 0px;
     font-size: 25px;
   }
   .title {
-    color: #ffcc00;
+    color: #A881F7;
     padding: 10px;
     font-size: 30px;
     text-align: center;
@@ -37,17 +37,17 @@
     border-radius: 10px;
     width: 50px;
     height: 30px;
-    background: #4a4a4a;
+    background: #A881F7;
     font-size: 15px;
-    color: #ffcc00;
-    border-color: #cca300;
+    color: #1E1E1E;
+    border-color: #795db3;
   }
   .timerButton {
     border-radius: 10px;
-    background: #4a4a4a;
+    background: #A881F7;
     font-size: 15px;
-    color: #ffcc00;
-    border-color: #cca300;
+    color: #1E1E1E;
+    border-color: #795db3;
   }
 </style>
 
