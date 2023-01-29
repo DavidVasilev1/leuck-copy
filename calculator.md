@@ -200,7 +200,6 @@
     for (let i = 0; i < count; i++) {
       result.textContent += signs[operatorss[i]] + numbers[i+1]
     }
-    // result.textContent += num1 + signs[operator] + num2 + "=" + answer + "\r\n"
     result.textContent += "=" + total + "\r\n"
     window.localStorage.setItem(CALC_KEY, result.innerHTML);
     operatorss.length = 0;
