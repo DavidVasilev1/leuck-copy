@@ -53,7 +53,7 @@
 
 <div class='container'>
     
-<h3> Add Item </h3>
+<h3> Add Activity </h3>
     <input id='newTask' type='text'>
 <h3> Set Expected Time (hh:mm:ss)</h3>
     <input id='newTime' type='text'>
