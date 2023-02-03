@@ -112,12 +112,6 @@ const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
 for (let i = 0; i < tasks2.length; i++) {
   maketable(tasks2[i], timeExp[i], i)
 }
-let time = 0;
-let time2 = 0;
-let time3 = 0;
-let time4 = 0;
-let time5 = 0;
-let interval;
 
 
 
