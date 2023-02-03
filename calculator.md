@@ -81,9 +81,10 @@
   function tableAdding(array){
     table = document.getElementById('table');
     var rowCount = table.rows.length;
-        for (var i = rowCount; i > 0; i--) {
+        for (var i = rowCount-1; i > 0; i--) {
             table.deleteRow(i);
         }
+        table.deleteRow(-1);
     for (var i = 0; i < array.length; i++) {
         var row = document.createElement('tr');
         row.textContent = array[i]
@@ -107,6 +108,8 @@
     window.localStorage.clear();
     expression.value = "";
     result.innerHTML = "";
+    newStrFil = []
+    tableAdding(newStrFil)
     expression.focus();
   }
   // program to check the number of occurrence of a character
@@ -169,6 +172,9 @@
     if (str.toLowerCase() == "kaiden is a csp genius" || (str.toLowerCase().includes("kaiden") && str.toLowerCase().includes("genius") && !str.toLowerCase().includes("not") && !str.toLowerCase().includes("isn't") && !str.toLowerCase().includes("isnt"))) {
       result.textContent += "True: " + str + ". Kaiden is number 1." + "\n"
       expression.value = "";
+      element = "True: " + str + ". Kaiden is number 1."
+      newStrFil.push(element)
+      tableAdding(newStrFil)
       expression.focus();
       window.localStorage.setItem(CALC_KEY, result.innerHTML);
       return
