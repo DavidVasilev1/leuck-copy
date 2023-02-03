@@ -88,7 +88,7 @@ function addTask() {
     tasks.push(taskInput.value)
     var timeExp = timeInput.value;
     timeExpected.push(timeInput.value)
-    console.log(tasks + timeExp)
+    console.log(localStorage.getItem('tasks'))
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('TimeExpected', JSON.stringify(timeExpected));
