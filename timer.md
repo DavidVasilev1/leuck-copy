@@ -82,11 +82,17 @@ var incompleteTasks = document.getElementById('toDo');
 
 var i = 0
 var tasks = []
+var timeExpected = []
 function addTask() {
     var text = taskInput.value;
-    tasks.append(taskInput.value)
+    tasks.push(taskInput.value)
     var timeExp = timeInput.value;
-    
+    timeExpected.push(timeInput.value)
+    console.log(tasks + timeExp)
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('TimeExpected', JSON.stringify(timeExpected));
+
     i++;
 
     var table = document.createElement('tr');
