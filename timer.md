@@ -80,15 +80,22 @@ var addTimeButton = document.getElementById('addTimeButton');
 var completedTask = document.getElementById('completedTasks');
 var incompleteTasks = document.getElementById('toDo');
 
-var i = 0
-
+var tasks = []
+var timeExpected = []
 function addTask() {
     var text = taskInput.value;
+    tasks.push(taskInput.value)
     var timeExp = timeInput.value;
-    
-    i++;
+    timeExpected.push(timeInput.value)
 
-    var table = document.createElement('tr');
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('TimeExpected', JSON.stringify(timeExpected));
+
+    maketable(text, timeExp, tasks.length - 1)
+}
+
+function maketable(text, timeExp, i) {
+  var table = document.createElement('tr');
     table.innerHTML = "<th class='cell'>" + text + "</th>" + 
                       "<th id=timeExp" + i + "' class='cell'>" + timeExp + "</th>" + 
                       "<th id='time" + i + "' class='cell'>" + "00:00:00" + "</th>" + 
@@ -99,7 +106,12 @@ function addTask() {
                       "</th>";
     incompleteTasks.appendChild(table);
 }
+const tasks2 = JSON.parse(localStorage.getItem('tasks'));
+const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
 
+for (let i = 0; i < tasks2.length; i++) {
+  maketable(tasks2[i], timeExp[i], i)
+}
 let time = 0;
 let time2 = 0;
 let time3 = 0;
