@@ -1,19 +1,29 @@
 <html>
 <div class="div">
 <a href="http://davidvasilev1.github.io/leuck-copy/calc">
-   <button class="button" id="calc" type="button">Calc Notes</button>
+   <button class="button" id="calc" type="button">
+      <input placeholder="Class One" type="text" class="class" >
+   </button>
 </a>
 <a href="https://davidvasilev1.github.io/leuck-copy/bio">
-   <button class="button" id="bio" type="button">Bio Notes</button>
+   <button class="button" id="bio" type="button">
+      <input placeholder="Class Two" type="text" class="class" >
+   </button>
 </a>
 <a href="https://davidvasilev1.github.io/leuck-copy/poe">
-   <button class="button" id="poe" type="button">Engineering Notes</button>
+   <button class="button" id="poe" type="button">
+      <input placeholder="Class Three" type="text" class="class" >
+   </button>
 </a>
 <a href="https://davidvasilev1.github.io/leuck-copy/csp">
-   <button class="button" id="csp" type="button">CS Notes</button>
+   <button class="button" id="csp" type="button">
+      <input placeholder="Class Four" type="text" class="class" >
+   </button>
 </a>
 <a href="https://davidvasilev1.github.io/leuck-copy/ush">
-   <button class="button" id="ush" type="button">US History Notes</button>
+   <button class="button" id="ush" type="button">
+      <input placeholder="Class Five" type="text" class="class" >
+   </button>
 </a>
 </div>
 <style>
@@ -31,4 +41,9 @@
    text-align: center;
 }
 </style>
+<script>
+let data = document.getElementByClassName("class").value.split(" ");
+localStorage.setItem("b", JSON.stringify(data))
+document.getElementById("input2").value = JSON.parse(localStorage.getItem("b")).join(" ")
+</script>
 </html>

@@ -1,6 +1,6 @@
 <html>
 <body>
-   <h2>AP Biology Note-Taker</h2>
+   <h2 id="header"></h2>
    <style>
       .box {
          width: 500px;
@@ -44,6 +44,7 @@
       localStorage.setItem("a", JSON.stringify(mt))
       document.getElementById("input2").value = ""
    }
+   document.getElementById("header") = localStorage.getItem("b")
    </script>
 </body>
 </html>
