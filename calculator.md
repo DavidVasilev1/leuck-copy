@@ -63,9 +63,10 @@
   var total = 0;
 
   result.innerHTML = initial
-  var newStr = initial.trim()
+  var newStr = ""
   newStr = initial.split("\n")
-  console.log("test:",newStr)
+  newStrFil = arr.filter((newStr) => newStr !== '');
+  console.log("test:",newStrFil)
 
   expression.focus();
   expression.addEventListener("keypress", function(event) {
