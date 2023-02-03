@@ -108,8 +108,8 @@ function maketable(text, timeExp, i) {
 }
 const tasks2 = JSON.parse(localStorage.getItem('tasks'));
 const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
-console.log(tasks2)
-for (let i = 0; i < tasks2; i++) {
+
+for (let i = 0; i < tasks2.length; i++) {
   maketable(tasks2[i], timeExp[i], i)
 }
 let time = 0;
