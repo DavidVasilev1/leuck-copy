@@ -91,7 +91,7 @@ function addTask() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('TimeExpected', JSON.stringify(timeExpected));
 
-    maketable(text, timeExp, tasks.length - 1)
+    maketable(text, timeExp, tasks.length + 1)
 }
 
 function maketable(text, timeExp, i) {
@@ -106,7 +106,6 @@ function maketable(text, timeExp, i) {
                       "</th>";
     incompleteTasks.appendChild(table);
 }
-const tasks2 = JSON.parse(localStorage.getItem('tasks'));
 const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
 
 for (let i = 0; i < tasks2.length; i++) {
