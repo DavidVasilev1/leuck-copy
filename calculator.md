@@ -37,6 +37,7 @@
 <body>
   <p>Type out an expression with a number, followed by a sign (+, -, *, /), and then the second number. Ex: 2+9 (PEMDAS does not work)</p>
   <pre id="result"></pre>
+  <table id="table"></table>
   <input id='expression' class = 'input' type='text'>
   <button class="button" id="equals" on>=</button>
   <button class="button" id="clear" on>Clear</button>
@@ -61,12 +62,23 @@
   var operators = [];
   var positions = [];
   var total = 0;
+  var element = "";
 
   result.innerHTML = initial
   var newStr = ""
   newStr = initial.split("\n")
-  newStrFil = arr.filter((newStr) => newStr !== '');
+  newStrFil = newStr.filter((str) => str !== '');
   console.log("test:",newStrFil)
+  tableAdding(newStrFil)
+
+  function tableAdding(array){
+    table = document.getElementById('table');
+    for (var i = 0; i < array.length; i++) {
+        var row = document.createElement('tr');
+        row.textContent = array[i]
+        table.appendChild(row);
+    }
+  }
 
   expression.focus();
   expression.addEventListener("keypress", function(event) {
@@ -200,10 +212,16 @@
       total += answer
     }
     result.textContent += num1
+    element += num1
+
     for (let i = 0; i < count; i++) {
       result.textContent += signs[operators[i]] + numbers[i+1]
+      element += signs[operators[i]] + numbers[i+1]
     }
     result.textContent += "=" + total + "\n"
+    element += "=" + total
+    newStrFil.push(element)
+    tableAdding(newStrFil)
     window.localStorage.setItem(CALC_KEY, result.innerHTML);
     operators.length = 0;
     numbers.length = 0;
