@@ -2,15 +2,39 @@
 ---
 
 @import "{{ site.theme }}";
+@import "todos";
 
 /* "row style" is flexible size and aligns pictures in center */
 .row {
-    align-items: center;
-    display: flex;
-  }
-  
-  /* "column style" is one-third of the width with padding */
-  .column {
-    flex: 33.33%;
-    padding: 5px;
-  }
+	align-items: center;
+	display: flex;
+}
+
+/* "column style" is one-third of the width with padding */
+.column {
+	flex: 33.33%;
+	padding: 5px;
+}
+
+img {
+	border-radius: 20px;
+}
+
+section #title {
+	padding-bottom: 10px !important;
+	margin-bottom: 10px !important;
+}
+
+section {
+	margin-top: 10px !important;
+	display: inherit !important;
+}
+
+html, body {
+  display: inherit !important;
+  color: #e7dff7 !important;
+}
+
+a {
+  color: #a881f7 !important;
+}

@@ -1,4 +1,5 @@
 ## Calculator
+
 ### Arithmetic Calculator
 
 <head>
@@ -17,7 +18,7 @@
 .button {
   width: 15%;
   height: 50px;
-  background-color: #ffcc00;
+  background-color: #A881F7;
   border: 2px solid #ccc;
   border-radius: 4px;
   color: #1E1E1E;
@@ -29,7 +30,7 @@
   margin: 4px 2px;
   cursor: pointer;
 }
-.button:hover {background-color: #ffeb9b;}
+.button:hover {background-color: #E2D4FC;}
 
 </style>
 </head>
@@ -41,9 +42,6 @@
   <button class="button" id="clear" on>Clear</button>
 </body>
 
-
-
-
 <script>
   const CALC_KEY = "CALCULATOR";
   var expression = document.getElementById('expression');
@@ -51,7 +49,6 @@
   var clear = document.getElementById('clear');
   var result = document.getElementById('result');
   var answer = 0;
-  const operators = ["\\+","\\-","\\*","\\/"]
   const signs = ["+","-","*","/"]
   var num = 0;
   var operator = -1;
@@ -61,9 +58,10 @@
   var array = [];
   var count = 0;
   var numbers = [];
-  var operatorss = [];
+  var operators = [];
   var positions = [];
   var total = 0;
+  var preres = 0;
   result.innerHTML = initial
 
 
@@ -123,17 +121,17 @@
       var sign = array[positions[i]]
         if (sign == "+") {
         operator = 0;
-        operatorss.push(operator)
+        operators.push(operator)
       } else if (sign == "-") {
         console.log("minus")
         operator = 1;
-        operatorss.push(operator)
+        operators.push(operator)
       } else if (sign == "*") {
         operator = 2;
-        operatorss.push(operator)
+        operators.push(operator)
       } else if (sign == "/") {
         operator = 3;
-        operatorss.push(operator)
+        operators.push(operator)
       } 
     // else {
     //   alert("Try Again");
@@ -142,7 +140,13 @@
     //   return
     // }
     }
-    if (operatorss.length == 0) {
+    if (str.toLowerCase() == "kaiden is a csp genius" || (str.toLowerCase().includes("kaiden") && str.toLowerCase().includes("genius") && !str.toLowerCase().includes("not") && !str.toLowerCase().includes("isn't") && !str.toLowerCase().includes("isnt"))) {
+      result.textContent += "True: " + str + ". Kaiden is number 1." + "\r\n"
+      expression.value = "";
+      expression.focus();
+      window.localStorage.setItem(CALC_KEY, result.innerHTML);
+      return
+    } else if (operators.length == 0) {
       alert("Try Again");
        expression.value = "";
        expression.focus();
@@ -150,10 +154,10 @@
     }
     
     
-    // operatorss.push(operator)
+    // operators.push(operator)
     console.log("op"+operator)
-    operatorss.reverse()
-    console.log("operators:",operatorss)
+    operators.reverse()
+    console.log("operators:",operators)
     for (let i = 0; i < count; i++) {
       // var newLength = positions.length - i
       num = str.slice(positions[i] + 1, str.length).trim();
@@ -166,20 +170,20 @@
     numbers.unshift(parseInt(str))
     
     console.log("numbers:",numbers)
-    console.log("operators:",operatorss)
+    console.log("operators:",operators)
     console.log("positionsreverse",positions);
     // num1 = str.slice(0, position).trim();
     // num2 = str.slice(position + 1, str.length).trim();
     expression.value = "";
     expression.focus();
-    solve(numbers, operatorss);
-  }
 
-  function solve(numbers, operatorss) {
+    solve(numbers, operators);
+  }
+  function solve(numbers, operators) {
     num1 = numbers[0]
     total = parseInt(num1);
     for (let i = 0; i < count; i++) {
-      operator = operatorss[i]
+      operator = operators[i]
       num2 = numbers[i+1]
       if (operator == 0) {
         total = total + parseInt(num2);
@@ -194,17 +198,39 @@
     }
     result.textContent += num1
     for (let i = 0; i < count; i++) {
-      result.textContent += signs[operatorss[i]] + numbers[i+1]
+      result.textContent += signs[operators[i]] + numbers[i+1]
     }
-    // result.textContent += num1 + signs[operator] + num2 + "=" + answer + "\r\n"
     result.textContent += "=" + total + "\r\n"
     window.localStorage.setItem(CALC_KEY, result.innerHTML);
-    operatorss.length = 0;
+    operators.length = 0;
     numbers.length = 0;
     console.log(";;")
     positions.length = 0;
   }
+// // Get
+//   var myHeaders = new Headers();
+//   myHeaders.append("Content-Type", "application/json");
 
+//   var requestOptions = {
+//     method: 'GET',
+//     headers: myHeaders,
+//     redirect: 'follow'
+//   };
+
+//   fetch("http://localhost:8086/calculatorList", requestOptions)
+//     .then(response => response.text())
+//     .then(function(result) {
+      
+//     })
+//     .catch(error => console.log('error', error)); 
+// // Post
+//   var requestOptions = {
+//     method: 'POST',
+//     redirect: 'follow'
+//   };
+
+//   fetch("http://localhost:8086/calculator", requestOptions)
+//     .then(response => response.text())
+//     .then(result => console.log(result))
+//     .catch(error => console.log('error', error));
 </script>
-
-### Graphing Calculator

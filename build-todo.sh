@@ -1,10 +1,8 @@
 #!/bin/bash
 
-cd _todo-ts
+cd _todo-ts || exit
 
-npm install
-npm run build
+pnpm install
+pnpm run build
 
-[ -d ../todos ] && rm -rf ../todos
-mv dist/ ../todos
-sed -i.bak "s/\/{{site.baseurl}}\/\/assets\//\/todos\/assets\//g" ../todos/index.html
+cp dist/index.js ../assets/js/todos.js

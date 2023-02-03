@@ -29,9 +29,9 @@
 <style>
 .button{
    margin: 15px;
-   color: #cca300;
+   color: #A881F7;
    background-color: black;
-   border: 2px #cca300 solid;
+   border: 2px #795db3 solid;
    border-radius: 5px;
    font-size:20px;
    width:200px;

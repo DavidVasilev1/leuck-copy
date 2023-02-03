@@ -1,0 +1,97 @@
+$background: #292928;
+$background-muted: lighten($background, 15%);
+$foreground: #A881F7;
+$accent: #A881F7;
+$rounding: 3px;
+
+.todoContainer {
+	body {
+		background-color: $background;
+		color: $foreground;
+		padding: 2rem;
+	}
+
+	button,
+	input[type="submit"] {
+		background-color: $background-muted;
+		color: $accent;
+		border: none;
+		font-weight: bold;
+	}
+
+	button {
+		border-radius: $rounding;
+	}
+
+	button,
+	input {
+		padding: 5px 10px;
+	}
+
+	input[type="text"] {
+		height: 1.5rem;
+		outline: none;
+		border: none;
+		border-radius: $rounding 0px 0px $rounding;
+	}
+
+	input[type="submit"] {
+		height: 1.5rem;
+		border-radius: 0px $rounding $rounding 0px;
+	}
+
+	form {
+		margin: 1rem 0rem;
+	}
+
+	label {
+		display: block;
+	}
+
+	.todoDiv {
+		padding: 0.5rem 1rem;
+		border-radius: 5px;
+		display: flex;
+		align-items: center;
+		background-color: $background-muted;
+
+		p {
+			margin: 0;
+		}
+
+		button {
+			margin-left: auto;
+		}
+
+		p,
+		.todoCheckbox {
+			margin-right: 0.5rem;
+		}
+
+		margin: 0.5rem 0rem;
+	}
+
+	.horizontal {
+		display: flex;
+		align-items: center;
+		margin-top: 0.5rem;
+	}
+}
+
+.todoCheckbox {
+	height: 16px;
+	width: 16px;
+	border-radius: 50%;
+	background-color: $foreground;
+	cursor: pointer;
+}
+
+.todoComplete {
+	& > .todoCheckbox {
+		background-color: $background-muted;
+		box-shadow: inset 0 0 0 4px $foreground;
+	}
+	p {
+		text-decoration: line-through;
+	}
+}

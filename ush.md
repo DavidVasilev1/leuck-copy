@@ -7,7 +7,7 @@
          background-color: white;
          padding: 10px;
          margin: 20px;
-         border: 7.5px #cca300 solid;
+         border: 7.5px #795db3 solid;
          border-radius: 20px;
          float: left;
          color: black;
