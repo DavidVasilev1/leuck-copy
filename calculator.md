@@ -61,9 +61,11 @@
   var operators = [];
   var positions = [];
   var total = 0;
-  var preres = 0;
-  result.innerHTML = initial
 
+  result.innerHTML = initial
+  var newStr = initial.trim()
+  newStr = initial.split("\n")
+  console.log("test:",newStr)
 
   expression.focus();
   expression.addEventListener("keypress", function(event) {
@@ -141,7 +143,7 @@
     // }
     }
     if (str.toLowerCase() == "kaiden is a csp genius" || (str.toLowerCase().includes("kaiden") && str.toLowerCase().includes("genius") && !str.toLowerCase().includes("not") && !str.toLowerCase().includes("isn't") && !str.toLowerCase().includes("isnt"))) {
-      result.textContent += "True: " + str + ". Kaiden is number 1." + "\r\n"
+      result.textContent += "True: " + str + ". Kaiden is number 1." + "\n"
       expression.value = "";
       expression.focus();
       window.localStorage.setItem(CALC_KEY, result.innerHTML);
@@ -200,7 +202,7 @@
     for (let i = 0; i < count; i++) {
       result.textContent += signs[operators[i]] + numbers[i+1]
     }
-    result.textContent += "=" + total + "\r\n"
+    result.textContent += "=" + total + "\n"
     window.localStorage.setItem(CALC_KEY, result.innerHTML);
     operators.length = 0;
     numbers.length = 0;
