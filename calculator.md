@@ -65,14 +65,25 @@
   var element = "";
 
   result.innerHTML = initial
-  var newStr = ""
-  newStr = initial.split("\n")
-  newStrFil = newStr.filter((str) => str !== '');
+  var newStr = initial
+  console.log(newStr)
+  if ((newStr == "") || (newStr === null)){
+    newStrFil = []
+  }
+  else {
+    newStr = initial.split("\n")
+    console.log(newStr)
+    newStrFil = newStr.filter((str) => str !== '');
+  }
   console.log("test:",newStrFil)
   tableAdding(newStrFil)
 
   function tableAdding(array){
     table = document.getElementById('table');
+    var rowCount = table.rows.length;
+        for (var i = rowCount; i > 0; i--) {
+            table.deleteRow(i);
+        }
     for (var i = 0; i < array.length; i++) {
         var row = document.createElement('tr');
         row.textContent = array[i]
@@ -212,7 +223,7 @@
       total += answer
     }
     result.textContent += num1
-    element += num1
+    element = num1
 
     for (let i = 0; i < count; i++) {
       result.textContent += signs[operators[i]] + numbers[i+1]
@@ -221,6 +232,7 @@
     result.textContent += "=" + total + "\n"
     element += "=" + total
     newStrFil.push(element)
+    console.log("apple:",newStrFil)
     tableAdding(newStrFil)
     window.localStorage.setItem(CALC_KEY, result.innerHTML);
     operators.length = 0;
