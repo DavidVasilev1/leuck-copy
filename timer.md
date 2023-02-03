@@ -80,7 +80,6 @@ var addTimeButton = document.getElementById('addTimeButton');
 var completedTask = document.getElementById('completedTasks');
 var incompleteTasks = document.getElementById('toDo');
 
-var i = 0
 var tasks = []
 var timeExpected = []
 function addTask() {
@@ -88,14 +87,15 @@ function addTask() {
     tasks.push(taskInput.value)
     var timeExp = timeInput.value;
     timeExpected.push(timeInput.value)
-    console.log(localStorage.getItem('tasks'))
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('TimeExpected', JSON.stringify(timeExpected));
 
-    i++;
+    maketable(text, timeExp, tasks.length - 1)
+}
 
-    var table = document.createElement('tr');
+function maketable(text, timeExp, i) {
+  var table = document.createElement('tr');
     table.innerHTML = "<th class='cell'>" + text + "</th>" + 
                       "<th id=timeExp" + i + "' class='cell'>" + timeExp + "</th>" + 
                       "<th id='time" + i + "' class='cell'>" + "00:00:00" + "</th>" + 
@@ -106,6 +106,9 @@ function addTask() {
                       "</th>";
     incompleteTasks.appendChild(table);
 }
+const tasks = localStorage.getItem('tasks');
+
+for i in json.parse
 
 let time = 0;
 let time2 = 0;
