@@ -81,9 +81,10 @@ var completedTask = document.getElementById('completedTasks');
 var incompleteTasks = document.getElementById('toDo');
 
 var i = 0
-
+var tasks = []
 function addTask() {
     var text = taskInput.value;
+    tasks.append(taskInput.value)
     var timeExp = timeInput.value;
     
     i++;
