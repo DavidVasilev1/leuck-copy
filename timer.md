@@ -106,10 +106,11 @@ function maketable(text, timeExp, i) {
                       "</th>";
     incompleteTasks.appendChild(table);
 }
-const tasks = localStorage.getItem('tasks');
-
-for i in json.parse
-
+const tasks2 = JSON.parse(localStorage.getItem('tasks'));
+const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
+for (let i = 0; i < JSON.parse(tasks); i++) {
+  maketable(tasks2[i], timeExp[i], i)
+}
 let time = 0;
 let time2 = 0;
 let time3 = 0;
