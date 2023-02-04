@@ -36,7 +36,7 @@
 </head>
 <body>
   <p>Type out an expression with a number, followed by a sign (+, -, *, /), and then the second number. Ex: 2+9 (PEMDAS does not work)</p>
-  <pre id="result"></pre>
+  <pre id="result" hidden></pre>
   <table id="table"></table>
   <input id='expression' class = 'input' type='text'>
   <button class="button" id="equals" on>=</button>
