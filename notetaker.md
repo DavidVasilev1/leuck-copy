@@ -1,32 +1,35 @@
 <html>
 <div class="div">
 <a href="http://davidvasilev1.github.io/leuck-copy/calc">
-   <button class="button" id="calc" type="button">
-      <input placeholder="Class One" type="text" class="class" >
-   </button>
+   <button class="button" id="calc" type="button"></button>
 </a>
+<input placeholder="Class One" type="text" class="class"></input>
 <a href="https://davidvasilev1.github.io/leuck-copy/bio">
-   <button class="button" id="bio" type="button">
-      <input placeholder="Class Two" type="text" class="class" >
-   </button>
+   <button class="button" id="bio" type="button"></button>
 </a>
+<input placeholder="Class Two" type="text" class="class"></input>
 <a href="https://davidvasilev1.github.io/leuck-copy/poe">
-   <button class="button" id="poe" type="button">
-      <input placeholder="Class Three" type="text" class="class" >
-   </button>
+   <button class="button" id="poe" type="button"></button>
 </a>
+<input placeholder="Class Three" type="text" class="class"></input>
 <a href="https://davidvasilev1.github.io/leuck-copy/csp">
-   <button class="button" id="csp" type="button">
-      <input placeholder="Class Four" type="text" class="class" >
-   </button>
+   <button class="button" id="csp" type="button"></button>
 </a>
+<input placeholder="Class Four" type="text" class="class"></input>
 <a href="https://davidvasilev1.github.io/leuck-copy/ush">
-   <button class="button" id="ush" type="button">
-      <input placeholder="Class Five" type="text" class="class" >
-   </button>
+   <button class="button" id="ush" type="button"></button>
 </a>
+<input placeholder="Class Four" type="text" class="class"></input>
 </div>
 <style>
+.class{
+   color: #A881F7;
+   border: 2px #795db3 solid;
+   border-radius: 2px;
+   font-size: 15px;
+   width: 200px;
+   height:45px;
+}
 .button{
    margin: 15px;
    color: #A881F7;
@@ -44,6 +47,6 @@
 <script>
 let data = document.getElementByClassName("class").value.split(" ");
 localStorage.setItem("b", JSON.stringify(data))
-document.getElementById("input2").value = JSON.parse(localStorage.getItem("b")).join(" ")
+document.getElementByClassName("class").value = JSON.parse(localStorage.getItem("b")).join(" ")
 </script>
 </html>
