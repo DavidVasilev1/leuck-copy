@@ -94,18 +94,19 @@ function addTask() {
 
     maketable(text, timeExp, tasks.length + 1)
 }
-
+const started = {};
 function maketable(text, timeExp, i, time) {
   var table = document.createElement('tr');
     table.innerHTML = "<th class='cell'>" + text + "</th>" + 
-                      "<th id=timeExp" + i + "' class='cell'>" + timeExp + "</th>" + 
-                      "<th id='time" + i + "' class='cell'>" + "00:00:00" + "</th>" + 
+                      "<th id=timeExp" + (i+1) + "' class='cell'>" + timeExp + "</th>" + 
+                      "<th id='time" + (i+1) + "' class='cell'>" + "00:00:00" + "</th>" + 
                       "<th class='cell'>" + 
-                      "<button class='timerButton' onclick='start" + i + "()'>" + "Start" + "</button>" + 
-                      "<button class='timerButton' onclick='stop" + i + "()'>" + "Stop" + "</button>" + 
-                      "<button class='timerButton' onclick='reset" + i + "()'>" + "Reset" + "</button>" + 
+                      "<button class='timerButton' onclick='start(" + (i+1) + ")'>" + "Start" + "</button>" + 
+                      "<button class='timerButton' onclick='stop(" + (i+1) + ")'>" + "Stop" + "</button>" + 
+                      "<button class='timerButton' onclick='reset(" + (i+1) + ")'>" + "Reset" + "</button>" + 
                       "</th>";
     incompleteTasks.appendChild(table);
+    started[i+1] = {yes:false};
 }
 const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
 const Realtime = JSON.parse(localStorage.getItem('ActualTime'));
@@ -113,6 +114,35 @@ const task2 = JSON.parse(localStorage.getItem('tasks'));
 for (let i = 0; i < task2.length; i++) {
   maketable(task2[i], timeExp[i], i-1)
 }
+
+
+function start(i) {
+  started[i] = {yes: true,date: new Date()};
+  started[i].interval = setInterval(() => {
+
+  let now = new Date()
+  let time = Math.round((now - started[i].date) / 1000);
+
+
+  const hours = Math.floor(time / 3600)
+  const hours2 = String(hours).padStart(2,'0')
+  const minutes = Math.floor(time / 60);
+  const minutes2 =  String(minutes).padStart(2,'0')
+  const seconds = time % 60;
+  const seconds2 =  String(seconds).padStart(2,'0')
+  document.getElementById('time'+i).innerHTML = `${hours2}:${minutes2}:${seconds2}`;
+  }, 1000);
+}
+
+function stop(i) {
+  clearInterval(started[i].interval)
+  started[i].yes = false
+}
+function reset(i) {
+  started[i].date = new Date()
+   document.getElementById('time'+i).innerHTML = `00:00:00`
+}
+
 
 
 

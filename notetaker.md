@@ -3,23 +3,23 @@
 <a href="http://davidvasilev1.github.io/leuck-copy/calc">
    <button class="button" id="calc" type="button"></button>
 </a>
-<input placeholder="Class One" type="text" class="class"></input>
+<input placeholder="Class One" type="text" class="class1">
 <a href="https://davidvasilev1.github.io/leuck-copy/bio">
    <button class="button" id="bio" type="button"></button>
 </a>
-<input placeholder="Class Two" type="text" class="class"></input>
+<input placeholder="Class Two" type="text" class="class2">
 <a href="https://davidvasilev1.github.io/leuck-copy/poe">
    <button class="button" id="poe" type="button"></button>
 </a>
-<input placeholder="Class Three" type="text" class="class"></input>
+<input placeholder="Class Three" type="text" class="class3">
 <a href="https://davidvasilev1.github.io/leuck-copy/csp">
    <button class="button" id="csp" type="button"></button>
 </a>
-<input placeholder="Class Four" type="text" class="class"></input>
+<input placeholder="Class Four" type="text" class="class4">
 <a href="https://davidvasilev1.github.io/leuck-copy/ush">
    <button class="button" id="ush" type="button"></button>
 </a>
-<input placeholder="Class Four" type="text" class="class"></input>
+<input placeholder="Class Four" type="text" class="class5">
 </div>
 <style>
 .class{
@@ -47,6 +47,6 @@
 <script>
 let data = document.getElementByClassName("class").value.split(" ");
 localStorage.setItem("b", JSON.stringify(data))
-document.getElementByClassName("class").value = JSON.parse(localStorage.getItem("b")).join(" ")
+document.getElementByClassName("class1").value = document.getElementById("calc").innerHTML
 </script>
 </html>

@@ -45,6 +45,11 @@
       document.getElementById("input2").value = ""
    }
    document.getElementById("header") = localStorage.getItem("b")
+   let user_input = document.getElementById("input2").value
+   if (user_input.includes("fuck") || user_input.includes("shit") || user_input.includes("bitch") || user_input.includes("dick"))  || user_input.includes("pp"){
+      alert("That is a bad word, the entire text will be deleted.")
+      user_input.value = ""
+   }
    </script>
 </body>
 </html>
