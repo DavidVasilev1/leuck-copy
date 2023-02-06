@@ -104,7 +104,25 @@
         </table>
 </div>
 
+<img src="images/school_map.png" id="map" alt="map" usemap="#map" hidden>
+
+<canvas id="canvas" width="652px" height="652px" style="border: 1px solid #000000;">
+</canvas>
+
+
 <script>
+var c = document.getElementById("canvas");
+var ctx = c.getContext("2d");
+var img = document.getElementById("map");
+ctx.drawImage(img, 0, 0, 652, 652);
+
+var d = document.getElementById("canvas");
+var ctx2 = d.getContext("2d");
+ctx2.beginPath();
+ctx2.arc(95, 50, 40, 0, 2 * Math.PI);
+ctx2.stroke();
+ctx2.fillStyle = "rgba(255, 0, 0, 0.5)"
+
 
 var periodInput = document.getElementById('newPeriod');
 var classInput = document.getElementById('newClass');

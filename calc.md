@@ -32,6 +32,7 @@
       <button onclick="del_data()" id="delete" class="button">Delete All</button>
       <button onclick="save_data()" id="save" class="button">Save</button>
       </div>
+      <p style="text-align:left"><a href="{{site.baseurl}}/calculator"><img src="https://icones.pro/wp-content/uploads/2021/06/icone-de-la-calculatrice-violet.png" style="width:50px;height:50px;"></a></p>
    </body>
    <script>
       function save_data() {
