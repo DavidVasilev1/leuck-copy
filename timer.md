@@ -109,8 +109,9 @@ function maketable(text, timeExp, i, time) {
 }
 const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
 const Realtime = JSON.parse(localStorage.getItem('ActualTime'));
-for (let i = 0; i < tasks2.length; i++) {
-  maketable(tasks2[i], timeExp[i], i)
+const task2 = JSON.parse(localStorage.getItem('tasks'));
+for (let i = 0; i < task2.length; i++) {
+  maketable(task2[i], timeExp[i], i-1)
 }
 
 
