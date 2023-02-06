@@ -30,7 +30,29 @@
   margin: 4px 2px;
   cursor: pointer;
 }
+.tableResult {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #dddddd;
+}
 .button:hover {background-color: #E2D4FC;}
+.buttonEdit {
+  width: 15%;
+  height: 20px;
+  background-color: #A881F7;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  color: #1E1E1E;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.buttonEdit:hover {background-color: #E2D4FC;}
 
 </style>
 </head>
@@ -80,6 +102,7 @@
 
   function tableAdding(array){
     table = document.getElementById('table');
+    table.className = "tableResult"
     var rowCount = table.rows.length;
         for (var i = rowCount-1; i > 0; i--) {
             table.deleteRow(i);
@@ -87,8 +110,11 @@
         table.deleteRow(-1);
     for (var i = 0; i < array.length; i++) {
         var row = document.createElement('tr');
+        var column = document.createElement('td');
         row.textContent = array[i]
+        column.innerHTML = "<button class='buttonEdit' id='"+ i +"' onclick='editEntry()'>" + "Edit" + "</button>"
         table.appendChild(row);
+        table.appendChild(column);
     }
   }
 
