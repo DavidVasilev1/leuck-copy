@@ -47,13 +47,19 @@
 </style>
 <script>
 let data = document.getElementById("class1").map(e => e.value.split(" "));
-localStorage.setItem("b", JSON.stringify(data))
+localStorage.setItem("h", JSON.stringify(data))
 document.getElementById("class1").value = document.getElementById("calc").innerHTML
 let data2 = document.getElementById("class2").map(e => e.value.split(" "));
-localStorage.setItem("c", JSON.stringify(data2))
+localStorage.setItem("i", JSON.stringify(data2))
 document.getElementById("class2").value = document.getElementById("bio").innerHTML
 let data3 = document.getElementById("class3").map(e => e.value.split(" "));
-localStorage.setItem("d", JSON.stringify(data3))
-document.getElementById("class3").value = document.getElementById("").innerHTML
+localStorage.setItem("j", JSON.stringify(data3))
+document.getElementById("class3").value = document.getElementById("poe").innerHTML
+let data4 = document.getElementById("class4").map(e => e.value.split(" "));
+localStorage.setItem("k", JSON.stringify(data4))
+document.getElementById("class4").value = document.getElementById("csp").innerHTML
+let data5 = document.getElementById("class5").map(e => e.value.split(" "));
+localStorage.setItem("k", JSON.stringify(data5))
+document.getElementById("class5").value = document.getElementById("ush").innerHTML
 </script>
 </html>
