@@ -115,7 +115,11 @@ for (let i = 0; i < task2.length; i++) {
   maketable(task2[i], timeExp[i], i-1)
 }
 
+// poplulating the times in the table
+const task2 = JSON.parse(localStorage.getItem('tasks'));
 
+
+let localtime = {}
 function start(i) {
   started[i] = {yes: true,date: new Date()};
 
@@ -127,7 +131,9 @@ function start(i) {
   let now = new Date()
   let time = Math.round((now - started[i].date) / 1000);
 
-  localStorage.setItem('time', JSON.stringify());
+  // setting the local storage time
+  localtime[i] = time
+  localStorage.setItem('time', JSON.stringify(localtime));
   const hours = Math.floor(time / 3600)
   const hours2 = String(hours).padStart(2,'0')
   const minutes = Math.floor(time / 60);
@@ -141,7 +147,6 @@ function start(i) {
 function stop(i) {
   clearInterval(started[i].interval)
   started[i].yes = false
-  localStorage.setItem('time', JSON.stringify());
 }
 function reset(i) {
   started[i].date = new Date()
