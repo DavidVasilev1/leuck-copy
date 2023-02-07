@@ -104,13 +104,14 @@
     table = document.getElementById('table');
     table.className = "tableResult"
     var rowCount = table.rows.length;
-        for (var i = rowCount-1; i > 0; i--) {
-            table.deleteRow(i);
-        }
-        table.deleteRow(-1);
+    for (var i = rowCount-1; i > 0; i--) {
+        table.deleteRow(i);
+    }
+    table.deleteRow(-1);
     for (var i = 0; i < array.length; i++) {
         var row = document.createElement('tr');
         var column = document.createElement('td');
+        
         row.textContent = array[i]
         column.innerHTML = "<button class='buttonEdit' id='"+ i +"' onclick='editEntry()'>" + "Edit" + "</button>"
         table.appendChild(row);
