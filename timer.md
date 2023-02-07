@@ -118,12 +118,16 @@ for (let i = 0; i < task2.length; i++) {
 
 function start(i) {
   started[i] = {yes: true,date: new Date()};
+
+
+
+
   started[i].interval = setInterval(() => {
 
   let now = new Date()
   let time = Math.round((now - started[i].date) / 1000);
 
-
+  localStorage.setItem('time', JSON.stringify());
   const hours = Math.floor(time / 3600)
   const hours2 = String(hours).padStart(2,'0')
   const minutes = Math.floor(time / 60);
@@ -137,6 +141,7 @@ function start(i) {
 function stop(i) {
   clearInterval(started[i].interval)
   started[i].yes = false
+  localStorage.setItem('time', JSON.stringify());
 }
 function reset(i) {
   started[i].date = new Date()
