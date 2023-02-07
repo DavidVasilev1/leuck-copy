@@ -7,19 +7,19 @@
 <a href="https://davidvasilev1.github.io/leuck-copy/bio">
    <button class="button" id="bio" type="button"></button>
 </a>
-<input placeholder="Class Two" type="text" class="class2">
+<input placeholder="Class Two" type="text" id="class2">
 <a href="https://davidvasilev1.github.io/leuck-copy/poe">
    <button class="button" id="poe" type="button"></button>
 </a>
-<input placeholder="Class Three" type="text" class="class3">
+<input placeholder="Class Three" type="text" id="class3">
 <a href="https://davidvasilev1.github.io/leuck-copy/csp">
    <button class="button" id="csp" type="button"></button>
 </a>
-<input placeholder="Class Four" type="text" class="class4">
+<input placeholder="Class Four" type="text" id="class4">
 <a href="https://davidvasilev1.github.io/leuck-copy/ush">
    <button class="button" id="ush" type="button"></button>
 </a>
-<input placeholder="Class Four" type="text" class="class5">
+<input placeholder="Class Four" type="text" id="class5">
 </div>
 <style>
 .class{
@@ -46,8 +46,14 @@
 }
 </style>
 <script>
-let data = document.getElementByClassName("class").map(e => e.value.split(" "));
+let data = document.getElementById("class1").map(e => e.value.split(" "));
 localStorage.setItem("b", JSON.stringify(data))
-document.getElementByClassName("class1").value = document.getElementById("calc").innerHTML
+document.getElementById("class1").value = document.getElementById("calc").innerHTML
+let data2 = document.getElementById("class2").map(e => e.value.split(" "));
+localStorage.setItem("c", JSON.stringify(data2))
+document.getElementById("class2").value = document.getElementById("bio").innerHTML
+let data3 = document.getElementById("class3").map(e => e.value.split(" "));
+localStorage.setItem("d", JSON.stringify(data3))
+document.getElementById("class3").value = document.getElementById("").innerHTML
 </script>
 </html>
