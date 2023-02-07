@@ -34,22 +34,22 @@
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
-  border: 1px solid #dddddd;
+  border: 3px solid #dddddd;
+  font-size: 20px;
 }
 .button:hover {background-color: #E2D4FC;}
 .buttonEdit {
   width: 15%;
-  height: 20px;
+  height: 30px;
   background-color: #A881F7;
   border: 2px solid #ccc;
   border-radius: 4px;
   color: #1E1E1E;
-  padding: 10px 24px;
+  padding: 4px 8px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 15px;
-  margin: 4px 2px;
   cursor: pointer;
 }
 .buttonEdit:hover {background-color: #E2D4FC;}
@@ -111,11 +111,12 @@
     for (var i = 0; i < array.length; i++) {
         var row = document.createElement('tr');
         var column = document.createElement('td');
-        
+        row.className = "tableResult"
+        column.className = "tableResult"
         row.textContent = array[i]
         column.innerHTML = "<button class='buttonEdit' id='"+ i +"' onclick='editEntry()'>" + "Edit" + "</button>"
         table.appendChild(row);
-        table.appendChild(column);
+        row.appendChild(column);
     }
   }
 
