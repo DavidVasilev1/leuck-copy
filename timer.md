@@ -112,7 +112,7 @@ function calculatetime(time) {
 
 const started = {};
 function maketable(text, timeExp, i, time) {
-  let seconds = newtime[i+1] || 0;
+  let seconds = newtime[i+2] || 0;
   let secondsFormatted = calculatetime(seconds)
   var table = document.createElement('tr');
     table.innerHTML = "<th class='cell'>" + text + "</th>" + 
@@ -145,7 +145,7 @@ function start(i) {
   started[i].interval = setInterval(() => {
 
   let now = new Date()
-  now.setSeconds(now.getSeconds() + (newtime[i-2] || 0))
+  now.setSeconds(now.getSeconds() + (newtime[i] || 0))
   let time = Math.round((now - started[i].date) / 1000);
 
   // setting the local storage time
