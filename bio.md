@@ -28,7 +28,7 @@
    </style>
    <body>
       <div type="text" class="box" id="box">
-         <textarea class="input" placeholder="Take some notes!" id="input2"></textarea>
+         <textarea class="input" placeholder="Take some notes!" id="input2" onchange="bad_words()" ></textarea>
       <button onclick="del_data()" id="delete" class="button">Delete All</button>
       <button onclick="save_data()" id="save" class="button">Save</button>
       </div>
@@ -45,10 +45,13 @@
       document.getElementById("input2").value = ""
    }
    document.getElementById("header") = localStorage.getItem("b")
-   let user_input = document.getElementById("input2").value
-   if (user_input.includes("fuck") || user_input.includes("shit") || user_input.includes("bitch") || user_input.includes("dick"))  || user_input.includes("pp"){
-      alert("That is a bad word, the entire text will be deleted.")
-      user_input.value = ""
+   function bad_words(){
+      let user_input_el = document.getElementById("input2")
+      let user_input = user_input_el.value
+      if (user_input.includes("fuck") || user_input.includes("shit") || user_input.includes("bitch") || user_input.includes("dick"))  || user_input.includes("pp"){
+         alert("That is a bad word, the entire text will be deleted.")
+         user_input_el.value = ""
+      }
    }
    </script>
 </body>
