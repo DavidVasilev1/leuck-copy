@@ -94,12 +94,30 @@ function addTask() {
 
     maketable(text, timeExp, tasks.length + 1)
 }
+
+// poplulating the times in the table
+const newtime = JSON.parse(localStorage.getItem('time'));
+console.log(newtime)
+
+function calculatetime(time) {
+   const hours = Math.floor(time / 3600)
+  const hours2 = String(hours).padStart(2,'0')
+  const minutes = Math.floor(time / 60);
+  const minutes2 =  String(minutes).padStart(2,'0')
+  const seconds = time % 60;
+  const seconds2 =  String(seconds).padStart(2,'0')
+  return hours + ":" + minutes + ":" + seconds
+}
+
+
 const started = {};
 function maketable(text, timeExp, i, time) {
+  let seconds = newtime[i+1] || 0;
+  let secondsFormatted = calculatetime(seconds)
   var table = document.createElement('tr');
     table.innerHTML = "<th class='cell'>" + text + "</th>" + 
                       "<th id=timeExp" + (i+1) + "' class='cell'>" + timeExp + "</th>" + 
-                      "<th id='time" + (i+1) + "' class='cell'>" + "00:00:00" + "</th>" + 
+                      "<th id='time" + (i+1) + "' class='cell'>" + secondsFormatted + "</th>" + 
                       "<th class='cell'>" + 
                       "<button class='timerButton' onclick='start(" + (i+1) + ")'>" + "Start" + "</button>" + 
                       "<button class='timerButton' onclick='stop(" + (i+1) + ")'>" + "Stop" + "</button>" + 
@@ -116,6 +134,8 @@ for (let i = 0; i < task2.length; i++) {
 }
 
 
+
+let localtime = {}
 function start(i) {
   started[i] = {yes: true,date: new Date()};
 
@@ -127,7 +147,9 @@ function start(i) {
   let now = new Date()
   let time = Math.round((now - started[i].date) / 1000);
 
-  localStorage.setItem('time', JSON.stringify());
+  // setting the local storage time
+  localtime[i] = time
+  localStorage.setItem('time', JSON.stringify(localtime));
   const hours = Math.floor(time / 3600)
   const hours2 = String(hours).padStart(2,'0')
   const minutes = Math.floor(time / 60);
@@ -138,10 +160,12 @@ function start(i) {
   }, 1000);
 }
 
+
+console.log(calculatetime(100))
+
 function stop(i) {
   clearInterval(started[i].interval)
   started[i].yes = false
-  localStorage.setItem('time', JSON.stringify());
 }
 function reset(i) {
   started[i].date = new Date()
