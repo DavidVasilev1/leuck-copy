@@ -30,17 +30,45 @@
   margin: 4px 2px;
   cursor: pointer;
 }
+.tableResult {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 650px;
+  border: 3px solid #ccc;
+  font-size: 20px;
+}
+.rowLine {
+  border: 2px solid #919191;
+}
+.cellFormat {
+  text-align: right;
+}
 .button:hover {background-color: #E2D4FC;}
+.buttonEdit {
+  width: 60px;
+  height: 30px;
+  background-color: #A881F7;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  color: #1E1E1E;
+  padding: 4px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  cursor: pointer;
+}
+.buttonEdit:hover {background-color: #E2D4FC;}
 
 </style>
 </head>
 <body>
-  <p>Type out an expression with a number, followed by a sign (+, -, *, /), and then the second number. Ex: 2+9 (PEMDAS does not work)</p>
-  <pre id="result" hidden></pre>
+  <p>Type out an expression with a number, followed by a sign (+, -, *, /), and then the second number. Ex: 2+9</p>
   <table id="table"></table>
   <input id='expression' class = 'input' type='text'>
   <button class="button" id="equals" on>=</button>
   <button class="button" id="clear" on>Clear</button>
+  <pre id="result" hidden></pre>
 </body>
 
 <script>
@@ -78,20 +106,6 @@
   console.log("test:",newStrFil)
   tableAdding(newStrFil)
 
-  function tableAdding(array){
-    table = document.getElementById('table');
-    var rowCount = table.rows.length;
-        for (var i = rowCount-1; i > 0; i--) {
-            table.deleteRow(i);
-        }
-        table.deleteRow(-1);
-    for (var i = 0; i < array.length; i++) {
-        var row = document.createElement('tr');
-        row.textContent = array[i]
-        table.appendChild(row);
-    }
-  }
-
   expression.focus();
   expression.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
@@ -99,9 +113,34 @@
     document.getElementById("equals").click();
   }
   });
-
   equals.addEventListener("click", function(){ countString(); }); //separate();
   clear.addEventListener("click", function(){ clearEntry();});
+
+  function tableAdding(array){
+    table = document.getElementById('table');
+    table.className = "tableResult"
+    var rowCount = table.rows.length;
+    for (var i = rowCount-1; i > 0; i--) {
+        table.deleteRow(i);
+    }
+    table.deleteRow(-1);
+    for (var i = 0; i < array.length; i++) {
+        var row = document.createElement('tr');
+        var column = document.createElement('td');
+        row.className = "rowLine"
+        column.className = "cellFormat"
+        row.textContent = array[i]
+        column.innerHTML = "<button class='buttonEdit' id='"+ i +"' onclick='editEntry("+ i +")'>" + "Edit" + "</button>"
+        table.appendChild(row);
+        row.appendChild(column);
+    }
+  }
+
+  
+  function editEntry(entry){
+    console.log("splendid:", entry)
+  }
+  
 
   function clearEntry() {
     console.log("test")

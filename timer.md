@@ -72,7 +72,7 @@
 </div>
 
 <script>
-
+let localtime = {}
 var taskInput = document.getElementById('newTask');
 var addTaskButton = document.getElementById('addTaskButton');
 var timeInput = document.getElementById('newTime');
@@ -95,23 +95,84 @@ function addTask() {
     maketable(text, timeExp, tasks.length + 1)
 }
 
+// poplulating the times in the table
+const newtime = JSON.parse(localStorage.getItem('time')) || {};
+console.log(newtime)
+
+function calculatetime(time) {
+   const hours = Math.floor(time / 3600)
+  const hours2 = String(hours).padStart(2,'0')
+  const minutes = Math.floor(time / 60);
+  const minutes2 =  String(minutes).padStart(2,'0')
+  const seconds = time % 60;
+  const seconds2 =  String(seconds).padStart(2,'0')
+  return hours + ":" + minutes + ":" + seconds
+}
+
+
+const started = {};
 function maketable(text, timeExp, i, time) {
+  let seconds = newtime[i+2] || 0;
+  let secondsFormatted = calculatetime(seconds)
   var table = document.createElement('tr');
     table.innerHTML = "<th class='cell'>" + text + "</th>" + 
-                      "<th id=timeExp" + i + "' class='cell'>" + timeExp + "</th>" + 
-                      "<th id='time" + i + "' class='cell'>" + "00:00:00" + "</th>" + 
+                      "<th id=timeExp" + (i+2) + "' class='cell'>" + timeExp + "</th>" + 
+                      "<th id='time" + (i+2) + "' class='cell'>" + secondsFormatted + "</th>" + 
                       "<th class='cell'>" + 
-                      "<button class='timerButton' onclick='start" + i + "()'>" + "Start" + "</button>" + 
-                      "<button class='timerButton' onclick='stop" + i + "()'>" + "Stop" + "</button>" + 
-                      "<button class='timerButton' onclick='reset" + i + "()'>" + "Reset" + "</button>" + 
+                      "<button class='timerButton' onclick='start(" + (i+2) + ")'>" + "Start" + "</button>" + 
+                      "<button class='timerButton' onclick='stop(" + (i+2) + ")'>" + "Stop" + "</button>" + 
+                      "<button class='timerButton' onclick='reset(" + (i+2) + ")'>" + "Reset" + "</button>" + 
                       "</th>";
     incompleteTasks.appendChild(table);
+    started[i+1] = {yes:false};
 }
 const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
 const Realtime = JSON.parse(localStorage.getItem('ActualTime'));
-for (let i = 0; i < tasks2.length; i++) {
-  maketable(tasks2[i], timeExp[i], i)
+const task2 = JSON.parse(localStorage.getItem('tasks'));
+for (let i = 0; i < task2.length; i++) {
+  maketable(task2[i], timeExp[i], i-1)
 }
+
+
+
+
+function start(i) {
+  started[i] = {yes: true,date: new Date()};
+
+
+
+
+  started[i].interval = setInterval(() => {
+
+  let now = new Date()
+  now.setSeconds(now.getSeconds() + (newtime[i] || 0))
+  let time = Math.round((now - started[i].date) / 1000);
+
+  // setting the local storage time
+  localtime[i] = time || 0
+  localStorage.setItem('time', JSON.stringify(localtime));
+  const hours = Math.floor(time / 3600)
+  const hours2 = String(hours).padStart(2,'0')
+  const minutes = Math.floor(time / 60);
+  const minutes2 =  String(minutes).padStart(2,'0')
+  const seconds = time % 60;
+  const seconds2 =  String(seconds).padStart(2,'0')
+  document.getElementById('time'+i).innerHTML = `${hours2}:${minutes2}:${seconds2}`;
+  }, 1000);
+}
+
+
+console.log(calculatetime(100))
+
+function stop(i) {
+  clearInterval(started[i].interval)
+  started[i].yes = false
+}
+function reset(i) {
+  started[i].date = new Date()
+   document.getElementById('time'+i).innerHTML = `00:00:00`
+}
+
 
 
 
