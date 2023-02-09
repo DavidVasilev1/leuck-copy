@@ -92,7 +92,8 @@ function addTask() {
     localStorage.setItem('TimeExpected', JSON.stringify(timeExpected));
     localStorage.setItem('ActualTime', JSON.stringify(ActualTime));
 
-    maketable(text, timeExp, tasks.length + 1)
+    maketable(text, timeExp, tasks.length)
+    console.log(tasks.length)
 }
 
 // poplulating the times in the table
@@ -112,16 +113,16 @@ function calculatetime(time) {
 
 const started = {};
 function maketable(text, timeExp, i, time) {
-  let seconds = newtime[i+2] || 0;
+  let seconds = newtime[i] || 0;
   let secondsFormatted = calculatetime(seconds)
   var table = document.createElement('tr');
     table.innerHTML = "<th class='cell'>" + text + "</th>" + 
-                      "<th id=timeExp" + (i+2) + "' class='cell'>" + timeExp + "</th>" + 
-                      "<th id='time" + (i+2) + "' class='cell'>" + secondsFormatted + "</th>" + 
+                      "<th id=timeExp" + (i) + "' class='cell'>" + timeExp + "</th>" + 
+                      "<th id='time" + (i) + "' class='cell'>" + secondsFormatted + "</th>" + 
                       "<th class='cell'>" + 
-                      "<button class='timerButton' onclick='start(" + (i+2) + ")'>" + "Start" + "</button>" + 
-                      "<button class='timerButton' onclick='stop(" + (i+2) + ")'>" + "Stop" + "</button>" + 
-                      "<button class='timerButton' onclick='reset(" + (i+2) + ")'>" + "Reset" + "</button>" + 
+                      "<button class='timerButton' onclick='start(" + (i) + ")'>" + "Start" + "</button>" + 
+                      "<button class='timerButton' onclick='stop(" + (i) + ")'>" + "Stop" + "</button>" + 
+                      "<button class='timerButton' onclick='reset(" + (i) + ")'>" + "Reset" + "</button>" + 
                       "</th>";
     incompleteTasks.appendChild(table);
     started[i+1] = {yes:false};
@@ -130,7 +131,10 @@ const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
 const Realtime = JSON.parse(localStorage.getItem('ActualTime'));
 const task2 = JSON.parse(localStorage.getItem('tasks'));
 for (let i = 0; i < task2.length; i++) {
-  maketable(task2[i], timeExp[i], i-1)
+  console.log(task2[i])
+  tasks.push(task2[i])
+  timeExpected.push(timeExp[i])
+  maketable(task2[i], timeExp[i], i+1)
 }
 
 
