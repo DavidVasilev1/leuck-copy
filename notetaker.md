@@ -4,22 +4,18 @@
 			<button class="button" id="class1btn" type="button"></button>
 		</a>
 		<input placeholder="Class One" type="text" id="class1" />
-
     	<a href="https://davidvasilev1.github.io/leuck-copy/bio">
     		<button class="button" id="class2btn" type="button"></button>
     	</a>
-    	<input placeholder="Class Two" type="text" id="class2" />
-
+    	<input placeholder="Class Two" type="text" id="class2" /
     	<a href="https://davidvasilev1.github.io/leuck-copy/poe">
     		<button class="button" id="class3btn" type="button"></button>
     	</a>
     	<input placeholder="Class Three" type="text" id="class3" />
-
     	<a href="https://davidvasilev1.github.io/leuck-copy/csp">
     		<button class="button" id="class4btn" type="button"></button>
     	</a>
     	<input placeholder="Class Four" type="text" id="class4" />
-
     	<a href="https://davidvasilev1.github.io/leuck-copy/ush">
     		<button class="button" id="class5btn" type="button"></button>
     	</a>
@@ -61,11 +57,9 @@
     		let el = document.getElementById(id);
          // button element
          let btn = document.getElementById(id + "btn");
-
          // update elements with localstorage (if its empty, use and empty string)
     		el.value = localStorage.getItem(id) || "";
          btn.innerHTML = localStorage.getItem(id) || "";
-
          // every time they type, update localstorage
     		el.addEventListener("change", function() {
     			localStorage.setItem(id, el.value);
@@ -74,5 +68,4 @@
     		});
     	});
     </script>
-
 </html>
