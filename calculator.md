@@ -33,13 +33,19 @@
 .tableResult {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%;
-  border: 3px solid #dddddd;
+  width: 650px;
+  border: 3px solid #ccc;
   font-size: 20px;
+}
+.rowLine {
+  border: 2px solid #919191;
+}
+.cellFormat {
+  text-align: right;
 }
 .button:hover {background-color: #E2D4FC;}
 .buttonEdit {
-  width: 15%;
+  width: 60px;
   height: 30px;
   background-color: #A881F7;
   border: 2px solid #ccc;
@@ -58,11 +64,11 @@
 </head>
 <body>
   <p>Type out an expression with a number, followed by a sign (+, -, *, /), and then the second number. Ex: 2+9</p>
-  <pre id="result" hidden></pre>
   <table id="table"></table>
   <input id='expression' class = 'input' type='text'>
   <button class="button" id="equals" on>=</button>
   <button class="button" id="clear" on>Clear</button>
+  <pre id="result" hidden></pre>
 </body>
 
 <script>
@@ -85,20 +91,37 @@
   var positions = [];
   var total = 0;
   var element = "";
+  var edit = 0;
+  var newStrText = "";
 
   result.innerHTML = initial
   var newStr = initial
-  console.log(newStr)
+  console.log("asdf",newStr)
   if ((newStr == "") || (newStr === null)){
     newStrFil = []
+    newStrText = newStrFil.toString()
+    console.log(newStrText) 
+
   }
   else {
     newStr = initial.split("\n")
-    console.log(newStr)
+    console.log("ddd",newStr)
     newStrFil = newStr.filter((str) => str !== '');
+    newStrText = newStrFil.toString()
+    console.log(newStrText)
   }
   console.log("test:",newStrFil)
   tableAdding(newStrFil)
+
+  expression.focus();
+  expression.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("equals").click();
+  }
+  });
+  equals.addEventListener("click", function(){ countString(); }); //separate();
+  clear.addEventListener("click", function(){ clearEntry();});
 
   function tableAdding(array){
     table = document.getElementById('table');
@@ -111,25 +134,31 @@
     for (var i = 0; i < array.length; i++) {
         var row = document.createElement('tr');
         var column = document.createElement('td');
-        row.className = "tableResult"
-        column.className = "tableResult"
+        row.className = "rowLine"
+        column.className = "cellFormat"
         row.textContent = array[i]
-        column.innerHTML = "<button class='buttonEdit' id='"+ i +"' onclick='editEntry()'>" + "Edit" + "</button>"
+        column.innerHTML = "<button class='buttonEdit' id='"+ i +"' onclick='editEntry("+ i +")'>" + "Edit" + "</button>"
         table.appendChild(row);
         row.appendChild(column);
     }
   }
 
-  expression.focus();
-  expression.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    document.getElementById("equals").click();
+  
+  function editEntry(entry){
+    console.log("splendid:", entry)
+    console.log(newStrFil)
+    console.log(newStrFil[entry])
+    var preexpression = newStrFil[entry];
+    var prearray = Array.from(preexpression)
+    for (let i = 0; i < preexpression.length; i++) {
+        if (prearray[i] == "=") {
+          expression.value = preexpression.substring(0, i)
+          console.log(preexpression.substring(0, i))
+          edit = 1;
+        }
+      }
   }
-  });
-
-  equals.addEventListener("click", function(){ countString(); }); //separate();
-  clear.addEventListener("click", function(){ clearEntry();});
+  
 
   function clearEntry() {
     console.log("test")
