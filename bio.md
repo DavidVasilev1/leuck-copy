@@ -37,7 +37,7 @@
       function save_data() {
       let data = document.getElementById("input2").value.split(" ");
       localStorage.setItem("a", JSON.stringify(data))
-    } 
+    }
    document.getElementById("input2").value = JSON.parse(localStorage.getItem("a")).join(" ")
    function del_data(){
       let mt = [];
@@ -48,7 +48,7 @@
    function bad_words(){
       let user_input_el = document.getElementById("input2")
       let user_input = user_input_el.value
-      if (user_input.includes("fuck") || user_input.includes("shit") || user_input.includes("bitch") || user_input.includes("dick")  || user_input.includes("pp")){
+      if (user_input.includes("fuck") || user_input.includes("shit") || user_input.includes("bitch") || user_input.includes("dick")  || user_input.includes("pp")) || user_input.includes("hell"){
          alert("That is a bad word, the entire text will be deleted.")
          user_input_el.value = ""
       }
