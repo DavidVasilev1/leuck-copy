@@ -24,8 +24,6 @@
     		<button class="button" id="class5btn" type="button"></button>
     	</a>
     	<input placeholder="Class Four" type="text" id="class5" />
-
-    	<button class="button2" id="save">Save</button>
     </div>
     <style>
     	.class {
