@@ -37,7 +37,7 @@
       function save_data() {
       let data = document.getElementById("input2").value.split(" ");
       localStorage.setItem("a", JSON.stringify(data))
-    } 
+    }
    document.getElementById("input2").value = JSON.parse(localStorage.getItem("a")).join(" ")
    function del_data(){
       let mt = [];
