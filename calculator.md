@@ -91,17 +91,24 @@
   var positions = [];
   var total = 0;
   var element = "";
+  var edit = 0;
+  var newStrText = "";
 
   result.innerHTML = initial
   var newStr = initial
-  console.log(newStr)
+  console.log("asdf",newStr)
   if ((newStr == "") || (newStr === null)){
     newStrFil = []
+    newStrText = newStrFil.toString()
+    console.log(newStrText) 
+
   }
   else {
     newStr = initial.split("\n")
-    console.log(newStr)
+    console.log("ddd",newStr)
     newStrFil = newStr.filter((str) => str !== '');
+    newStrText = newStrFil.toString()
+    console.log(newStrText)
   }
   console.log("test:",newStrFil)
   tableAdding(newStrFil)
@@ -139,6 +146,17 @@
   
   function editEntry(entry){
     console.log("splendid:", entry)
+    console.log(newStrFil)
+    console.log(newStrFil[entry])
+    var preexpression = newStrFil[entry];
+    var prearray = Array.from(preexpression)
+    for (let i = 0; i < preexpression.length; i++) {
+        if (prearray[i] == "=") {
+          expression.value = preexpression.substring(0, i)
+          console.log(preexpression.substring(0, i))
+          edit = 1;
+        }
+      }
   }
   
 
