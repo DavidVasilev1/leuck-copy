@@ -107,7 +107,8 @@
     newStr = initial.split("\n")
     console.log("ddd",newStr)
     newStrFil = newStr.filter((str) => str !== '');
-    newStrText = newStrFil.toString()
+    console.log("init", initial)
+    newStrText = initial.toString()
     console.log(newStrText)
   }
   console.log("test:",newStrFil)
@@ -120,7 +121,7 @@
     document.getElementById("equals").click();
   }
   });
-  equals.addEventListener("click", function(){ countString(); }); //separate();
+  equals.addEventListener("click", function(){ countString(); });
   clear.addEventListener("click", function(){ clearEntry();});
 
   function tableAdding(array){
