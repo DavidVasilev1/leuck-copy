@@ -48,13 +48,13 @@
 }
 </style>
 <script>
-   const inputs = [1, 2, 3, 4, 5].map(i => `class${i}`)
+   let inputs = [1, 2, 3, 4, 5].map(i => `class${i}`)
    inputs.forEach(id => {
-      const el = document.getElementById(id)
-      el.value = localStorage.getItem(id) || ""
-      el.addEventListener("onchange", () => {
-         localStorage.setItem(id, el.value)
-         document.getElementById(id + "btn").innerHTML = el.value
+      let element = document.getElementById(id)
+      element.value = localStorage.getItem(id) || ""
+      element.addEventListener("onchange", () => {
+         localStorage.setItem(id, element.value)
+         document.getElementById(id + "btn").innerHTML = element.value
       })
    })
 </script>
