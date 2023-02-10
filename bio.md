@@ -54,8 +54,8 @@
       }
    }
    let el = localStorage.getItem("class2")
-   let btn = document.getElementById("class2")
-   btn.innerHTML = el.value;
+   let header = document.getElementById("header")
+   header.innerHTML = el.value;
    </script>
 </body>
 </html>
