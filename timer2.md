@@ -53,13 +53,19 @@
 
 <div class='container'>
     
+
 <h3> Add Activity </h3>
     <input id='newTask' type='text'>
 <h3> Set Expected Time (hh:mm:ss)</h3>
-    <input id='newTime' type='text'>
+    <input id='ExpectedTime' type='text'>
+
 <br>
 <br>
 <button class='button' id='addTaskButton' onclick="addTask()">Add</button>
+<!-- <br>
+<br> -->
+<!-- <h3> Real Time </h3>
+<p id='Time' type='text'> -->
 <h3 class="title"> To-Do </h3>
         <table class="table" id="toDo" style="width: 100%; margin-left: auto; margin-right: auto;">
           <tr>
@@ -69,16 +75,26 @@
             <th class="cell">Timer Controls</th>
           </tr>
         </table>
-</div>
+<h3 class="title"> Completed Tasks </h3>
+        <table class="table" id="Completed" style="width: 100%; margin-left: auto; margin-right: auto;">
+        <tr>
+            <th class="cell">Task</th>
+            <th class="cell">Expected Time</th>
+            <th class="cell">Actual Time</th>
+          </tr>
+        </table>
+<!-- </div> -->
 
 <script>
-let localtime = {}
+const newtime = JSON.parse(localStorage.getItem('time')) || 0;
+let localtime = 0
 var taskInput = document.getElementById('newTask');
 var addTaskButton = document.getElementById('addTaskButton');
-var timeInput = document.getElementById('newTime');
+var timeInput = document.getElementById('ExpectedTime');
 var addTimeButton = document.getElementById('addTimeButton');
 var completedTask = document.getElementById('completedTasks');
 var incompleteTasks = document.getElementById('toDo');
+var timeBox = document.getElementById('Time')
 
 var tasks = []
 var timeExpected = []
@@ -88,15 +104,14 @@ function addTask() {
     var timeExp = timeInput.value;
     timeExpected.push(timeInput.value)
     var ActualTime = 0;
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    localStorage.setItem('TimeExpected', JSON.stringify(timeExpected));
+
     // localStorage.setItem('ActualTime', JSON.stringify(ActualTime));
 
     maketable(text, timeExp, tasks.length)
 }
 
-// poplulating the times in the table
-const newtime = JSON.parse(localStorage.getItem('time')) || {};
+
+
 
 function calculatetime(time) {
    const hours = Math.floor(time / 3600)
@@ -110,20 +125,20 @@ function calculatetime(time) {
 
 
 const started = {};
-function maketable(text, timeExp, i, time) {
-  let seconds = newtime[i] || 0;
+function maketable(text, timeExp, time) {
+  let seconds = newtime || 0;
   let secondsFormatted = calculatetime(seconds)
   var table = document.createElement('tr');
-    table.innerHTML = "<th class='cell'>" + text + "</th>" + 
-                      "<th id=timeExp" + (i) + "' class='cell'>" + timeExp + "</th>" + 
-                      "<th id='time" + (i) + "' class='cell'>" + secondsFormatted + "</th>" + 
+    table.innerHTML = "<th id=task class='cell'>" + text + "</th>" + 
+                      "<th id=timeExp"  + "' class='cell'>" + timeExp + "</th>" + 
+                      "<th id='Time" + "' class='cell'>" + secondsFormatted + "</th>" + 
                       "<th class='cell'>" + 
-                      "<button class='timerButton' onclick='start(" + (i) + ")'>" + "Start" + "</button>" + 
-                      "<button class='timerButton' onclick='stop(" + (i) + ")'>" + "Stop" + "</button>" + 
-                      "<button class='timerButton' onclick='reset(" + (i) + ")'>" + "Reset" + "</button>" + 
+                      "<button class='timerButton' onclick='start(1)'>" + "Start" + "</button>" + 
+                      "<button class='timerButton' onclick='stop(1)'>" + "Stop" + "</button>" + 
+                      "<button class='timerButton' onclick='reset(1)'>" + "Reset" + "</button>" + 
+                      "<button class='timerButton' onclick='finish(1)'>" + "Finish" + "</button>" +
                       "</th>";
     incompleteTasks.appendChild(table);
-    started[i+1] = {yes:false};
 }
 const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
 // const Realtime = JSON.parse(localStorage.getItem('ActualTime'));
@@ -135,24 +150,22 @@ for (let i = 0; i < task2.length; i++) {
 }
 
 
-
-
+function stop(i) {
+  clearInterval(started[i].interval)
+  started[i].yes = false
+}
 function start(i) {
+  let temptime = JSON.parse(localStorage.getItem('time'));
   started[i] = {yes: true,date: new Date()};
-
-
-
-
   started[i].interval = setInterval(() => {
-
   let now = new Date()
-  now.setSeconds(now.getSeconds() + (newtime[i] || 0))
+  now.setSeconds(now.getSeconds() + (temptime || 0))
   let time = Math.round((now - started[i].date) / 1000);
 
   // setting the local storage time
-  localtime[i] = time || 0
-  // for (let i =0; i<localtime.entries.length; i++) {
-
+  localtime = time || 0
+  
+  console.log(temptime)
   // }
 
   localStorage.setItem('time', JSON.stringify(localtime));
@@ -162,23 +175,34 @@ function start(i) {
   const minutes2 =  String(minutes).padStart(2,'0')
   const seconds = time % 60;
   const seconds2 =  String(seconds).padStart(2,'0')
-  document.getElementById('time'+i).innerHTML = `${hours2}:${minutes2}:${seconds2}`;
+  document.getElementById('Time').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
   }, 1000);
 }
 
 
 
-function stop(i) {
-  clearInterval(started[i].interval)
-  started[i].yes = false
-}
+
 function reset(i) {
+  let zerotime = 0
   started[i].date = new Date()
-   document.getElementById('time'+i).innerHTML = `00:00:00`
+  localStorage.setItem('time', JSON.stringify(zerotime));
+   document.getElementById('Time').innerHTML = `00:00:00`
 }
 
 
-
+function finish(i) { 
+  let temptime2 = JSON.parse(localStorage.getItem('time'));
+  localStorage.setItem('tasks', JSON.stringify(timeExp[0]));
+  localStorage.setItem('TimeExpected', JSON.stringify(timeExp[0]));
+  localStorage.setItem('StoredTimes', JSON.stringify(temptime2));
+  var table = document.createElement('tr');
+    table.innerHTML = "<th class='cell'>" + tasks[0] + "</th>" + 
+                      "<th id=timeExp"  + "' class='cell'>" + timeExp[0] + "</th>" + 
+                      "<th id='Time" + "' class='cell'>" + calculatetime(temptime2) + "</th>" + 
+                      "<th class='cell'>" + 
+                      "</th>";
+    Completed.appendChild(table);
+}
 
 
 
