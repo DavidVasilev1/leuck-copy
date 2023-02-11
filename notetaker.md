@@ -3,11 +3,11 @@
 		<a href="http://davidvasilev1.github.io/leuck-copy/calc">
 			<button class="button" id="class1btn" type="button"></button>
 		</a>
-		<input placeholder="Class One" type="text" id="class1" />
+		<input placeholder="Class One" type="text" id="class1"/>
     	<a href="https://davidvasilev1.github.io/leuck-copy/bio">
     		<button class="button" id="class2btn" type="button"></button>
     	</a>
-    	<input placeholder="Class Two" type="text" id="class2" /
+    	<input placeholder="Class Two" type="text" id="class2"/>
     	<a href="https://davidvasilev1.github.io/leuck-copy/poe">
     		<button class="button" id="class3btn" type="button"></button>
     	</a>
@@ -19,7 +19,7 @@
     	<a href="https://davidvasilev1.github.io/leuck-copy/ush">
     		<button class="button" id="class5btn" type="button"></button>
     	</a>
-    	<input placeholder="Class Four" type="text" id="class5" />
+    	<input placeholder="Class Four" type="text" id="class5"/>
     </div>
     <style>
     	.class {
