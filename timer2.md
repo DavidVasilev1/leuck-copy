@@ -60,13 +60,20 @@
     <input id='ExpectedTime' type='text'>
 
 <br>
+<h3> Time Passed </h3>
+      <p id='TimePassed'>00:00:00</p>
+      <br>
+      <button class='timerButton' onclick='start()'> Start </button>
+      <button class='timerButton' onclick='stop()'> Stop </button>
+      <button class='timerButton' onclick='reset()'> Reset </button>
+<br>
 <br>
 <button class='button' id='addTaskButton' onclick="addTask()">Add</button>
 <!-- <br>
 <br> -->
 <!-- <h3> Real Time </h3>
 <p id='Time' type='text'> -->
-<h3 class="title"> To-Do </h3>
+<!-- <h3 class="title"> To-Do </h3>
         <table class="table" id="toDo" style="width: 100%; margin-left: auto; margin-right: auto;">
           <tr>
             <th class="cell">Task</th>
@@ -74,7 +81,7 @@
             <th class="cell">Actual Time</th>
             <th class="cell">Timer Controls</th>
           </tr>
-        </table>
+        </table> -->
 <h3 class="title"> Completed Tasks </h3>
         <table class="table" id="Completed" style="width: 100%; margin-left: auto; margin-right: auto;">
         <tr>
@@ -86,29 +93,16 @@
 <!-- </div> -->
 
 <script>
+const started = {}
 const newtime = JSON.parse(localStorage.getItem('time')) || 0;
-let localtime = 0
 var taskInput = document.getElementById('newTask');
 var addTaskButton = document.getElementById('addTaskButton');
 var timeInput = document.getElementById('ExpectedTime');
-var addTimeButton = document.getElementById('addTimeButton');
+// var addTimeButton = document.getElementById('addTimeButton');
 var completedTask = document.getElementById('completedTasks');
-var incompleteTasks = document.getElementById('toDo');
+// var incompleteTasks = document.getElementById('toDo');
 var timeBox = document.getElementById('Time')
-
-var tasks = []
-var timeExpected = []
-function addTask() {
-    var text = taskInput.value;
-    tasks.push(taskInput.value)
-    var timeExp = timeInput.value;
-    timeExpected.push(timeInput.value)
-    var ActualTime = 0;
-
-    // localStorage.setItem('ActualTime', JSON.stringify(ActualTime));
-
-    maketable(text, timeExp, tasks.length)
-}
+var TimePassed = document.getElementById('TimePassed');
 
 
 
@@ -124,30 +118,29 @@ function calculatetime(time) {
 }
 
 
-const started = {};
-function maketable(text, timeExp, time) {
-  let seconds = newtime || 0;
-  let secondsFormatted = calculatetime(seconds)
-  var table = document.createElement('tr');
-    table.innerHTML = "<th id=task class='cell'>" + text + "</th>" + 
-                      "<th id=timeExp"  + "' class='cell'>" + timeExp + "</th>" + 
-                      "<th id='Time" + "' class='cell'>" + secondsFormatted + "</th>" + 
-                      "<th class='cell'>" + 
-                      "<button class='timerButton' onclick='start(1)'>" + "Start" + "</button>" + 
-                      "<button class='timerButton' onclick='stop(1)'>" + "Stop" + "</button>" + 
-                      "<button class='timerButton' onclick='reset(1)'>" + "Reset" + "</button>" + 
-                      "<button class='timerButton' onclick='finish(1)'>" + "Finish" + "</button>" +
-                      "</th>";
-    incompleteTasks.appendChild(table);
-}
-const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
-// const Realtime = JSON.parse(localStorage.getItem('ActualTime'));
-const task2 = JSON.parse(localStorage.getItem('tasks'));
-for (let i = 0; i < task2.length; i++) {
-  tasks.push(task2[i])
-  timeExpected.push(timeExp[i])
-  maketable(task2[i], timeExp[i], i+1)
-}
+// const started = {};
+// function maketable(text, timeExp, time) {
+//   let seconds = newtime || 0;
+//   let secondsFormatted = calculatetime(seconds)
+//   var table = document.createElement('tr');
+//     table.innerHTML = "<th id=task class='cell'>" + text + "</th>" + 
+//                       "<th id=timeExp"  + "' class='cell'>" + timeExp + "</th>" + 
+//                       "<th id='Time" + "' class='cell'>" + secondsFormatted + "</th>" + 
+//                       "<th class='cell'>" + 
+//                       "<button class='timerButton' onclick='start(1)'>" + "Start" + "</button>" + 
+//                       "<button class='timerButton' onclick='stop(1)'>" + "Stop" + "</button>" + 
+//                       "<button class='timerButton' onclick='reset(1)'>" + "Reset" + "</button>" + 
+//                       "<button class='timerButton' onclick='finish(1)'>" + "Finish" + "</button>" +
+//                       "</th>";
+//     incompleteTasks.appendChild(table);
+// }
+
+
+// for (let i = 0; i < task2.length; i++) {
+//   tasks.push(task2[i])
+//   timeExpected.push(timeExp[i])
+//   maketable(task2[i], timeExp[i], i+1)
+// }
 
 
 function stop(i) {
@@ -165,7 +158,6 @@ function start(i) {
   // setting the local storage time
   localtime = time || 0
   
-  console.log(temptime)
   // }
 
   localStorage.setItem('time', JSON.stringify(localtime));
@@ -175,34 +167,80 @@ function start(i) {
   const minutes2 =  String(minutes).padStart(2,'0')
   const seconds = time % 60;
   const seconds2 =  String(seconds).padStart(2,'0')
-  document.getElementById('Time').innerHTML = `${hours2}:${minutes2}:${seconds2}`;
+  TimePassed.innerHTML = `${hours2}:${minutes2}:${seconds2}`;
   }, 1000);
 }
 
-
-
-
-function reset(i) {
+function reset() {
   let zerotime = 0
   started[i].date = new Date()
   localStorage.setItem('time', JSON.stringify(zerotime));
-   document.getElementById('Time').innerHTML = `00:00:00`
+   TimePassed.innerHTML = `00:00:00`
 }
 
+// let tasksL = []
+// let timeExpectedL = []
+// let timesL = []
 
-function finish(i) { 
-  let temptime2 = JSON.parse(localStorage.getItem('time'));
-  localStorage.setItem('tasks', JSON.stringify(timeExp[0]));
-  localStorage.setItem('TimeExpected', JSON.stringify(timeExp[0]));
-  localStorage.setItem('StoredTimes', JSON.stringify(temptime2));
-  var table = document.createElement('tr');
-    table.innerHTML = "<th class='cell'>" + tasks[0] + "</th>" + 
-                      "<th id=timeExp"  + "' class='cell'>" + timeExp[0] + "</th>" + 
-                      "<th id='Time" + "' class='cell'>" + calculatetime(temptime2) + "</th>" + 
-                      "<th class='cell'>" + 
-                      "</th>";
-    Completed.appendChild(table);
-}
+
+// const storedExp = JSON.parse(localStorage.getItem('TimeExpected'));
+// const tasks2 = JSON.parse(localStorage.getItem('tasks'));
+// const storedtimes = JSON.parse(localStorage.getItem('storedtimes'));
+// for (let i = 0; i < task2.length; i++) {
+//   tasksL.push(task2[i])
+//   console.log(tasksL)
+//   timeExpectedL.push(storedExp[i])
+//   timesL.push(storedtimes[i])
+// }
+
+// let temptime3 = []
+// const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
+// // const Realtime = JSON.parse(localStorage.getItem('ActualTime'));
+// const task2 = JSON.parse(localStorage.getItem('tasks'));
+// const StoredTimes = JSON.parse(localStorage.getItem('StoredTimes'));
+// for (let i = 0; i < task2.length; i++) {
+//   tasks.push(task2[i])
+//   timeExpected.push(timeExp[i])
+//   temptime3.push(StoredTimes[i])
+//   maketable(task2[i], timeExp[i], i+1)
+// }
+
+
+// function finish(i) { 
+
+
+//   var text = taskInput.value;
+//   tasks.push(taskInput.value)
+//   var timeExp = timeInput.value;
+//   timeExpected.push(timeInput.value)
+
+
+//   // var temptask = tasks
+//   // var tempExp = timeExp
+//   // console.log(tasks)
+//   let temptime2 = JSON.parse(localStorage.getItem('time'));
+//   temptime3.push(temptime2)
+
+
+
+  
+//   // tasksL.push(temptask)
+//   // timeExpectedL.push(tempExp)
+//   // timesL.push(temptime2)
+//   // storedExp.push(timeExp2)
+
+
+  
+//   localStorage.setItem('tasks', JSON.stringify(tasks));
+//   localStorage.setItem('TimeExpected', JSON.stringify(timeExpected));
+//   localStorage.setItem('StoredTimes', JSON.stringify(temptime3));
+//   var table = document.createElement('tr');
+//     table.innerHTML = "<th class='cell'>" + text + "</th>" + 
+//                       "<th id=timeExp"  + "' class='cell'>" + timeExp + "</th>" + 
+//                       "<th id='Time" + "' class='cell'>" + calculatetime(temptime2) + "</th>" + 
+//                       "</th>";
+//     Completed.appendChild(table);
+// }
 
 
 
