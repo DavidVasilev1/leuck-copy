@@ -139,12 +139,7 @@ for (let i = 0; i < task2.length; i++) {
 
 function start(i) {
   started[i] = {yes: true,date: new Date()};
-
-
-
-
   started[i].interval = setInterval(() => {
-
   let now = new Date()
   now.setSeconds(now.getSeconds() + (newtime[i] || 0))
   let time = Math.round((now - started[i].date) / 1000);
@@ -152,7 +147,7 @@ function start(i) {
   // setting the local storage time
   localtime[i] = time || 0
   // for (let i =0; i<localtime.entries.length; i++) {
-
+    console.log(started)
   // }
 
   localStorage.setItem('time', JSON.stringify(localtime));

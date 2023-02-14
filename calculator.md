@@ -68,7 +68,6 @@
   <input id='expression' class = 'input' type='text'>
   <button class="button" id="equals" on>=</button>
   <button class="button" id="clear" on>Clear</button>
-  <pre id="result" hidden></pre>
 </body>
 
 <script>
@@ -76,13 +75,13 @@
   var expression = document.getElementById('expression');
   var equals = document.getElementById('equals');
   var clear = document.getElementById('clear');
-  var result = document.getElementById('result');
   var answer = 0;
   const signs = ["+","-","*","/"]
   var num = 0;
   var operator = -1;
   var position = 0;
-  var initial = window.localStorage.getItem(CALC_KEY);
+  // var initial = window.localStorage.getItem(CALC_KEY);
+  var initial = getCalculations()
   var str = "";
   var array = [];
   var count = 0;
@@ -92,9 +91,52 @@
   var total = 0;
   var element = "";
   var edit = 0;
+  var editId = 0;
   var newStrText = "";
 
-  result.innerHTML = initial
+
+
+  function getCalculations() {
+    return JSON.parse(localStorage.getItem(CALC_KEY)) || []
+  }
+
+  function tableAdding(){
+    var calculations = getCalculations()
+
+    table = document.getElementById('table');
+    table.innerHTML = ""
+    table.className = "tableResult"
+
+    for (var i = 0; i < calculations.length; i++) {
+        var row = document.createElement('tr');
+        var column = document.createElement('td');
+        row.className = "rowLine"
+        column.className = "cellFormat"
+        row.textContent = calculations[i]
+        column.innerHTML = "<button class='buttonEdit' id='"+ i +"' onclick='editEntry("+ i +")'>" + "Edit" + "</button>"
+        table.appendChild(row);
+        row.appendChild(column);
+    }
+  }
+
+  
+  function addCalculation(calcStr) {
+    var prevValue = JSON.parse(localStorage.getItem(CALC_KEY)) || []
+    prevValue.push(calcStr)
+    var newValue = JSON.stringify(prevValue)
+    localStorage.setItem(CALC_KEY, newValue)
+    tableAdding()
+  }
+
+  function editCalculation(calcStr, id) {
+    var prevValue = JSON.parse(localStorage.getItem(CALC_KEY))
+    prevValue[id] = calcStr
+    var newValue = JSON.stringify(prevValue)
+    localStorage.setItem(CALC_KEY, newValue)
+    tableAdding()
+  }
+
+  console.log("dsdf",initial)
   var newStr = initial
   console.log("asdf",newStr)
   if ((newStr == "") || (newStr === null)){
@@ -104,7 +146,7 @@
 
   }
   else {
-    newStr = initial.split("\n")
+    // newStr = initial.split("\n")
     console.log("ddd",newStr)
     newStrFil = newStr.filter((str) => str !== '');
     console.log("init", initial)
@@ -124,40 +166,22 @@
   equals.addEventListener("click", function(){ countString(); });
   clear.addEventListener("click", function(){ clearEntry();});
 
-  function tableAdding(array){
-    table = document.getElementById('table');
-    table.className = "tableResult"
-    var rowCount = table.rows.length;
-    for (var i = rowCount-1; i > 0; i--) {
-        table.deleteRow(i);
-    }
-    table.deleteRow(-1);
-    for (var i = 0; i < array.length; i++) {
-        var row = document.createElement('tr');
-        var column = document.createElement('td');
-        row.className = "rowLine"
-        column.className = "cellFormat"
-        row.textContent = array[i]
-        column.innerHTML = "<button class='buttonEdit' id='"+ i +"' onclick='editEntry("+ i +")'>" + "Edit" + "</button>"
-        table.appendChild(row);
-        row.appendChild(column);
-    }
-  }
+
 
   
   function editEntry(entry){
     console.log("splendid:", entry)
-    console.log(newStrFil)
-    console.log(newStrFil[entry])
     var preexpression = newStrFil[entry];
     var prearray = Array.from(preexpression)
     for (let i = 0; i < preexpression.length; i++) {
         if (prearray[i] == "=") {
           expression.value = preexpression.substring(0, i)
-          console.log(preexpression.substring(0, i))
           edit = 1;
+          editId = entry;
         }
       }
+    expression.focus();
+    return entry
   }
   
 
@@ -165,14 +189,16 @@
     console.log("test")
     window.localStorage.clear();
     expression.value = "";
-    result.innerHTML = "";
     newStrFil = []
     tableAdding(newStrFil)
     expression.focus();
+    newStrFil = [];
+    console.log("apple:",newStrFil)
   }
   // program to check the number of occurrence of a character
 
   function countString() {
+    console.log("hi")
     str = expression.value;
     array = Array.from(str)
       count = 0;
@@ -228,13 +254,12 @@
     // }
     }
     if (str.toLowerCase() == "kaiden is a csp genius" || (str.toLowerCase().includes("kaiden") && str.toLowerCase().includes("genius") && !str.toLowerCase().includes("not") && !str.toLowerCase().includes("isn't") && !str.toLowerCase().includes("isnt"))) {
-      result.textContent += "True: " + str + ". Kaiden is number 1." + "\n"
+      addCalculation("True: " + str + ". Kaiden is number 1.")
       expression.value = "";
       element = "True: " + str + ". Kaiden is number 1."
       newStrFil.push(element)
       tableAdding(newStrFil)
       expression.focus();
-      window.localStorage.setItem(CALC_KEY, result.innerHTML);
       return
     } else if (operators.length == 0) {
       alert("Try Again");
@@ -272,6 +297,7 @@
   function solve(numbers, operators) {
     num1 = numbers[0]
     total = parseInt(num1);
+    let result = ""
     for (let i = 0; i < count; i++) {
       operator = operators[i]
       num2 = numbers[i+1]
@@ -286,19 +312,28 @@
       }
       total += answer
     }
-    result.textContent += num1
+    result += num1
     element = num1
 
     for (let i = 0; i < count; i++) {
-      result.textContent += signs[operators[i]] + numbers[i+1]
+      result += signs[operators[i]] + numbers[i+1]
       element += signs[operators[i]] + numbers[i+1]
     }
-    result.textContent += "=" + total + "\n"
+    result += "=" + total
     element += "=" + total
-    newStrFil.push(element)
-    console.log("apple:",newStrFil)
-    tableAdding(newStrFil)
-    window.localStorage.setItem(CALC_KEY, result.innerHTML);
+    if (edit === 1) {
+        editCalculation(result, editId)
+        edit = 0
+        newStrFil.splice(editId, 1, element);
+        console.log("asjdfonsdf", newStrFil)
+        editId = -1
+    }
+    else {
+      newStrFil.push(element)
+      console.log("apple:",newStrFil)
+      tableAdding(newStrFil)
+      addCalculation(result)
+    }
     operators.length = 0;
     numbers.length = 0;
     console.log(";;")
