@@ -66,15 +66,15 @@
    function count() {
       if (word_count > current){
          i++
-         current === word_count
+         current = word_count
          i = document.getElementById("save").innerHTML
          else if (word_count < current){
             i  = i-1
-            current === word_count
+            current = word_count
             i = document.getElementById("save").innerHTML
       else {
-         i === 0
-         current === 0 
+         i == 0
+         current = 0 
           i = document.getElementById("save").innerHTML
       }
          }
