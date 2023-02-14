@@ -32,6 +32,8 @@
       <button onclick="del_data()" id="delete" class="button">Delete All</button>
       <button onclick="save_data()" id="save" class="button">Save</button>
       </div>
+      <button id="count" class="button"></buttn>
+      <>
    </body>
    <script>
       function save_data() {
@@ -56,6 +58,28 @@
    let el = localStorage.getItem("class2")
    let header = document.getElementById("header")
    header.innerHTML = el;
+   document.getElementById("input2").addEventListener("change", count);
+   let word = document.getElementById("input2").value.split(" ");
+   let word_count = word.length;
+   let current = 0
+   let i = 0
+   function count() {
+      if (word_count > current){
+         i++
+         current === word_count
+         i = document.getElementById("save").innerHTML
+         else if (word_count < current){
+            i  = i-1
+            current === word_count
+            i = document.getElementById("save").innerHTML
+      else {
+         i === 0
+         current === 0 
+          i = document.getElementById("save").innerHTML
+      }
+         }
+      }
+   }
    </script>
 </body>
 </html>
