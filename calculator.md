@@ -126,6 +126,34 @@
     var newValue = JSON.stringify(prevValue)
     localStorage.setItem(CALC_KEY, newValue)
     tableAdding()
+    var expr;
+    var calcd;
+    var position = calcStr.search("=")
+    expr = calcStr.substring(0, position)
+    calcd = calcStr.substring(position+1, calcStr.length)
+        
+    console.log(expr, calcd)
+    
+    let expressionData = { expression: 'example' };
+    let answerData = { output: 'example' };
+
+    fetch('http://saakd.nighthawkcodingsociety.com/calculator', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((expressionData) => {
+        console.log('Success:', expressionData);
+      })
+      .then((answerData) => {
+        console.log('Success:', answerData);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   function editCalculation(calcStr, id) {
@@ -254,9 +282,9 @@
     // }
     }
     if (str.toLowerCase() == "kaiden is a csp genius" || (str.toLowerCase().includes("kaiden") && str.toLowerCase().includes("genius") && !str.toLowerCase().includes("not") && !str.toLowerCase().includes("isn't") && !str.toLowerCase().includes("isnt"))) {
-      addCalculation("True: " + str + ". Kaiden is number 1.")
+      addCalculation(str + "= true")
       expression.value = "";
-      element = "True: " + str + ". Kaiden is number 1."
+      element = str + "= true"
       newStrFil.push(element)
       tableAdding(newStrFil)
       expression.focus();
@@ -349,20 +377,20 @@
 //     redirect: 'follow'
 //   };
 
-//   fetch("http://localhost:8086/calculatorList", requestOptions)
+//   fetch("http://saakd.nighthawkcodingsociety.com/calculatorList", requestOptions)
 //     .then(response => response.text())
 //     .then(function(result) {
       
 //     })
 //     .catch(error => console.log('error', error)); 
 // // Post
-//   var requestOptions = {
-//     method: 'POST',
-//     redirect: 'follow'
-//   };
+  // var requestOptions = {
+  //   method: 'POST',
+  //   redirect: 'follow'
+  // };
 
-//   fetch("http://localhost:8086/calculator", requestOptions)
-//     .then(response => response.text())
-//     .then(result => console.log(result))
-//     .catch(error => console.log('error', error));
+  // fetch("http://saakd.nighthawkcodingsociety.com/calculator", requestOptions)
+  //   .then(response => response.text())
+  //   .then(result => console.log(result))
+  //   .catch(error => console.log('error', error));
 </script>
