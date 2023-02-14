@@ -32,7 +32,7 @@
       <button onclick="del_data()" id="delete" class="button">Delete All</button>
       <button onclick="save_data()" id="save" class="button">Save</button>
       </div>
-      <button id="count" class="button"></buttn>
+      <button id="count" class="button"></button>
       <>
    </body>
    <script>
