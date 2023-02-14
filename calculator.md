@@ -80,7 +80,8 @@
   var num = 0;
   var operator = -1;
   var position = 0;
-  var initial = window.localStorage.getItem(CALC_KEY);
+  // var initial = window.localStorage.getItem(CALC_KEY);
+  var initial = getCalculations()
   var str = "";
   var array = [];
   var count = 0;
@@ -93,56 +94,11 @@
   var editId = 0;
   var newStrText = "";
 
-  
-  function addCalculation(calcStr) {
-    var prevValue = JSON.parse(localStorage.getItem(CALC_KEY)) || []
-    prevValue.push(calcStr)
-    var newValue = JSON.stringify(prevValue)
-    localStorage.setItem(CALC_KEY, newValue)
-    tableAdding()
-  }
 
-  function editCalculation(calcStr, id) {
-    var prevValue = JSON.parse(localStorage.getItem(CALC_KEY))
-    prevValue[id] = calcStr
-    var newValue = JSON.stringify(prevValue)
-    localStorage.setItem(CALC_KEY, newValue)
-    tableAdding()
-  }
 
   function getCalculations() {
     return JSON.parse(localStorage.getItem(CALC_KEY)) || []
   }
-
-  
-  var newStr = initial
-  console.log("asdf",newStr)
-  if ((newStr == "") || (newStr === null)){
-    newStrFil = []
-    newStrText = newStrFil.toString()
-    console.log(newStrText) 
-
-  }
-  else {
-    newStr = initial.split("\n")
-    console.log("ddd",newStr)
-    newStrFil = newStr.filter((str) => str !== '');
-    console.log("init", initial)
-    newStrText = initial.toString()
-    console.log(newStrText)
-  }
-  console.log("test:",newStrFil)
-  tableAdding(newStrFil)
-
-  expression.focus();
-  expression.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    document.getElementById("equals").click();
-  }
-  });
-  equals.addEventListener("click", function(){ countString(); });
-  clear.addEventListener("click", function(){ clearEntry();});
 
   function tableAdding(){
     var calculations = getCalculations()
@@ -164,6 +120,55 @@
   }
 
   
+  function addCalculation(calcStr) {
+    var prevValue = JSON.parse(localStorage.getItem(CALC_KEY)) || []
+    prevValue.push(calcStr)
+    var newValue = JSON.stringify(prevValue)
+    localStorage.setItem(CALC_KEY, newValue)
+    tableAdding()
+  }
+
+  function editCalculation(calcStr, id) {
+    var prevValue = JSON.parse(localStorage.getItem(CALC_KEY))
+    prevValue[id] = calcStr
+    var newValue = JSON.stringify(prevValue)
+    localStorage.setItem(CALC_KEY, newValue)
+    tableAdding()
+  }
+
+  console.log("dsdf",initial)
+  var newStr = initial
+  console.log("asdf",newStr)
+  if ((newStr == "") || (newStr === null)){
+    newStrFil = []
+    newStrText = newStrFil.toString()
+    console.log(newStrText) 
+
+  }
+  else {
+    // newStr = initial.split("\n")
+    console.log("ddd",newStr)
+    newStrFil = newStr.filter((str) => str !== '');
+    console.log("init", initial)
+    newStrText = initial.toString()
+    console.log(newStrText)
+  }
+  console.log("test:",newStrFil)
+  tableAdding(newStrFil)
+
+  expression.focus();
+  expression.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("equals").click();
+  }
+  });
+  equals.addEventListener("click", function(){ countString(); });
+  clear.addEventListener("click", function(){ clearEntry();});
+
+
+
+  
   function editEntry(entry){
     console.log("splendid:", entry)
     var preexpression = newStrFil[entry];
@@ -175,6 +180,8 @@
           editId = entry;
         }
       }
+    expression.focus();
+    return entry
   }
   
 
@@ -185,10 +192,13 @@
     newStrFil = []
     tableAdding(newStrFil)
     expression.focus();
+    newStrFil = [];
+    console.log("apple:",newStrFil)
   }
   // program to check the number of occurrence of a character
 
   function countString() {
+    console.log("hi")
     str = expression.value;
     array = Array.from(str)
       count = 0;
@@ -311,15 +321,17 @@
     }
     result += "=" + total
     element += "=" + total
-    newStrFil.push(element)
-    console.log("apple:",newStrFil)
-    tableAdding(newStrFil)
     if (edit === 1) {
         editCalculation(result, editId)
         edit = 0
+        newStrFil.splice(editId, 1, element);
+        console.log("asjdfonsdf", newStrFil)
         editId = -1
     }
     else {
+      newStrFil.push(element)
+      console.log("apple:",newStrFil)
+      tableAdding(newStrFil)
       addCalculation(result)
     }
     operators.length = 0;
