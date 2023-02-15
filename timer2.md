@@ -149,7 +149,7 @@ const adddata = async () => {
 
 
 function delete2() {
-  fetch(api+'/timerList', {
+  fetch(api + '/timerList', {
     method: 'DELETE',
   })
     .then((response) => response.json())
@@ -292,7 +292,7 @@ function reset() {
   // localStorage.setItem('time', JSON.stringify(zerotime));
   //  TimePassed.innerHTML = `00:00:00`
   // delete2()
-  removetask();
+  delete2()
 }
 
 const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
