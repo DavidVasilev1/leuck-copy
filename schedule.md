@@ -371,7 +371,7 @@ const isLocalhost = Boolean(
 		window.location.hostname === "[::1]" ||
 		window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
 );
-const api = isLocalhost ? "http://172.21.29.110:8199/" : "https://saakd.nighthawkcodingsociety.com";
+const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com";
 
 const getList = async () => {
 	const list = await fetch(api + "/scheduleList").then((r) => r.json());
