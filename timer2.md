@@ -115,9 +115,13 @@ const getList = async () => {
 // getList().then()
 
 
-function addtoLocal(){
+function addtoLocal(tasks2, TimeExpected, storedtime){
 
-  let data = {storedtime: 10, tasks : "tasks2", timeExpected: "timeExpected2" }
+  let data = {
+    "tasks": tasks2,
+    "TimeExpected": TimeExpected,
+    "storedtime": storedtime
+}
   fetch(api + '/timer', {
     method: 'POST',
     headers: {
@@ -199,6 +203,7 @@ function addTask() {
     localStorage.setItem('time', JSON.stringify(zero))
     TimePassed.innerHTML = "00:00:00"
     maketable(text, timeExp, temptime3)
+    addtoLocal(text, timeExp, temptime3)
 }
 
 
@@ -269,7 +274,7 @@ function reset() {
   // localStorage.setItem('time', JSON.stringify(zerotime));
   //  TimePassed.innerHTML = `00:00:00`
   // delete2()
-  addtoLocal()
+  addtoLocal("Kaiden", "10", 10)
 }
 
 const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
