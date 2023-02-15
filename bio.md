@@ -36,16 +36,31 @@
    </body>
    <script>
       function save_data() {
-      let data = document.getElementById("input2").value.split(" ");
-      localStorage.setItem("a", JSON.stringify(data))
+         const addNote = async (id) => {
+      const note = await fetch(api + "/note", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({ id,text: getElementById("input2").value, subject: "Period 2" }),
+      }).then((r) => r.json());
+      notesLocal.push(note);
+      rerender();
+   };
     }
    document.getElementById("input2").value = JSON.parse(localStorage.getItem("a")).join(" ")
    function del_data(){
-      let mt = [];
-      localStorage.setItem("a", JSON.stringify(mt))
-      document.getElementById("input2").value = ""
+         const removeNoteNote = async (id) => {
+      const todo = await fetch(api + "/note", {
+         method: "DELETE",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({ id }),
+      }).then((r) => r.json());
+      rerender();
+   };
    }
-   document.getElementById("header") = localStorage.getItem("b")
    function bad_words(){
       let user_input_el = document.getElementById("input2")
       let user_input = user_input_el.value
