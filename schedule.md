@@ -91,7 +91,7 @@
   </div>
 <br>
 <br>
-<button class='button' id='addClassButton' type="reset" onclick="addTask()">Add</button>
+<button class='button' id='addClassButton' type="reset" onclick="addSchedule()">Add</button>
 </form>
 <br>
 <br>
@@ -310,14 +310,41 @@ var endInput = document.getElementById('newEnd');
 var addClassButton = document.getElementById('addClassButton');
 var incompleteTasks = document.getElementById('schedule');
 
+//local
+
+var periodX = []
+var class1X = []
+var classNumX = []
+var startTimeX = []
+var endTimeX = []
+function addSchedule() {
+    var period = periodInput.value;
+      periodX.push(periodInput.value)
+    var classIn = classInput.value;
+      class1X.push(classInput.value)
+    var classNum = classNumber.value;
+      classNumX.push(classNumber.value)
+    var start = startInput.value;
+      startTimeX.push(startInput.value)
+    var end = endInput.value;
+      endTimeX.push(endInput.value)
+    localStorage.setItem('period', JSON.stringify(periodX));
+    localStorage.setItem('class1', JSON.stringify(class1X));
+    localStorage.setItem('classNum', JSON.stringify(classNumX));
+    localStorage.setItem('startTime', JSON.stringify(startTimeX));
+    localStorage.setItem('endTime', JSON.stringify(endTimeX));
+    addTask(period, classIn, classNum, start, end)
+    addLocal(period, classIn, classNum, start, end)
+}
+
 var i = 0
 
-function addTask() {
-    var period = periodInput.value;
-    var classIn = classInput.value;
-    var classNum = classNumber.value;
-    var start = startInput.value;
-    var end = endInput.value;
+function addTask(period, classIn, classNum, start, end) {
+    // var period = periodInput.value;
+    // var classIn = classInput.value;
+    // var classNum = classNumber.value;
+    // var start = startInput.value;
+    // var end = endInput.value;
 
 
     var [h, m] = document.getElementById('newStart').value.split(":");
@@ -344,10 +371,7 @@ const isLocalhost = Boolean(
 		window.location.hostname === "[::1]" ||
 		window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
 );
-const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com";
-
-
-
+const api = isLocalhost ? "http://172.21.29.110:8199/" : "https://saakd.nighthawkcodingsociety.com";
 
 const getList = async () => {
 	const list = await fetch(api + "/scheduleList").then((r) => r.json());
@@ -355,17 +379,14 @@ const getList = async () => {
   return list
 };
 
-// getList().then()
-
-
-function addLocal(periodX, classX, classNumX, startTimeX, endTimeX){
+function addLocal(period, class1, classNum, startTime, endTime){
 
   let data = {
-    "period": periodX,
-    "class": classX,
-    "classNumber": classNumX,
-    "startTime": startTimeX,
-    "endTime": endTimeX
+    "period": period,
+    "class1": class1,
+    "classNumber": classNum,
+    "startTime": startTime,
+    "endTime": endTime
 }
   fetch(api + '/schedule', {
     method: 'POST',
@@ -388,7 +409,7 @@ const addData = async () => {
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({period: 10, class: "classX", classNum: "classNumX", startTime: "startTimeX", endTime: "endTimeX"}),
+		body: JSON.stringify({period: "period", class1: "class1", classNum: "classNum", startTime: "startTime", endTime: "endTime"}),
 	}).then((r) => r.json());
 };
 
