@@ -66,6 +66,49 @@
             // change the button text
     			btn.innerHTML = el.value;
     		});
-    	});
+    	})
+      const addNote = async (text) => {
+	const note = await fetch(api + "/note", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ text }),
+	}).then((r) => r.json());
+	notesLocal.push(note);
+	rerender();
+};
+const removeNote = async (id) => {
+	const note = await fetch(api + "/note", {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ id }),
+	}).then((r) => r.json());
+	notesLocal = notesLocal.filter((t) => t.id !== note.id);
+	rerender();
+};
+const toggleNote = async (id) => {
+	const note = await fetch(api + "/note", {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ id }),
+	}).then((r) => r.json());
+	const idx = notesLocal.findIndex((t) => t.id === note.id);
+	notesLocal[idx].completed = note.completed;
+	rerender();
+};
+const clearNotes = async () => {
+	const list = await fetch(api + "/noteList", {
+		method: "DELETE",
+	}).then((r) => r.json());
+	notesLocal = list;
+	rerender();
+};
     </script>
 </html>
+
+

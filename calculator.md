@@ -108,27 +108,6 @@
   const extracts = ["expression","output"]
   let combine = []
 
-
-  // var initial = getCalculations()
-  
-  // console.log("dsdf",initial)
-  // var newStr = initial
-  // console.log("asdf",newStr)
-  // if ((newStr == "") || (newStr === null)){
-  //   newStrFil = []
-  //   newStrText = newStrFil.toString()
-  //   console.log(newStrText) 
-
-  // }
-  // else {
-  //   // newStr = initial.split("\n")
-  //   console.log("ddd",newStr)
-  //   newStrFil = newStr.filter((str) => str !== '');
-  //   console.log("init", initial)
-  //   newStrText = initial.toString()
-  //   console.log(newStrText)
-  // }
-  // console.log("test:",newStrFil)
   getCalculations()
 
   expression.focus();
@@ -161,8 +140,6 @@
     
   }
 
-  
-
   function tableAdding(calculations){
 
     table = document.getElementById('table');
@@ -190,10 +167,6 @@
   }
   
   function addCalculation(calcStr) {
-    // var prevValue = combine
-    // prevValue.push(calcStr)
-    // var newValue = JSON.stringify(prevValue)
-    // localStorage.setItem(CALC_KEY, newValue)
     split(calcStr)
 
     let data = { expression: expr , output: calcd };
@@ -216,9 +189,6 @@
   }
 
   function editCalculation(calcStr, ids) {
-    // var prevValue = JSON.parse(localStorage.getItem(CALC_KEY))
-    // prevValue[ids] = calcStr
-    // var newValue = JSON.stringify(prevValue)
     split(calcStr)
     let num = ids+1
     let data = { id: num, expression: expr , output: calcd };
@@ -238,10 +208,6 @@
       
   }
 
-
-
-
-  
   function editEntry(entry){
     console.log("splendid:", entry)
     var preexpression = combine[entry];
@@ -270,12 +236,7 @@
       
     getCalculations()
     expression.focus()})
-    
-    // newStrFil = [];
-    // console.log("apple:",newStrFil)
-    
   }
-  // program to check the number of occurrence of a character
 
   function countString() {
     console.log("hi")
@@ -292,11 +253,8 @@
       console.log(count)
       separate(count, str, array)
   }
+
   function separate(count, str, array) {
-    // str = expression.value;
-    // console.log(str);
-    // array = Array.from(str)
-    // console.log(array);
     for (let j = 0; j < signs.length; j++) {
       for (let i = 0; i < str.length; i++) {
         if (array[i] == signs[j]) {
@@ -326,19 +284,11 @@
         operator = 3;
         operators.push(operator)
       } 
-    // else {
-    //   alert("Try Again");
-    //   expression.value = "";
-    //   expression.focus();
-    //   return
-    // }
     }
     if (str.toLowerCase() == "kaiden is a csp genius" || (str.toLowerCase().includes("kaiden") && str.toLowerCase().includes("genius") && !str.toLowerCase().includes("not") && !str.toLowerCase().includes("isn't") && !str.toLowerCase().includes("isnt"))) {
       addCalculation(str + "= true")
       expression.value = "";
       element = str + "= true"
-      // newStrFil.push(element)
-      // getCalculations()
       expression.focus();
       return
     } else if (operators.length == 0) {
@@ -348,13 +298,10 @@
        return
     }
     
-    
-    // operators.push(operator)
     console.log("op"+operator)
     operators.reverse()
     console.log("operators:",operators)
     for (let i = 0; i < count; i++) {
-      // var newLength = positions.length - i
       num = str.slice(positions[i] + 1, str.length).trim();
       str = str.slice(0, positions[i]);
       numbers.unshift(parseInt(num))
@@ -367,13 +314,12 @@
     console.log("numbers:",numbers)
     console.log("operators:",operators)
     console.log("positionsreverse",positions);
-    // num1 = str.slice(0, position).trim();
-    // num2 = str.slice(position + 1, str.length).trim();
     expression.value = "";
     expression.focus();
 
     solve(numbers, operators);
   }
+  
   function solve(numbers, operators) {
     num1 = numbers[0]
     total = parseInt(num1);
@@ -405,12 +351,10 @@
         editCalculation(result, editId)
         edit = 0
         combine.splice(editId, 1, element);
-        // console.log("asjdfonsdf", newStrFil)
         editId = -1
     }
     else {
       combine.push(element)
-      // console.log("apple:",newStrFil)
       
       addCalculation(result)
       
@@ -420,30 +364,4 @@
     console.log(";;")
     positions.length = 0;
   }
-// // Get
-//   var myHeaders = new Headers();
-//   myHeaders.append("Content-Type", "application/json");
-
-//   var requestOptions = {
-//     method: 'GET',
-//     headers: myHeaders,
-//     redirect: 'follow'
-//   };
-
-//   fetch("http://saakd.nighthawkcodingsociety.com/calculatorList", requestOptions)
-//     .then(response => response.text())
-//     .then(function(result) {
-      
-//     })
-//     .catch(error => console.log('error', error)); 
-// // Post
-  // var requestOptions = {
-  //   method: 'POST',
-  //   redirect: 'follow'
-  // };
-
-  // fetch("http://saakd.nighthawkcodingsociety.com/calculator", requestOptions)
-  //   .then(response => response.text())
-  //   .then(result => console.log(result))
-  //   .catch(error => console.log('error', error));
 </script>
