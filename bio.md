@@ -82,7 +82,7 @@
          current = document.getElementById("save").innerHTML
          else if (word_count < current){
             current = word_count
-            icn = document.getElementById("save").innerHTML
+            icn = document.getElementById("save").innerHTML}
       else if (word_count === 0) {
          current = 0
          current = document.getElementById("save").innerHTML
