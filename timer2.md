@@ -149,11 +149,29 @@ const adddata = async () => {
 
 
 function delete2() {
-  fetch(api+'/timerList', {
+  fetch(api + '/timerList', {
     method: 'DELETE',
   })
     .then((response) => response.json())
 }
+
+const clearTasks = async () => {
+	const list = await fetch(api + "/timerList", {
+		method: "DELETE",
+	}).then((r) => r.json());
+};
+
+const removetask = async () => {
+	const todo = await fetch(api + "/task", {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ id:1 }),
+	}).then((r) => r.json());
+
+
+};
 
 // const addTodo = async (text: string) => {
 // 	const todo = await fetch(api + "/timer", {
@@ -274,7 +292,7 @@ function reset() {
   // localStorage.setItem('time', JSON.stringify(zerotime));
   //  TimePassed.innerHTML = `00:00:00`
   // delete2()
-  addtoLocal("Kaiden", "10", 10)
+  delete2()
 }
 
 const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
