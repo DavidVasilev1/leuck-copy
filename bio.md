@@ -1,6 +1,6 @@
 <html>
 <body>
-   <h2 id="header"></h2>
+   <h2 id="header">Period 2</h2>
    <style>
       .box {
          width: 500px;
@@ -60,21 +60,17 @@
    document.getElementById("input2").addEventListener("change", count);
    let word = document.getElementById("input2").value.split(" ");
    let word_count = word.length;
-   let current = 0
-   let i = 0
+   let current = 0 
    function count() {
       if (word_count > current){
-         i++
          current = word_count
-         i = document.getElementById("save").innerHTML
+         current = document.getElementById("save").innerHTML
          else if (word_count < current){
-            i  = i-1
             current = word_count
-            i = document.getElementById("save").innerHTML
-      else {
-         i == 0
-         current = 0 
-          i = document.getElementById("save").innerHTML
+            icn = document.getElementById("save").innerHTML
+      else if (word_count === 0) {
+         current = 0
+         current = document.getElementById("save").innerHTML
       }
          }
       }

@@ -50,65 +50,6 @@
          align-items: center;
     	}
     </style>
-    <script>
-    	let inputs = [1, 2, 3, 4, 5].map((i) => `class${i}`);
-    	inputs.forEach(function (id) {
-         // input element
-    		let el = document.getElementById(id);
-         // button element
-         let btn = document.getElementById(id + "btn");
-         // update elements with localstorage (if its empty, use and empty string)
-    		el.value = localStorage.getItem(id) || "";
-         btn.innerHTML = localStorage.getItem(id) || "";
-         // every time they type, update localstorage
-    		el.addEventListener("change", function() {
-    			localStorage.setItem(id, el.value);
-            // change the button text
-    			btn.innerHTML = el.value;
-    		});
-    	})
-      const addNote = async (text) => {
-	const note = await fetch(api + "/note", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({ text }),
-	}).then((r) => r.json());
-	notesLocal.push(note);
-	rerender();
-};
-const removeNote = async (id) => {
-	const note = await fetch(api + "/note", {
-		method: "DELETE",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({ id }),
-	}).then((r) => r.json());
-	notesLocal = notesLocal.filter((t) => t.id !== note.id);
-	rerender();
-};
-const toggleNote = async (id) => {
-	const note = await fetch(api + "/note", {
-		method: "PUT",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({ id }),
-	}).then((r) => r.json());
-	const idx = notesLocal.findIndex((t) => t.id === note.id);
-	notesLocal[idx].completed = note.completed;
-	rerender();
-};
-const clearNotes = async () => {
-	const list = await fetch(api + "/noteList", {
-		method: "DELETE",
-	}).then((r) => r.json());
-	notesLocal = list;
-	rerender();
-};
-    </script>
 </html>
 
 

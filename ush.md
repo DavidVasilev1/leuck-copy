@@ -1,6 +1,6 @@
 <html>
 <body>
-   <h2>US History Note-Taker</h2>
+   <h2>Period 5</h2>
    <style>
       .box {
          width: 500px;
