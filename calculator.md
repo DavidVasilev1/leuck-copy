@@ -80,7 +80,6 @@
   var num = 0;
   var operator = -1;
   var position = 0;
-  // var initial = window.localStorage.getItem(CALC_KEY);
   var str = "";
   var array = [];
   var count = 0;
@@ -105,31 +104,73 @@
   );
   const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com";
 
-  var initial = getCalculations()
+  let expressions, outputs
+  const extracts = ["expression","output"]
+  let combine = []
 
+
+  // var initial = getCalculations()
+  
+  // console.log("dsdf",initial)
+  // var newStr = initial
+  // console.log("asdf",newStr)
+  // if ((newStr == "") || (newStr === null)){
+  //   newStrFil = []
+  //   newStrText = newStrFil.toString()
+  //   console.log(newStrText) 
+
+  // }
+  // else {
+  //   // newStr = initial.split("\n")
+  //   console.log("ddd",newStr)
+  //   newStrFil = newStr.filter((str) => str !== '');
+  //   console.log("init", initial)
+  //   newStrText = initial.toString()
+  //   console.log(newStrText)
+  // }
+  // console.log("test:",newStrFil)
+  getCalculations()
+
+  expression.focus();
+  expression.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("equals").click();
+  }
+  });
+  equals.addEventListener("click", function(){ countString(); });
+  clear.addEventListener("click", function(){ clearEntry();});
 
   function getCalculations() {
+    combine = []
     fetch(api + "/calculatorList")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      calcslocal = JSON.stringify(data)
-      console.log("work",calcslocal)
+    .then(response => response.json())
+    .then(data => {
+      console.log("asdfd",data)
+      expressions = data.map(obj => obj[extracts[0]])
+      outputs = data.map(obj => obj[extracts[1]])
+      console.log("expr",expressions)
+      console.log("outs",outputs)
+      for (var i = 0; i < expressions.length; i++) {
+        combine.push(expressions[i]+"="+outputs[i])
+      }
+      
+    console.log("?",combine)
+    tableAdding(combine)
     })
     
-    return JSON.parse(localStorage.getItem(CALC_KEY)) || []
   }
 
-  function tableAdding(){
-    var calculations = getCalculations()
-    console.log("asdfassdff", calculations)
+  
+
+  function tableAdding(calculations){
 
     table = document.getElementById('table');
     table.innerHTML = ""
     table.className = "tableResult"
 
     for (var i = 0; i < calculations.length; i++) {
+        console.log("his")
         var row = document.createElement('tr');
         var column = document.createElement('td');
         row.className = "rowLine"
@@ -149,11 +190,10 @@
   }
   
   function addCalculation(calcStr) {
-    var prevValue = JSON.parse(localStorage.getItem(CALC_KEY)) || []
-    prevValue.push(calcStr)
-    var newValue = JSON.stringify(prevValue)
-    localStorage.setItem(CALC_KEY, newValue)
-    tableAdding()
+    // var prevValue = combine
+    // prevValue.push(calcStr)
+    // var newValue = JSON.stringify(prevValue)
+    // localStorage.setItem(CALC_KEY, newValue)
     split(calcStr)
 
     let data = { expression: expr , output: calcd };
@@ -164,18 +204,21 @@
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((response) => { response.json()
+      
+    getCalculations()})
       .catch((error) => {
         console.error('Error:', error);
       });
+
+    
+    
   }
 
   function editCalculation(calcStr, ids) {
-    var prevValue = JSON.parse(localStorage.getItem(CALC_KEY))
-    prevValue[ids] = calcStr
-    var newValue = JSON.stringify(prevValue)
-    localStorage.setItem(CALC_KEY, newValue)
-    tableAdding()
+    // var prevValue = JSON.parse(localStorage.getItem(CALC_KEY))
+    // prevValue[ids] = calcStr
+    // var newValue = JSON.stringify(prevValue)
     split(calcStr)
     let num = ids+1
     let data = { id: num, expression: expr , output: calcd };
@@ -186,48 +229,22 @@
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((response) => { response.json()
+      
+    getCalculations()})
       .catch((error) => {
         console.error('Error:', error);
       });
+      
   }
 
-  console.log("dsdf",initial)
-  var newStr = initial
-  console.log("asdf",newStr)
-  if ((newStr == "") || (newStr === null)){
-    newStrFil = []
-    newStrText = newStrFil.toString()
-    console.log(newStrText) 
-
-  }
-  else {
-    // newStr = initial.split("\n")
-    console.log("ddd",newStr)
-    newStrFil = newStr.filter((str) => str !== '');
-    console.log("init", initial)
-    newStrText = initial.toString()
-    console.log(newStrText)
-  }
-  console.log("test:",newStrFil)
-  tableAdding(newStrFil)
-
-  expression.focus();
-  expression.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    document.getElementById("equals").click();
-  }
-  });
-  equals.addEventListener("click", function(){ countString(); });
-  clear.addEventListener("click", function(){ clearEntry();});
 
 
 
   
   function editEntry(entry){
     console.log("splendid:", entry)
-    var preexpression = newStrFil[entry];
+    var preexpression = combine[entry];
     var prearray = Array.from(preexpression)
     for (let i = 0; i < preexpression.length; i++) {
         if (prearray[i] == "=") {
@@ -243,17 +260,20 @@
 
   function clearEntry() {
     console.log("test")
-    window.localStorage.clear();
     expression.value = "";
-    newStrFil = []
-    tableAdding(newStrFil)
-    expression.focus();
-    newStrFil = [];
-    console.log("apple:",newStrFil)
+    combine = []
+
     fetch(api + '/calculatorList', {
       method: 'DELETE',
     })
-      .then((response) => response.json())
+      .then((response) => { response.json()
+      
+    getCalculations()
+    expression.focus()})
+    
+    // newStrFil = [];
+    // console.log("apple:",newStrFil)
+    
   }
   // program to check the number of occurrence of a character
 
@@ -317,8 +337,8 @@
       addCalculation(str + "= true")
       expression.value = "";
       element = str + "= true"
-      newStrFil.push(element)
-      tableAdding(newStrFil)
+      // newStrFil.push(element)
+      // getCalculations()
       expression.focus();
       return
     } else if (operators.length == 0) {
@@ -384,15 +404,16 @@
     if (edit === 1) {
         editCalculation(result, editId)
         edit = 0
-        newStrFil.splice(editId, 1, element);
-        console.log("asjdfonsdf", newStrFil)
+        combine.splice(editId, 1, element);
+        // console.log("asjdfonsdf", newStrFil)
         editId = -1
     }
     else {
-      newStrFil.push(element)
-      console.log("apple:",newStrFil)
-      tableAdding(newStrFil)
+      combine.push(element)
+      // console.log("apple:",newStrFil)
+      
       addCalculation(result)
+      
     }
     operators.length = 0;
     numbers.length = 0;
