@@ -93,6 +93,71 @@
 <!-- </div> -->
 
 <script>
+
+// connecting to backend
+
+const isLocalhost = Boolean(
+	window.location.hostname === "localhost" ||
+		window.location.hostname === "[::1]" ||
+		window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+);
+const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com";
+
+
+
+
+const getList = async () => {
+	const list = await fetch(api + "/timerList").then((r) => r.json());
+	timersLocal = list;
+  return list
+};
+
+// getList().then()
+
+
+function addtoLocal(){
+
+  let data = {storedtime: 10, tasks : "tasks2", timeExpected: "timeExpected2" }
+  fetch(api + '/timer', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
+
+
+function delete2() {
+  fetch(api+'/timerList', {
+    method: 'DELETE',
+  })
+    .then((response) => response.json())
+}
+
+// const addTodo = async (text: string) => {
+// 	const todo = await fetch(api + "/timer", {
+// 		method: "POST",
+// 		headers: {
+// 			"Content-Type": "application/json",
+// 		},
+// 		body: JSON.stringify({ text }),
+// 	}).then((r) => r.json());
+
+// 	todosLocal.push(todo);
+// 	rerender();
+// };
+
+
+
+
+
+
 const started = {}
 const newtime = JSON.parse(localStorage.getItem('time')) || 0;
 var taskInput = document.getElementById('newTask');
@@ -127,7 +192,7 @@ function addTask() {
 
 
 function calculatetime(time) {
-   const hours = Math.floor(time / 3600)
+  const hours = Math.floor(time / 3600)
   const hours2 = String(hours).padStart(2,'0')
   const minutes = Math.floor(time / 60);
   const minutes2 =  String(minutes).padStart(2,'0')
@@ -187,22 +252,46 @@ function start(i) {
 }
 
 function reset() {
-  let zerotime = 0
-  started[i].date = new Date()
-  localStorage.setItem('time', JSON.stringify(zerotime));
-   TimePassed.innerHTML = `00:00:00`
+  // getList().then(console.log)
+  // let zerotime = 0
+  // started[i].date = new Date()
+  // localStorage.setItem('time', JSON.stringify(zerotime));
+  //  TimePassed.innerHTML = `00:00:00`
+  // delete2()
+  addtoLocal()
 }
 
 const timeExp = JSON.parse(localStorage.getItem('TimeExpected'));
 // const Realtime = JSON.parse(localStorage.getItem('ActualTime'));
 const task2 = JSON.parse(localStorage.getItem('tasks'));
 const storedtimes2 = JSON.parse(localStorage.getItem('storedtime'));
-for (let i = 0; i < task2.length; i++) {
-  tasks.push(task2[i])
-  timeExpected.push(timeExp[i])
-  storedtimes.push(storedtimes2[i])
-  maketable(task2[i], timeExp[i], storedtimes2[i])
+
+getList().then(function(items) {
+  // console.log(items);
+  let array = items
+  for (let i = 0; i < array.length; i++) {
+  const task = array[i];
+  maketable(task.tasks, task.TimeExpected, task.storedtime);
+  tasks.push(task.tasks)
+  timeExpected.push(task.TimeExpected)
+  storedtimes.push(task.storedtime)
 }
+
+});
+
+
+// for (let i = 0; i < task2.length; i++) {
+//   tasks.push(task2[i])
+//   timeExpected.push(timeExp[i])
+//   storedtimes.push(storedtimes2[i])
+//   maketable(task2[i], timeExp[i], storedtimes2[i])
+// }
+
+
+
+
+
+
 
 
 // let tasksL = []
