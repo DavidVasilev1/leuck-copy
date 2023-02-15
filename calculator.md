@@ -81,7 +81,6 @@
   var operator = -1;
   var position = 0;
   // var initial = window.localStorage.getItem(CALC_KEY);
-  var initial = getCalculations()
   var str = "";
   var array = [];
   var count = 0;
@@ -93,15 +92,38 @@
   var edit = 0;
   var editId = 0;
   var newStrText = "";
+  var expr;
+  var calcd;
+  var calcslocal
+  var calcslocalex;
+  var calcslocalout;
 
+  const isLocalhost = Boolean(
+	  window.location.hostname === "localhost" ||
+		window.location.hostname === "[::1]" ||
+	  window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+  );
+  const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com";
+
+  var initial = getCalculations()
 
 
   function getCalculations() {
+    fetch(api + "/calculatorList")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      calcslocal = JSON.stringify(data)
+      console.log("work",calcslocal)
+    })
+    
     return JSON.parse(localStorage.getItem(CALC_KEY)) || []
   }
 
   function tableAdding(){
     var calculations = getCalculations()
+    console.log("asdfassdff", calculations)
 
     table = document.getElementById('table');
     table.innerHTML = ""
@@ -118,7 +140,13 @@
         row.appendChild(column);
     }
   }
-
+  function split(str){
+    var position = str.search("=")
+    expr = str.substring(0, position)
+    calcd = str.substring(position+1, str.length)
+        
+    console.log(expr, calcd)
+  }
   
   function addCalculation(calcStr) {
     var prevValue = JSON.parse(localStorage.getItem(CALC_KEY)) || []
@@ -126,18 +154,10 @@
     var newValue = JSON.stringify(prevValue)
     localStorage.setItem(CALC_KEY, newValue)
     tableAdding()
-    var expr;
-    var calcd;
-    var position = calcStr.search("=")
-    expr = calcStr.substring(0, position)
-    calcd = calcStr.substring(position+1, calcStr.length)
-        
-    console.log(expr, calcd)
-    
-    let expressionData = { expression: 'example' };
-    let answerData = { output: 'example' };
+    split(calcStr)
 
-    fetch('http://saakd.nighthawkcodingsociety.com/calculator', {
+    let data = { expression: expr , output: calcd };
+    fetch(api + '/calculator', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -145,23 +165,31 @@
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
-      .then((expressionData) => {
-        console.log('Success:', expressionData);
-      })
-      .then((answerData) => {
-        console.log('Success:', answerData);
-      })
       .catch((error) => {
         console.error('Error:', error);
       });
   }
 
-  function editCalculation(calcStr, id) {
+  function editCalculation(calcStr, ids) {
     var prevValue = JSON.parse(localStorage.getItem(CALC_KEY))
-    prevValue[id] = calcStr
+    prevValue[ids] = calcStr
     var newValue = JSON.stringify(prevValue)
     localStorage.setItem(CALC_KEY, newValue)
     tableAdding()
+    split(calcStr)
+    let num = ids+1
+    let data = { id: num, expression: expr , output: calcd };
+    fetch(api + '/calculator', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   console.log("dsdf",initial)
@@ -222,6 +250,10 @@
     expression.focus();
     newStrFil = [];
     console.log("apple:",newStrFil)
+    fetch(api + '/calculatorList', {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
   }
   // program to check the number of occurrence of a character
 
