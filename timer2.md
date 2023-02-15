@@ -129,8 +129,19 @@ function addtoLocal(){
     .catch((error) => {
       console.error('Error:', error);
     });
-}
 
+
+
+}
+const adddata = async () => {
+	const timer = await fetch(api + "/timer", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({storedtime: 10, tasks : "tasks2", timeExpected: "timeExpected2"}),
+	}).then((r) => r.json());
+};
 
 
 function delete2() {
