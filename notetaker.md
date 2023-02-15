@@ -90,7 +90,7 @@ const removeNote = async (id) => {
 	rerender();
 };
 const toggleNote = async (id) => {
-	const  = await fetch(api + "/note", {
+	const note = await fetch(api + "/note", {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
