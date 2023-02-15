@@ -33,7 +33,6 @@
       <button onclick="save_data()" id="save" class="button">Save</button>
       </div>
       <button id="count" class="button"></button>
-      <>
    </body>
    <script>
       function save_data() {
