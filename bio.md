@@ -76,20 +76,20 @@
    let word = document.getElementById("input2").value.split(" ");
    let word_count = word.length;
    let current = 0 
-   function count() {
-      if (word_count > current){
-         current = word_count
-         current = document.getElementById("save").innerHTML
-         else if (word_count < current){
-            current = word_count
-            icn = document.getElementById("save").innerHTML}
-      else if (word_count === 0) {
-         current = 0
-         current = document.getElementById("save").innerHTML
-      }
-         }
-      }
-   }
+   //function count() {
+    //  if (word_count > current){
+     //    current = word_count
+      //   current = document.getElementById("save").innerHTML
+       //  else if (word_count < current){
+        //    current = word_count
+         //   icn = document.getElementById("save").innerHTML}
+     // else if (word_count === 0) {
+      //   current = 0
+       //  current = document.getElementById("save").innerHTML
+     // }
+      //   }
+      //}
+   
    </script>
 </body>
 </html>
