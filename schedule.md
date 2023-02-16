@@ -77,7 +77,7 @@
 
   <div class='texts1'>    
     <h3> Period </h3>
-        <input autocomplete="off" id='newPeriod' type='number' required>
+        <input autocomplete="off" id='newPeriod' type='text' required>
     <h3> Class </h3>
         <input autocomplete="off" id='newClass' type='text' required>
     <h3> Class Number </h3>
@@ -370,7 +370,7 @@ getList().then(list => {
     
     const result = coords.find(({ room }) => room === cls.classNum);
     console.log(result)
-    drawStar(result.x, result.y, 5, 20, 10)  
+    drawStar(result.x, result.y, 5, 20, 10)
   });
 })
 
@@ -402,11 +402,21 @@ function remove() {
     method: 'DELETE',
   })
     .then((response) => response.json())
+
+  // getList().then(list => {
+  //   list.forEach(cls => {
+  //     const result = coords.find(({ room }) => room === cls.classNum);
+  //     console.log(result)
+  //     clearStroke(result.x, result.y, 5, 20, 10)
+  //   });
+  // });
+
   var x = 1
+
   while (x=1) {
-      const element = document.getElementById("class");
-      element.remove();
-    }
+    const element = document.getElementById("class");
+    element.remove();
   }
+}
   
 </script>
