@@ -35,31 +35,40 @@
       <button id="count" class="button"></button>
    </body>
    <script>
-      function save_data() {
-         const addNote = async (id) => {
-      const note = await fetch(api + "/note", {
-         method: "POST",
-         headers: {
-            "Content-Type": "application/json",
-         },
-         body: JSON.stringify({ id,text: getElementById("input2").value, subject: "Period 2" }),
-      }).then((r) => r.json());
-      notesLocal.push(note);
-      rerender();
-   };
-    }
-   document.getElementById("input2").value = JSON.parse(localStorage.getItem("a")).join(" ")
+fetch('/note?id=1')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+const isLocalhost = Boolean(
+	  window.location.hostname === "localhost" ||
+		window.location.hostname === "[::1]" ||
+	  window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+  );
+  const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com"
+   function save_data() {
+      fetch(api + '/note', {
+         method: 'POST',
+         headers: {'Content-Type': 'application/json'},
+         body: JSON.stringify({
+            text: document.getElementById("input2"),
+            subject: 'Period 2'
+  })
+})
+         .then(response => response.json())
+         .then(data => console.log(data))
+         .catch(error => console.error(error));
+}
    function del_data(){
-         const removeNoteNote = async (id) => {
-      const todo = await fetch(api + "/note", {
-         method: "DELETE",
-         headers: {
-            "Content-Type": "application/json",
-         },
-         body: JSON.stringify({ id }),
-      }).then((r) => r.json());
-      rerender();
-   };
+      fetch('/note', {
+         method: 'DELETE',
+         headers: {'Content-Type': 'application/json'},
+         body: JSON.stringify({
+         id: 1
+  })
+})
+         .then(response => response.json())
+         .then(data => console.log(data))
+         .catch(error => console.error(error));
    }
    function bad_words(){
       let user_input_el = document.getElementById("input2")
@@ -79,13 +88,14 @@
    //function count() {
     //  if (word_count > current){
      //    current = word_count
-      //   current = document.getElementById("save").innerHTML
+      //   current = document.getElementById("count").innerHTML
        //  else if (word_count < current){
         //    current = word_count
-         //   icn = document.getElementById("save").innerHTML}
+         //   current = document.getElementById("count").innerHTML
+         //}
      // else if (word_count === 0) {
       //   current = 0
-       //  current = document.getElementById("save").innerHTML
+       //  current = document.getElementById("count").innerHTML
      // }
       //   }
       //}
