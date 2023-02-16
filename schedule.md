@@ -91,8 +91,9 @@
   </div>
 <br>
 <br>
-<button class='button' id='addClassButton' type="reset" onclick="addSchedule()">Add</button>
+<button class='button' id='addClassButton' onclick="addSchedule()">Add</button>
 </form>
+<button class='button' id='remove'>Clear</button>
 <br>
 <br>
 <h3 class="title"> Classes </h3>
@@ -117,6 +118,8 @@
 var c = document.getElementById("canvas");
 var ctx2 = c.getContext("2d");
 var img = document.getElementById("map");
+
+
 
 if (img.complete) {
     ctx2.drawImage(img, 0, 0, 652, 652);
@@ -253,11 +256,9 @@ for (var i = 0; i < coords.length; i++) {
     var room = coords[i].room;
     var x = coords[i].x;
     var y = coords[i].y;
-    console.log(room)
-    console.log(x,y)
+
+    // console.log(room, x, y)
 } 
-
-
 
 var d = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -308,7 +309,10 @@ var classNumber = document.getElementById('classNum');
 var startInput = document.getElementById('newStart');
 var endInput = document.getElementById('newEnd');
 var addClassButton = document.getElementById('addClassButton');
+var clear = document.getElementById('remove')
 var incompleteTasks = document.getElementById('schedule');
+
+
 
 //local
 
@@ -322,8 +326,8 @@ function addSchedule() {
       periodX.push(periodInput.value)
     var classIn = classInput.value;
       class1X.push(classInput.value)
-    var classNum = classNumber.value;
-      classNumX.push(classNumber.value)
+    var classNum = document.getElementById('classNum').value;
+      classNumX.push(classNum)
     var start = startInput.value;
       startTimeX.push(startInput.value)
     var end = endInput.value;
@@ -333,6 +337,7 @@ function addSchedule() {
     localStorage.setItem('classNum', JSON.stringify(classNumX));
     localStorage.setItem('startTime', JSON.stringify(startTimeX));
     localStorage.setItem('endTime', JSON.stringify(endTimeX));
+    // console.log({classNum})
     addTask(period, classIn, classNum, start, end)
     addLocal(period, classIn, classNum, start, end)
 }
@@ -348,7 +353,7 @@ function addTask(period, classIn, classNum, start, end) {
 
 
     var [h, m] = document.getElementById('newStart').value.split(":");
-    console.log((h % 12 ? h % 12 : 12) + ":" + m, h >= 12 ? 'PM' : 'AM');
+    // console.log((h % 12 ? h % 12 : 12) + ":" + m, h >= 12 ? 'PM' : 'AM');
 
     i++;
 
@@ -359,9 +364,6 @@ function addTask(period, classIn, classNum, start, end) {
         "<th id='class" + i + "' class='cell'>" + start + "</th>" +
         "<th id='class" + i + "' class='cell'>" + end + "</th>";
     incompleteTasks.appendChild(table);
-    if (classNumber = room) {
-      console.log(x);
-    }
 }
 
 // API connect
@@ -373,11 +375,24 @@ const isLocalhost = Boolean(
 );
 const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com";
 
+// clear.addEventListener("click", function(){
+//   remove();
+// });
+
 const getList = async () => {
 	const list = await fetch(api + "/scheduleList").then((r) => r.json());
 	scheduleLocal = list;
   return list
 };
+
+getList().then(list => {
+  list.forEach(cls => {
+
+    addTask(cls.period, cls.class1, cls.classNum, cls.startTime, cls.endTime)
+    
+    console.log(cls.classNum)
+  });
+})
 
 function addLocal(period, class1, classNum, startTime, endTime){
 
@@ -399,19 +414,14 @@ function addLocal(period, class1, classNum, startTime, endTime){
     .catch((error) => {
       console.error('Error:', error);
     });
-
-
-
 }
-const addData = async () => {
-	const timer = await fetch(api + "/schedule", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({period: "period", class1: "class1", classNum: "classNum", startTime: "startTime", endTime: "endTime"}),
-	}).then((r) => r.json());
-};
 
+function remove() {
+  console.log("work")
+  fetch(api + '/scheduleList', {
+    method: 'DELETE',
+  })
+    .then((response) => response.json())
+}
 
 </script>
