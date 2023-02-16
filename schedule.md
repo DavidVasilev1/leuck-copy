@@ -322,7 +322,6 @@ function addSchedule() {
     localStorage.setItem('endTime', JSON.stringify(endTimeX))
     addTask(period, classIn, classNum, start, end)
     addLocal(period, classIn, classNum, start, end)
-    
 }
 
 var i = 0
@@ -411,7 +410,6 @@ function remove() {
   //     clearStroke(result.x, result.y, 5, 20, 10)
   //   });
   // });
-  window.location.reload();
   var x = 1
 
   while (x=1) {
