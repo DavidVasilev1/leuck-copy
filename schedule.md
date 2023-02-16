@@ -92,6 +92,7 @@
 <br>
 <br>
 <button class='button' id='addClassButton' type="reset" onclick="addSchedule()">Add</button>
+<button class='button' id='remove' type="reset" onclick="reset()">Clear</button>
 </form>
 <br>
 <br>
@@ -253,8 +254,8 @@ for (var i = 0; i < coords.length; i++) {
     var room = coords[i].room;
     var x = coords[i].x;
     var y = coords[i].y;
-    console.log(room)
-    console.log(x,y)
+    // console.log(room)
+    // console.log(x,y)
 } 
 
 
@@ -322,8 +323,8 @@ function addSchedule() {
       periodX.push(periodInput.value)
     var classIn = classInput.value;
       class1X.push(classInput.value)
-    var classNum = classNumber.value;
-      classNumX.push(classNumber.value)
+    var classNum = document.getElementById('classNum').value;
+      classNumX.push(classNum)
     var start = startInput.value;
       startTimeX.push(startInput.value)
     var end = endInput.value;
@@ -333,6 +334,7 @@ function addSchedule() {
     localStorage.setItem('classNum', JSON.stringify(classNumX));
     localStorage.setItem('startTime', JSON.stringify(startTimeX));
     localStorage.setItem('endTime', JSON.stringify(endTimeX));
+    console.log({classNum})
     addTask(period, classIn, classNum, start, end)
     addLocal(period, classIn, classNum, start, end)
 }
@@ -379,6 +381,12 @@ const getList = async () => {
   return list
 };
 
+getList().then(list => {
+  list.forEach(cls => {
+    addTask(cls.period, cls.class1, cls.classNum, cls.startTime, cls.endTime)
+  });
+})
+
 function addLocal(period, class1, classNum, startTime, endTime){
 
   let data = {
@@ -399,19 +407,27 @@ function addLocal(period, class1, classNum, startTime, endTime){
     .catch((error) => {
       console.error('Error:', error);
     });
-
-
-
 }
-const addData = async () => {
-	const timer = await fetch(api + "/schedule", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({period: "period", class1: "class1", classNum: "classNum", startTime: "startTime", endTime: "endTime"}),
-	}).then((r) => r.json());
-};
 
+// const addData = async () => {
+// 	const timer = await fetch(api + "/schedule", {
+// 		method: "POST",
+// 		headers: {
+// 			"Content-Type": "application/json",
+// 		},
+// 		body: JSON.stringify({period: "period", class1: "class1", classNum: "classNum ", startTime: "startTime", endTime: "endTime"}),
+// 	}).then((r) => r.json());
+// };
+
+function remove() {
+  fetch(api + '/scheduleList', {
+    method: 'DELETE',
+  })
+    .then((response) => response.json())
+}
+
+function reset() {
+  remove()
+}
 
 </script>
