@@ -1,6 +1,6 @@
 <html>
 <body>
-   <h2 id="header"></h2>
+   <h2 id="header">Period 2</h2>
    <style>
       .box {
          width: 500px;
@@ -36,16 +36,31 @@
    </body>
    <script>
       function save_data() {
-      let data = document.getElementById("input2").value.split(" ");
-      localStorage.setItem("a", JSON.stringify(data))
+         const addNote = async (id) => {
+      const note = await fetch(api + "/note", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({ id,text: getElementById("input2").value, subject: "Period 2" }),
+      }).then((r) => r.json());
+      notesLocal.push(note);
+      rerender();
+   };
     }
    document.getElementById("input2").value = JSON.parse(localStorage.getItem("a")).join(" ")
    function del_data(){
-      let mt = [];
-      localStorage.setItem("a", JSON.stringify(mt))
-      document.getElementById("input2").value = ""
+         const removeNoteNote = async (id) => {
+      const todo = await fetch(api + "/note", {
+         method: "DELETE",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({ id }),
+      }).then((r) => r.json());
+      rerender();
+   };
    }
-   document.getElementById("header") = localStorage.getItem("b")
    function bad_words(){
       let user_input_el = document.getElementById("input2")
       let user_input = user_input_el.value
@@ -60,25 +75,21 @@
    document.getElementById("input2").addEventListener("change", count);
    let word = document.getElementById("input2").value.split(" ");
    let word_count = word.length;
-   let current = 0
-   let i = 0
-   function count() {
-      if (word_count > current){
-         i++
-         current = word_count
-         i = document.getElementById("save").innerHTML
-         else if (word_count < current){
-            i  = i-1
-            current = word_count
-            i = document.getElementById("save").innerHTML
-      else {
-         i == 0
-         current = 0 
-          i = document.getElementById("save").innerHTML
-      }
-         }
-      }
-   }
+   let current = 0 
+   //function count() {
+    //  if (word_count > current){
+     //    current = word_count
+      //   current = document.getElementById("save").innerHTML
+       //  else if (word_count < current){
+        //    current = word_count
+         //   icn = document.getElementById("save").innerHTML}
+     // else if (word_count === 0) {
+      //   current = 0
+       //  current = document.getElementById("save").innerHTML
+     // }
+      //   }
+      //}
+   
    </script>
 </body>
 </html>

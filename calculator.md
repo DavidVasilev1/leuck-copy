@@ -80,7 +80,6 @@
   var num = 0;
   var operator = -1;
   var position = 0;
-  // var initial = window.localStorage.getItem(CALC_KEY);
   var str = "";
   var array = [];
   var count = 0;
@@ -105,31 +104,50 @@
   );
   const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com";
 
-  var initial = getCalculations()
+  let expressions, outputs
+  const extracts = ["expression","output"]
+  let combine = []
 
+  getCalculations()
+
+  expression.focus();
+  expression.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("equals").click();
+  }
+  });
+  equals.addEventListener("click", function(){ countString(); });
+  clear.addEventListener("click", function(){ clearEntry();});
 
   function getCalculations() {
+    combine = []
     fetch(api + "/calculatorList")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      calcslocal = JSON.stringify(data)
-      console.log("work",calcslocal)
+    .then(response => response.json())
+    .then(data => {
+      console.log("asdfd",data)
+      expressions = data.map(obj => obj[extracts[0]])
+      outputs = data.map(obj => obj[extracts[1]])
+      console.log("expr",expressions)
+      console.log("outs",outputs)
+      for (var i = 0; i < expressions.length; i++) {
+        combine.push(expressions[i]+"="+outputs[i])
+      }
+      
+    console.log("?",combine)
+    tableAdding(combine)
     })
     
-    return JSON.parse(localStorage.getItem(CALC_KEY)) || []
   }
 
-  function tableAdding(){
-    var calculations = getCalculations()
-    console.log("asdfassdff", calculations)
+  function tableAdding(calculations){
 
     table = document.getElementById('table');
     table.innerHTML = ""
     table.className = "tableResult"
 
     for (var i = 0; i < calculations.length; i++) {
+        console.log("his")
         var row = document.createElement('tr');
         var column = document.createElement('td');
         row.className = "rowLine"
@@ -149,11 +167,6 @@
   }
   
   function addCalculation(calcStr) {
-    var prevValue = JSON.parse(localStorage.getItem(CALC_KEY)) || []
-    prevValue.push(calcStr)
-    var newValue = JSON.stringify(prevValue)
-    localStorage.setItem(CALC_KEY, newValue)
-    tableAdding()
     split(calcStr)
 
     let data = { expression: expr , output: calcd };
@@ -164,18 +177,18 @@
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((response) => { response.json()
+      
+    getCalculations()})
       .catch((error) => {
         console.error('Error:', error);
       });
+
+    
+    
   }
 
   function editCalculation(calcStr, ids) {
-    var prevValue = JSON.parse(localStorage.getItem(CALC_KEY))
-    prevValue[ids] = calcStr
-    var newValue = JSON.stringify(prevValue)
-    localStorage.setItem(CALC_KEY, newValue)
-    tableAdding()
     split(calcStr)
     let num = ids+1
     let data = { id: num, expression: expr , output: calcd };
@@ -186,48 +199,19 @@
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((response) => { response.json()
+      
+    getCalculations()})
       .catch((error) => {
         console.error('Error:', error);
       });
+      
   }
 
-  console.log("dsdf",initial)
-  var newStr = initial
-  console.log("asdf",newStr)
-  if ((newStr == "") || (newStr === null)){
-    newStrFil = []
-    newStrText = newStrFil.toString()
-    console.log(newStrText) 
 
-  }
-  else {
-    // newStr = initial.split("\n")
-    console.log("ddd",newStr)
-    newStrFil = newStr.filter((str) => str !== '');
-    console.log("init", initial)
-    newStrText = initial.toString()
-    console.log(newStrText)
-  }
-  console.log("test:",newStrFil)
-  tableAdding(newStrFil)
-
-  expression.focus();
-  expression.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    document.getElementById("equals").click();
-  }
-  });
-  equals.addEventListener("click", function(){ countString(); });
-  clear.addEventListener("click", function(){ clearEntry();});
-
-
-
-  
   function editEntry(entry){
     console.log("splendid:", entry)
-    var preexpression = newStrFil[entry];
+    var preexpression = combine[entry];
     var prearray = Array.from(preexpression)
     for (let i = 0; i < preexpression.length; i++) {
         if (prearray[i] == "=") {
@@ -243,19 +227,17 @@
 
   function clearEntry() {
     console.log("test")
-    window.localStorage.clear();
     expression.value = "";
-    newStrFil = []
-    tableAdding(newStrFil)
-    expression.focus();
-    newStrFil = [];
-    console.log("apple:",newStrFil)
+    combine = []
+
     fetch(api + '/calculatorList', {
       method: 'DELETE',
     })
-      .then((response) => response.json())
+      .then((response) => { response.json()
+      
+    getCalculations()
+    expression.focus()})
   }
-  // program to check the number of occurrence of a character
 
   function countString() {
     console.log("hi")
@@ -272,11 +254,8 @@
       console.log(count)
       separate(count, str, array)
   }
+
   function separate(count, str, array) {
-    // str = expression.value;
-    // console.log(str);
-    // array = Array.from(str)
-    // console.log(array);
     for (let j = 0; j < signs.length; j++) {
       for (let i = 0; i < str.length; i++) {
         if (array[i] == signs[j]) {
@@ -306,19 +285,11 @@
         operator = 3;
         operators.push(operator)
       } 
-    // else {
-    //   alert("Try Again");
-    //   expression.value = "";
-    //   expression.focus();
-    //   return
-    // }
     }
     if (str.toLowerCase() == "kaiden is a csp genius" || (str.toLowerCase().includes("kaiden") && str.toLowerCase().includes("genius") && !str.toLowerCase().includes("not") && !str.toLowerCase().includes("isn't") && !str.toLowerCase().includes("isnt"))) {
       addCalculation(str + "= true")
       expression.value = "";
       element = str + "= true"
-      newStrFil.push(element)
-      tableAdding(newStrFil)
       expression.focus();
       return
     } else if (operators.length == 0) {
@@ -328,13 +299,10 @@
        return
     }
     
-    
-    // operators.push(operator)
     console.log("op"+operator)
     operators.reverse()
     console.log("operators:",operators)
     for (let i = 0; i < count; i++) {
-      // var newLength = positions.length - i
       num = str.slice(positions[i] + 1, str.length).trim();
       str = str.slice(0, positions[i]);
       numbers.unshift(parseInt(num))
@@ -347,13 +315,12 @@
     console.log("numbers:",numbers)
     console.log("operators:",operators)
     console.log("positionsreverse",positions);
-    // num1 = str.slice(0, position).trim();
-    // num2 = str.slice(position + 1, str.length).trim();
     expression.value = "";
     expression.focus();
 
     solve(numbers, operators);
   }
+  
   function solve(numbers, operators) {
     num1 = numbers[0]
     total = parseInt(num1);
@@ -384,45 +351,18 @@
     if (edit === 1) {
         editCalculation(result, editId)
         edit = 0
-        newStrFil.splice(editId, 1, element);
-        console.log("asjdfonsdf", newStrFil)
+        combine.splice(editId, 1, element);
         editId = -1
     }
     else {
-      newStrFil.push(element)
-      console.log("apple:",newStrFil)
-      tableAdding(newStrFil)
+      combine.push(element)
+      
       addCalculation(result)
+      
     }
     operators.length = 0;
     numbers.length = 0;
     console.log(";;")
     positions.length = 0;
   }
-// // Get
-//   var myHeaders = new Headers();
-//   myHeaders.append("Content-Type", "application/json");
-
-//   var requestOptions = {
-//     method: 'GET',
-//     headers: myHeaders,
-//     redirect: 'follow'
-//   };
-
-//   fetch("http://saakd.nighthawkcodingsociety.com/calculatorList", requestOptions)
-//     .then(response => response.text())
-//     .then(function(result) {
-      
-//     })
-//     .catch(error => console.log('error', error)); 
-// // Post
-  // var requestOptions = {
-  //   method: 'POST',
-  //   redirect: 'follow'
-  // };
-
-  // fetch("http://saakd.nighthawkcodingsociety.com/calculator", requestOptions)
-  //   .then(response => response.text())
-  //   .then(result => console.log(result))
-  //   .catch(error => console.log('error', error));
 </script>

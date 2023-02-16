@@ -50,22 +50,6 @@
          align-items: center;
     	}
     </style>
-    <script>
-    	let inputs = [1, 2, 3, 4, 5].map((i) => `class${i}`);
-    	inputs.forEach(function (id) {
-         // input element
-    		let el = document.getElementById(id);
-         // button element
-         let btn = document.getElementById(id + "btn");
-         // update elements with localstorage (if its empty, use and empty string)
-    		el.value = localStorage.getItem(id) || "";
-         btn.innerHTML = localStorage.getItem(id) || "";
-         // every time they type, update localstorage
-    		el.addEventListener("change", function() {
-    			localStorage.setItem(id, el.value);
-            // change the button text
-    			btn.innerHTML = el.value;
-    		});
-    	});
-    </script>
 </html>
+
+

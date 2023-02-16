@@ -91,8 +91,11 @@
   </div>
 <br>
 <br>
-<button class='button' id='addClassButton' type="reset" onclick="addTask()">Add</button>
+<button class='button' id='addClassButton' type="reset" onclick="addSchedule()">Add</button>
+<button class='button' id='remove' type="reset" onclick="reset()">Clear</button>
 </form>
+<br>
+<br>
 <h3 class="title"> Classes </h3>
         <table class="table" id="schedule" style="width: 100%; margin-left: auto; margin-right: auto;">
           <tr>
@@ -115,7 +118,147 @@
 var c = document.getElementById("canvas");
 var ctx2 = c.getContext("2d");
 var img = document.getElementById("map");
-ctx2.drawImage(img, 0, 0, 652, 652);
+
+if (img.complete) {
+    ctx2.drawImage(img, 0, 0, 652, 652);
+} else {
+    img.onload = function () {
+        ctx2.drawImage(img, 0, 0, 652, 652);    
+    };
+}
+
+function storeCoordinate(room, xVal, yVal, array) {
+    array.push({room: room, x: xVal, y: yVal});
+}
+
+var coords = [];
+
+storeCoordinate("A101",347,507,coords)
+storeCoordinate("A102",325,509,coords)
+storeCoordinate("A107",302,501,coords)
+storeCoordinate("A116",283,487,coords)
+storeCoordinate("A124",261,484,coords)
+storeCoordinate("A125",243,469,coords)
+storeCoordinate("A126",228,445,coords)
+storeCoordinate("A136",253,425,coords)
+storeCoordinate("A138",267,436,coords)
+storeCoordinate("A144",313,462,coords)
+storeCoordinate("A148",325,437,coords)
+storeCoordinate("A150",330,469,coords)
+storeCoordinate("A151",349,471,coords)
+storeCoordinate("B111",573,358,coords)
+storeCoordinate("B113",594,356,coords)
+storeCoordinate("B115",619,354,coords)
+storeCoordinate("B121",592,239,coords)
+storeCoordinate("B123",571,247,coords)
+storeCoordinate("B125",551,255,coords)
+storeCoordinate("B128",521,263,coords)
+storeCoordinate("D101",450,260,coords)
+storeCoordinate("D102",431,241,coords)
+storeCoordinate("D103",463,247,coords)
+storeCoordinate("D104",445,229,coords)
+storeCoordinate("D111",471,203,coords)
+storeCoordinate("D112",489,221,coords)
+storeCoordinate("D113",485,189,coords)
+storeCoordinate("D114",503,208,coords)
+storeCoordinate("D115",499,176,coords)
+storeCoordinate("D116",517,194,coords)
+storeCoordinate("D117",513,162,coords)
+storeCoordinate("D118",531,183,coords)
+storeCoordinate("E101",435,175,coords)
+storeCoordinate("E102",419,169,coords)
+storeCoordinate("E103",451,153,coords)
+storeCoordinate("E104",427,144,coords)
+storeCoordinate("E105",461,129,coords)
+storeCoordinate("E106",437,119,coords)
+storeCoordinate("G101",373,215,coords)
+storeCoordinate("G102",345,213,coords)
+storeCoordinate("G103",374,199,coords)
+storeCoordinate("G104",346,353,coords)
+storeCoordinate("G111",349,162,coords)
+storeCoordinate("G112",377,163,coords)
+storeCoordinate("G113",350,143,coords)
+storeCoordinate("G114",377,144,coords)
+storeCoordinate("G115",350,123,coords)
+storeCoordinate("G116",376,125,coords)
+storeCoordinate("G117",352,104,coords)
+storeCoordinate("G118",379,105,coords)
+storeCoordinate("J101",281,233,coords)
+storeCoordinate("J102",305,222,coords)
+storeCoordinate("J103",272,215,coords)
+storeCoordinate("J104",297,204,coords)
+storeCoordinate("J110",260,188,coords)
+storeCoordinate("J111",254,177,coords)
+storeCoordinate("J112",249,165,coords)
+storeCoordinate("J113",283,175,coords)
+storeCoordinate("J114",275,157,coords)
+storeCoordinate("J115",241,151,coords)
+storeCoordinate("J116",266,139,coords)
+storeCoordinate("J117",233,133,coords)
+storeCoordinate("J118",257,122,coords)
+storeCoordinate("K101",222,208,coords)
+storeCoordinate("K102",209,223,coords)
+storeCoordinate("K103",206,186,coords)
+storeCoordinate("K104",185,206,coords)
+storeCoordinate("K105",186,167,coords)
+storeCoordinate("K106",165,187,coords)
+storeCoordinate("L101",234,283,coords)
+storeCoordinate("L102",224,307,coords)
+storeCoordinate("L103",218,276,coords)
+storeCoordinate("L104",208,299,coords)
+storeCoordinate("L110",179,287,coords)
+storeCoordinate("L111",167,282,coords)
+storeCoordinate("L112",155,276,coords)
+storeCoordinate("L113",186,261,coords)
+storeCoordinate("L114",169,252,coords)
+storeCoordinate("L115",140,270,coords)
+storeCoordinate("L116",151,245,coords)
+storeCoordinate("L117",121,262,coords)
+storeCoordinate("L118",133,237,coords)
+storeCoordinate("M101",103,312,coords)
+storeCoordinate("M116",75,350,coords)
+storeCoordinate("N113",170,422,coords)
+storeCoordinate("N122",157,359,coords)
+storeCoordinate("P101",176,468,coords)
+storeCoordinate("P104",156,462,coords)
+storeCoordinate("P107",152,479,coords)
+storeCoordinate("P108",133,490,coords)
+storeCoordinate("P111",106,482,coords)
+storeCoordinate("P116",98,456,coords)
+storeCoordinate("R300",452,66,coords)
+storeCoordinate("R301",481,76,coords)
+storeCoordinate("R302",506,89,coords)
+storeCoordinate("R303",530,103,coords)
+storeCoordinate("R401",392,49,coords)
+storeCoordinate("R402",418,53,coords)
+storeCoordinate("R501",334,42,coords)
+storeCoordinate("R502",361,44,coords)
+storeCoordinate("S101",100,147,coords)
+storeCoordinate("S102",118,132,coords)
+storeCoordinate("S103",137,114,coords)
+storeCoordinate("S104",155,100,coords)
+storeCoordinate("S105",170,85,coords)
+storeCoordinate("S106",186,72,coords)
+storeCoordinate("S107",201,58,coords)
+storeCoordinate("Performing Arts Center",137,395,coords)
+storeCoordinate("Library",380,477,coords)
+storeCoordinate("Administration",423,454,coords)
+storeCoordinate("Food Court",477,323,coords)
+storeCoordinate("Gym",571,304,coords)
+
+coords[0].room == "A101"
+coords[0].x == 347
+coords[0].y == 507
+
+for (var i = 0; i < coords.length; i++) {
+    var room = coords[i].room;
+    var x = coords[i].x;
+    var y = coords[i].y;
+    // console.log(room)
+    // console.log(x,y)
+} 
+
+
 
 var d = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -150,9 +293,15 @@ function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
 
 }
 
-drawStar(347, 507, 5, 15, 5)
+// min = Math.ceil(0);
+// max = Math.floor(600);
+
+// const x1 = Math.floor(Math.random() * (max - min) + min);;
+// const y1 = Math.floor(Math.random() * (max - min) + min);;
 
 
+
+drawStar(x, y, 5, 15, 5)
 
 var periodInput = document.getElementById('newPeriod');
 var classInput = document.getElementById('newClass');
@@ -162,14 +311,42 @@ var endInput = document.getElementById('newEnd');
 var addClassButton = document.getElementById('addClassButton');
 var incompleteTasks = document.getElementById('schedule');
 
+//local
+
+var periodX = []
+var class1X = []
+var classNumX = []
+var startTimeX = []
+var endTimeX = []
+function addSchedule() {
+    var period = periodInput.value;
+      periodX.push(periodInput.value)
+    var classIn = classInput.value;
+      class1X.push(classInput.value)
+    var classNum = document.getElementById('classNum').value;
+      classNumX.push(classNum)
+    var start = startInput.value;
+      startTimeX.push(startInput.value)
+    var end = endInput.value;
+      endTimeX.push(endInput.value)
+    localStorage.setItem('period', JSON.stringify(periodX));
+    localStorage.setItem('class1', JSON.stringify(class1X));
+    localStorage.setItem('classNum', JSON.stringify(classNumX));
+    localStorage.setItem('startTime', JSON.stringify(startTimeX));
+    localStorage.setItem('endTime', JSON.stringify(endTimeX));
+    console.log({classNum})
+    addTask(period, classIn, classNum, start, end)
+    addLocal(period, classIn, classNum, start, end)
+}
+
 var i = 0
 
-function addTask() {
-    var period = periodInput.value;
-    var classIn = classInput.value;
-    var classNum = classNumber.value;
-    var start = startInput.value;
-    var end = endInput.value;
+function addTask(period, classIn, classNum, start, end) {
+    // var period = periodInput.value;
+    // var classIn = classInput.value;
+    // var classNum = classNumber.value;
+    // var start = startInput.value;
+    // var end = endInput.value;
 
 
     var [h, m] = document.getElementById('newStart').value.split(":");
@@ -184,5 +361,73 @@ function addTask() {
         "<th id='class" + i + "' class='cell'>" + start + "</th>" +
         "<th id='class" + i + "' class='cell'>" + end + "</th>";
     incompleteTasks.appendChild(table);
+    if (classNumber = room) {
+      console.log(x);
+    }
 }
+
+// API connect
+
+const isLocalhost = Boolean(
+	window.location.hostname === "localhost" ||
+		window.location.hostname === "[::1]" ||
+		window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+);
+const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com";
+
+const getList = async () => {
+	const list = await fetch(api + "/scheduleList").then((r) => r.json());
+	scheduleLocal = list;
+  return list
+};
+
+getList().then(list => {
+  list.forEach(cls => {
+    addTask(cls.period, cls.class1, cls.classNum, cls.startTime, cls.endTime)
+  });
+})
+
+function addLocal(period, class1, classNum, startTime, endTime){
+
+  let data = {
+    "period": period,
+    "class1": class1,
+    "classNumber": classNum,
+    "startTime": startTime,
+    "endTime": endTime
+}
+  fetch(api + '/schedule', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
+// const addData = async () => {
+// 	const timer = await fetch(api + "/schedule", {
+// 		method: "POST",
+// 		headers: {
+// 			"Content-Type": "application/json",
+// 		},
+// 		body: JSON.stringify({period: "period", class1: "class1", classNum: "classNum ", startTime: "startTime", endTime: "endTime"}),
+// 	}).then((r) => r.json());
+// };
+
+function remove() {
+  fetch(api + '/scheduleList', {
+    method: 'DELETE',
+  })
+    .then((response) => response.json())
+}
+
+function reset() {
+  remove()
+}
+
 </script>
