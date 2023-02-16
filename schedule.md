@@ -315,11 +315,11 @@ function addSchedule() {
       startTimeX.push(startInput.value)
     var end = endInput.value;
       endTimeX.push(endInput.value)
-    localStorage.setItem('period', JSON.stringify(periodX));
-    localStorage.setItem('class1', JSON.stringify(class1X));
-    localStorage.setItem('classNum', JSON.stringify(classNumX));
-    localStorage.setItem('startTime', JSON.stringify(startTimeX));
-    localStorage.setItem('endTime', JSON.stringify(endTimeX));
+    localStorage.setItem('period', JSON.stringify(periodX))
+    localStorage.setItem('class1', JSON.stringify(class1X))
+    localStorage.setItem('classNum', JSON.stringify(classNumX))
+    localStorage.setItem('startTime', JSON.stringify(startTimeX))
+    localStorage.setItem('endTime', JSON.stringify(endTimeX))
     addTask(period, classIn, classNum, start, end)
     addLocal(period, classIn, classNum, start, end)
 }
@@ -337,6 +337,11 @@ function addTask(period, classIn, classNum, start, end) {
         "<th id='class' class='cell'>" + start + "</th>" +
         "<th id='class' class='cell'>" + end + "</th>";
     incompleteTasks.appendChild(table);
+    document.getElementById('newPeriod').value = "";
+    document.getElementById('newClass').value = "";
+    document.getElementById('classNum').value = "";
+    document.getElementById('newStart').value = "";
+    document.getElementById('newEnd').value = "";
 }
 
 // API connect
@@ -392,18 +397,16 @@ function addLocal(period, class1, classNum, startTime, endTime){
 }
 
 function remove() {
-  
-  var x = 1
-
-  while (x=1) {
-    const element = document.getElementById("class");
-    element.remove();
-  }
   console.log("work")
   fetch(api + '/scheduleList', {
     method: 'DELETE',
   })
     .then((response) => response.json())
-}
-
+  var x = 1
+  while (x=1) {
+      const element = document.getElementById("class");
+      element.remove();
+    }
+  }
+  
 </script>
