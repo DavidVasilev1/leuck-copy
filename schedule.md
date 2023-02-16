@@ -74,7 +74,7 @@
 </style>
 
 <div class='container'>
-<form id="addInfo">
+
   <div class='texts1'>    
     <h3> Period </h3>
         <input autocomplete="off" id='newPeriod' type='number' required>
@@ -92,7 +92,7 @@
 <br>
 <br>
 <button class='button' id='addClassButton' onclick="addSchedule()">Add</button>
-</form>
+
 <button class='button' id='remove'>Clear</button>
 <br>
 <br>
@@ -108,7 +108,7 @@
         </table>
 </div>
 
-<img src="images/school_map.png" id="map" alt="map" usemap="#map" hidden>
+<img src="images/school_map.jpg" id="map" alt="map" usemap="#map" hidden>
 
 <canvas id="canvas" width="652px" height="652px" style="border: 1px solid #000000;">
 </canvas>
@@ -256,8 +256,6 @@ for (var i = 0; i < coords.length; i++) {
     var room = coords[i].room;
     var x = coords[i].x;
     var y = coords[i].y;
-
-    // console.log(room, x, y)
 } 
 
 var d = document.getElementById("canvas");
@@ -286,22 +284,9 @@ function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
     ctx.lineTo(cx, cy - outerRadius)
     ctx.closePath();
     ctx.lineWidth=5;
-    ctx.strokeStyle='black';
+    ctx.strokeStyle='red';
     ctx.stroke();
-    ctx.fillStyle='red';
-    ctx.fill();
-
 }
-
-// min = Math.ceil(0);
-// max = Math.floor(600);
-
-// const x1 = Math.floor(Math.random() * (max - min) + min);;
-// const y1 = Math.floor(Math.random() * (max - min) + min);;
-
-
-
-drawStar(x, y, 5, 15, 5)
 
 var periodInput = document.getElementById('newPeriod');
 var classInput = document.getElementById('newClass');
@@ -311,8 +296,6 @@ var endInput = document.getElementById('newEnd');
 var addClassButton = document.getElementById('addClassButton');
 var clear = document.getElementById('remove')
 var incompleteTasks = document.getElementById('schedule');
-
-
 
 //local
 
@@ -337,7 +320,6 @@ function addSchedule() {
     localStorage.setItem('classNum', JSON.stringify(classNumX));
     localStorage.setItem('startTime', JSON.stringify(startTimeX));
     localStorage.setItem('endTime', JSON.stringify(endTimeX));
-    // console.log({classNum})
     addTask(period, classIn, classNum, start, end)
     addLocal(period, classIn, classNum, start, end)
 }
@@ -345,24 +327,15 @@ function addSchedule() {
 var i = 0
 
 function addTask(period, classIn, classNum, start, end) {
-    // var period = periodInput.value;
-    // var classIn = classInput.value;
-    // var classNum = classNumber.value;
-    // var start = startInput.value;
-    // var end = endInput.value;
-
 
     var [h, m] = document.getElementById('newStart').value.split(":");
-    // console.log((h % 12 ? h % 12 : 12) + ":" + m, h >= 12 ? 'PM' : 'AM');
-
-    i++;
 
     var table = document.createElement('tr');
-    table.innerHTML = "<th id='class" + i + "' class='cell'>" + period + "</th>" +
-        "<th id='class" + i + "' class='cell'>" + classIn + "</th>" +
-        "<th id='class" + i + "' class='cell'>" + classNum + "</th>" +
-        "<th id='class" + i + "' class='cell'>" + start + "</th>" +
-        "<th id='class" + i + "' class='cell'>" + end + "</th>";
+    table.innerHTML = "<th id='class' class='cell'>" + period + "</th>" +
+        "<th id='class' class='cell'>" + classIn + "</th>" +
+        "<th id='class' class='cell'>" + classNum + "</th>" +
+        "<th id='class' class='cell'>" + start + "</th>" +
+        "<th id='class' class='cell'>" + end + "</th>";
     incompleteTasks.appendChild(table);
 }
 
@@ -375,9 +348,9 @@ const isLocalhost = Boolean(
 );
 const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com";
 
-// clear.addEventListener("click", function(){
-//   remove();
-// });
+clear.addEventListener("click", function(){
+  remove();
+});
 
 const getList = async () => {
 	const list = await fetch(api + "/scheduleList").then((r) => r.json());
@@ -390,7 +363,9 @@ getList().then(list => {
 
     addTask(cls.period, cls.class1, cls.classNum, cls.startTime, cls.endTime)
     
-    console.log(cls.classNum)
+    const result = coords.find(({ room }) => room === cls.classNum);
+    console.log(result)
+    drawStar(result.x, result.y, 5, 20, 10)  
   });
 })
 
@@ -417,6 +392,13 @@ function addLocal(period, class1, classNum, startTime, endTime){
 }
 
 function remove() {
+  
+  var x = 1
+
+  while (x=1) {
+    const element = document.getElementById("class");
+    element.remove();
+  }
   console.log("work")
   fetch(api + '/scheduleList', {
     method: 'DELETE',
