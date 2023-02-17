@@ -399,7 +399,7 @@ function addLocal(period, class1, classNum, startTime, endTime){
 function remove() {
   console.log("work")
   fetch(api + '/scheduleList', {
-    method: 'DELETE',
+    method: 'DELETE'
   })
     .then((response) => response.json())
 

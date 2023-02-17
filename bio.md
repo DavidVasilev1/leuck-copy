@@ -1,7 +1,6 @@
 <html>
 
 <body>
-   <h2 id="header">Period 2</h2>
    <style>
       .box {
          width: 500px;
@@ -56,7 +55,6 @@
          addData(cls.text, cls.subject)
          function addData() {
             document.getElementById("input2").innerHTML = cls.text
-            var pageSub = document.getElementById("header").innerHTML
             if (cls.subject === pageSub) {
                
                console.log(cls.subject)
@@ -79,16 +77,15 @@
             .catch(error => console.error(error));
       }
       function del_data() {
-         fetch('/note', {
+         fetch(api + '/noteList', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-               id: 1
-            })
          })
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(error => console.error(error));
+
+         document.GetElementById("input2").innerHTML = " ";
       }
       function bad_words() {
          let user_input_el = document.getElementById("input2")
