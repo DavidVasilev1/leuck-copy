@@ -320,6 +320,14 @@ function addSchedule() {
     localStorage.setItem('classNum', JSON.stringify(classNumX))
     localStorage.setItem('startTime', JSON.stringify(startTimeX))
     localStorage.setItem('endTime', JSON.stringify(endTimeX))
+    const delay = (delayms) => {
+      return new Promise(resolve => setTimeout(resolve, delayms));
+    }
+    const reRender = async () => {
+      let reloadDelay = await delay(500);
+      window.location.reload()
+    }
+    reRender();
     addTask(period, classIn, classNum, start, end)
     addLocal(period, classIn, classNum, start, end)
 }
@@ -411,6 +419,15 @@ function remove() {
   //   });
   // });
   var x = 1
+  
+  const delay = (delayms) => {
+    return new Promise(resolve => setTimeout(resolve, delayms));
+  }
+  const reRender = async () => {
+    let reloadDelay = await delay(700);
+    window.location.reload()
+  }
+  reRender();
 
   while (x=1) {
     const element = document.getElementById("class");
