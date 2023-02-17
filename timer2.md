@@ -88,6 +88,7 @@
             <th class="cell">Task</th>
             <th class="cell">Expected Time</th>
             <th class="cell">Actual Time</th>
+            <th class="cell">Decrease Time</th>
           </tr>
         </table>
 <!-- </div> -->
@@ -216,7 +217,7 @@ function addTask() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('TimeExpected', JSON.stringify(timeExpected));
     localStorage.setItem('storedtime', JSON.stringify(storedtimes));
-    // localStorage.setItem('ActualTime', JSON.stringify(ActualTime));
+    localStorage.setItem('ActualTime', JSON.stringify(ActualTime));
     var zero = 0
     localStorage.setItem('time', JSON.stringify(zero))
     TimePassed.innerHTML = "00:00:00"
@@ -236,8 +237,38 @@ function calculatetime(time) {
 }
 
 
+
+function Change(id2) {
+    getList().then(function(items) {
+    // console.log(items);
+
+
+    let result = null;
+    items.forEach(obj => {
+    if (obj.id === id2) {
+      result = obj;
+    }
+});
+    const storedtimeValue = result.storedtime;
+    console.log(storedtimeValue)
+    var storedtimeValue2 = storedtimeValue -1;
+    let data = {"id": id2, "storedtime": storedtimeValue2 };
+    fetch(api+ '/timer', {
+      method:'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {response.json()
+      })
+      
+  })
+}
+
+
 // const started = {};
-function maketable(text, timeExp, time) {
+function maketable(text, timeExp, time, id) {
   // let seconds = newtime || 0;
   // let secondsFormatted = calculatetime(seconds)
   // let temptime2 = JSON.parse(localStorage.getItem('time'));
@@ -245,6 +276,8 @@ function maketable(text, timeExp, time) {
     table.innerHTML = "<th id=task class='cell'>" + text + "</th>" + 
                       "<th id=timeExp"  + "' class='cell'>" + timeExp + "</th>" + 
                       "<th id='Time" + "' class='cell'>" + calculatetime(time) + "</th>" + 
+                      "<th class='cell'>" + 
+                      "<button class='timerButton' onclick='Change(" + (id) + ")'>" + "Decrease" + "</button>"
                       "</th>";
     incompleteTasks.appendChild(table);
 }
@@ -305,13 +338,15 @@ getList().then(function(items) {
   let array = items
   for (let i = 0; i < array.length; i++) {
   const task = array[i];
-  maketable(task.tasks, task.TimeExpected, task.storedtime);
+  maketable(task.tasks, task.TimeExpected, task.storedtime, task.id);
+  console.log(task.id)
   tasks.push(task.tasks)
   timeExpected.push(task.TimeExpected)
   storedtimes.push(task.storedtime)
 }
 
 });
+
 
 
 // for (let i = 0; i < task2.length; i++) {
