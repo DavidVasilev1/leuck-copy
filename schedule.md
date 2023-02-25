@@ -21,6 +21,13 @@
   input:focus, textarea:focus, select:focus{
     outline: none;
   }
+  select {
+    padding: 10px;
+    background-color: #4a4a48;
+    border: 0px;
+    color: #e7dff7;
+    border-radius: 15px;
+  }
   h3 {
     color: #a881f7;
     padding: 10px;
@@ -71,6 +78,10 @@
     color: #a881f7;
     border-color: #775cad;
   }
+  canvas {
+    border-radius: 10px;
+    border: 1px solid #000000;
+  }
 </style>
 
 <div class='container'>
@@ -82,6 +93,63 @@
         <input autocomplete="off" id='newClass' type='text' required>
     <h3> Class Number </h3>
         <input autocomplete="off" id='classNum' type='text' required>
+        <select id="drop">
+          <option>A</option>
+          <option>B</option>
+          <option>D</option>
+          <option>E</option>
+          <option>G</option>
+          <option>J</option>
+          <option>K</option>
+          <option>L</option>
+          <option>M</option>
+          <option>N</option>
+          <option>P</option>
+          <option>R</option>
+          <option>S</option>
+        </select>
+        <select>
+          <option>101</option>
+          <option>102</option>
+          <option>103</option>
+          <option>104</option>
+          <option>105</option>
+          <option>106</option>
+          <option>107</option>
+          <option>108</option>
+          <option>110</option>
+          <option>111</option>
+          <option>112</option>
+          <option>113</option>
+          <option>114</option>
+          <option>115</option>
+          <option>116</option>
+          <option>117</option>
+          <option>118</option>
+          <option>121</option>
+          <option>122</option>
+          <option>123</option>
+          <option>124</option>
+          <option>125</option>
+          <option>126</option>
+          <option>128</option>
+          <option>136</option>
+          <option>138</option>
+          <option>144</option>
+          <option>148</option>
+          <option>150</option>
+          <option>151</option>
+          <option>300</option>
+          <option>301</option>
+          <option>302</option>
+          <option>303</option>
+          <option>401</option>
+          <option>402</option>
+          <option>501</option>
+          <option>502</option>
+          <option>Performing Arts Center</option>
+          <option>Library</option>
+        </select>
   </div>
   <div class='texts2'>
     <h3> Start Time (hh:mm) </h3>
@@ -110,7 +178,7 @@
 
 <img src="images/school_map.jpg" id="map" alt="map" usemap="#map" hidden>
 
-<canvas id="canvas" width="652px" height="652px" style="border: 1px solid #000000;">
+<canvas id="canvas" width="652px" height="652px">
 </canvas>
 
 
