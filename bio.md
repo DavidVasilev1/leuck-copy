@@ -87,21 +87,18 @@ const isLocalhost = Boolean(
    let word = document.getElementById("input2").value.split(" ");
    let word_count = word.length;
    let current = 0 
-   //function count() {
-    //  if (word_count > current){
-     //    current = word_count
-      //   current = document.getElementById("count").innerHTML
-       //  else if (word_count < current){
-        //    current = word_count
-         //   current = document.getElementById("count").innerHTML
-         //}
-     // else if (word_count === 0) {
-      //   current = 0
-       //  current = document.getElementById("count").innerHTML
-     // }
-      //   }
-      //}
-   
+   function countWords() {
+   const textArea = document.getElementById("input2");
+   const text = textArea.value.trim();
+   let wordCount = 0;
+   for (let i = 0; i < text.length; i++) {
+     if (text.charAt(i) !== " " && (i === text.length - 1 || text.charAt(i + 1) === " ")) {
+       wordCount++;
+     }
+   }
+   const countBox = document.getElementById("count");
+   countBox.textContent = wordCount;
+   }
    </script>
 </body>
 </html>
