@@ -1,6 +1,6 @@
 <html>
+
 <body>
-   <h2 id="header">Period 2</h2>
    <style>
       .box {
          width: 500px;
@@ -12,25 +12,27 @@
          float: left;
          color: black;
       }
-      .input{
+
+      .input {
          width: 500px;
          resize: none;
          height: 750px;
          border-radius: 15px;
          padding: 0.5rem;
       }
-      .button{
+
+      .button {
          width: 100px;
          height: 50px;
          margin-top: 20px;
       }
-
    </style>
+
    <body>
       <div type="text" class="box" id="box">
-         <textarea class="input" placeholder="Take some notes!" id="input2" onchange="bad_words()" ></textarea>
-      <button onclick="del_data()" id="delete" class="button">Delete All</button>
-      <button onclick="save_data()" id="save" class="button">Save</button>
+         <textarea class="input" placeholder="Take some notes!" id="input2" onchange="bad_words()"></textarea>
+         <button onclick="del_data()" id="delete" class="button">Delete All</button>
+         <button onclick="save_data()" id="save" class="button">Save</button>
       </div>
       <button id="count" class="button"></button>
    </body>
@@ -87,18 +89,22 @@ const isLocalhost = Boolean(
    let word = document.getElementById("input2").value.split(" ");
    let word_count = word.length;
    let current = 0 
-   function countWords() {
-   const textArea = document.getElementById("input2");
-   const text = textArea.value.trim();
-   let wordCount = 0;
-   for (let i = 0; i < text.length; i++) {
-     if (text.charAt(i) !== " " && (i === text.length - 1 || text.charAt(i + 1) === " ")) {
-       wordCount++;
-     }
-   }
-   const countBox = document.getElementById("count");
-   countBox.textContent = wordCount;
-   }
+   //function count() {
+    //  if (word_count > current){
+     //    current = word_count
+      //   current = document.getElementById("count").innerHTML
+       //  else if (word_count < current){
+        //    current = word_count
+         //   current = document.getElementById("count").innerHTML
+         //}
+     // else if (word_count === 0) {
+      //   current = 0
+       //  current = document.getElementById("count").innerHTML
+     // }
+      //   }
+      //}
+   
    </script>
 </body>
+
 </html>

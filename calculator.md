@@ -241,8 +241,11 @@
 
   function countString() {
     console.log("hi")
+    str = ""
     str = expression.value;
+    console.log("stringgg", str)
     array = Array.from(str)
+    console.log("asr",array)
       count = 0;
       for (let j = 0; j < signs.length; j++) {
         for (let i = 0; i < str.length; i++) {
@@ -266,6 +269,7 @@
         }
       }
     }
+    console.log("???")
     positions.sort(function(a, b){return b - a});
     console.log("positionsreverse",positions);
     for (let i = 0; i < count; i++) {
@@ -286,31 +290,83 @@
         operators.push(operator)
       } 
     }
+    console.log(operators, "ops")
+    console.log("asdfsdjfdpodoooooooo", str.toLowerCase())
     if (str.toLowerCase() == "kaiden is a csp genius" || (str.toLowerCase().includes("kaiden") && str.toLowerCase().includes("genius") && !str.toLowerCase().includes("not") && !str.toLowerCase().includes("isn't") && !str.toLowerCase().includes("isnt"))) {
-      addCalculation(str + "= true")
+      addCalculation(str + " = true")
       expression.value = "";
-      element = str + "= true"
+      element = str + " = true"
       expression.focus();
       return
-    } else if (operators.length == 0) {
+    }
+    
+    else if (operators.length == 0) {
       alert("Try Again");
        expression.value = "";
        expression.focus();
-       return
+       operators = []
+       numbers = []
+       positions = []
+       console.log("sdfchunker")
+       return   
     }
-    
+    else if (str.toLowerCase().split("").some(l => l.match(/[a-z]/i))) {
+      alert("Try Again");
+       expression.value = "";
+       expression.focus();
+       operators = []
+       numbers = []
+       positions = []
+       console.log("sdfckalanihunker")
+       return   
+    } 
+    // else if (!str.toLowerCase().split("").some(l => myRegex.test(l))){
+    //   alert("Try Again");
+    //    expression.value = "";
+    //    expression.focus();
+    //    console.log("pennker")
+    //    return 
+    // }
+    console.log("nonon")
     console.log("op"+operator)
     operators.reverse()
     console.log("operators:",operators)
     for (let i = 0; i < count; i++) {
       num = str.slice(positions[i] + 1, str.length).trim();
+      console.log("jhgfdsdfgh",num)
+      if(isNaN(parseInt(num))){
+        console.log(parseInt(num), "ding")
+        alert("Try Again");
+       expression.value = "";
+       expression.focus();
+       console.log("pennker")
+       operators = []
+       numbers = []
+       positions = []
+       return 
+      }
       str = str.slice(0, positions[i]);
       numbers.unshift(parseInt(num))
       console.log(num)
       console.log(str)
       console.log("numbers:",numbers)
     }
+    
+    console.log("sdfsdf", parseInt(str))
+    if (isNaN(parseInt(str))){
+      alert("Try Again");
+       expression.value = "";
+       expression.focus();
+       console.log("pennsdfker")
+       console.log(str)
+       operators = []
+       numbers = []
+       positions = []
+       return 
+    }
     numbers.unshift(parseInt(str))
+
+    
     
     console.log("numbers:",numbers)
     console.log("operators:",operators)
