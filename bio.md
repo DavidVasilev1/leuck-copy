@@ -35,22 +35,23 @@
       <button id="count" class="button"></button>
    </body>
    <script>
-fetch('/note?id=1')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
 const isLocalhost = Boolean(
 	  window.location.hostname === "localhost" ||
 		window.location.hostname === "[::1]" ||
 	  window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
   );
   const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com"
+fetch(api + '/note?id=1')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
    function save_data() {
       fetch(api + '/note', {
          method: 'POST',
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify({
-            text: document.getElementById("input2"),
+            id: 1,
+            text: document.getElementById("input2").value,
             subject: 'Period 2'
   })
 })
@@ -59,11 +60,11 @@ const isLocalhost = Boolean(
          .catch(error => console.error(error));
 }
    function del_data(){
-      fetch('/note', {
+      fetch(api+'/note', {
          method: 'DELETE',
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify({
-            id: 1
+            id: 1,
             text: document.getElementById("input2"),
             subject: 'Period 2'
   })
