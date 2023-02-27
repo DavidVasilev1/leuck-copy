@@ -1,6 +1,6 @@
 <html>
 <body>
-   <h2>AP Calculus Note-Taker</h2>
+   <h2>Period One</h2>
    <style>
       .box {
          width: 500px;
@@ -44,6 +44,26 @@
       let mt = [];
       localStorage.setItem("x", JSON.stringify(mt))
       document.getElementById("input2").value = ""
+   }
+   function bad_words(){
+      let user_input_el = document.getElementById("input2")
+      let user_input = user_input_el.value
+      if (user_input.includes("fuck") || user_input.includes("shit") || user_input.includes("bitch") || user_input.includes("dick")  || user_input.includes("pp") || user_input.includes("hell")){
+         alert("That is a bad word, the entire text will be deleted.")
+         user_input_el.value = ""
+      }
+   }
+   function countWords() {
+   const textArea = document.getElementById("input2");
+   const text = textArea.value.trim();
+   let wordCount = 0;
+   for (let i = 0; i < text.length; i++) {
+     if (text.charAt(i) !== " " && (i === text.length - 1 || text.charAt(i + 1) === " ")) {
+       wordCount++;
+     }
+   }
+   const countBox = document.getElementById("count");
+   countBox.textContent = wordCount;
    }
    </script>
 </body>
