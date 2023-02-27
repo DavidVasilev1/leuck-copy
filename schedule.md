@@ -1,22 +1,12 @@
 <html>
 <style>
-  .table {
-    border: #a881f7 solid;
-    border-radius: 10px;
-    border-collapse:separate;
-  }
-  .cell {
-    border: 1px solid;
-    text-align: center;
-  }
-  .container {
-  }
   input {
     padding: 10px;
     background-color: #4a4a48;
     border: 0px;
     color: #e7dff7;
     border-radius: 15px;
+    height: 37px;
   }
   input:focus, textarea:focus, select:focus{
     outline: none;
@@ -28,33 +18,49 @@
     color: #e7dff7;
     border-radius: 15px;
   }
-  h3 {
+  button {
+    border-radius: 10px;
+    background: #4a4a4a;
+    font-size: 15px;
     color: #a881f7;
-    padding: 10px;
-    padding-left: 0px;
-    font-size: 25px;
-  }
-  .title {
-    color: #a881f7;
-    padding: 10px;
-    font-size: 30px;
+    border-color: #775cad;
+    margin: 5px;
+    width: 60px;
+    height: 40px;
     text-align: center;
   }
   .button {
-    border-radius: 10px;
-    width: 50px;
-    height: 30px;
-    background: #4a4a4a;
-    font-size: 15px;
-    color: #a881f7;
-    border-color: #775cad;
+    position: inherit;
+    float: left;
+    align-content: center;
+    width: 45%;
+    margin-top: 15px;
   }
-  .timerButton {
-    border-radius: 10px;
-    background: #4a4a4a;
-    font-size: 15px;
+  h3 {
     color: #a881f7;
-    border-color: #775cad;
+    font-size: 25px;
+    padding-top: 15px;
+  }
+  .data {
+    width: 100%;
+    position: inherit;
+    float: right;
+  }
+  .title {
+    height: 40px;
+    color: #a881f7;
+    font-size: 30px;
+    text-align: center;
+    padding: 10px;
+  }
+  .table {
+    border: #a881f7 solid;
+    border-radius: 10px;
+    border-collapse:separate;
+  }
+  .cell {
+    border: 1px solid;
+    text-align: center;
   }
   input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -71,8 +77,6 @@
   }
   .drop {
     border-radius: 10px;
-    width: 50px;
-    height: 30px;
     background: #4a4a4a;
     font-size: 15px;
     color: #a881f7;
@@ -82,6 +86,29 @@
     border-radius: 10px;
     border: 1px solid #000000;
   }
+  select {
+    text-align: center;
+    margin: 5px;
+    width: 27%;
+  }
+  ::-webkit-scrollbar {
+      width: 7px;
+  }
+  ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: #a881f7;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+  }
+  ::-webkit-scrollbar-thumb:window-inactive {
+      background: #a881f7;
+  }
+  
 </style>
 
 <div class='container'>
@@ -92,8 +119,8 @@
     <h3> Class </h3>
         <input autocomplete="off" id='newClass' type='text' required>
     <h3> Class Number </h3>
-        <input autocomplete="off" id='classNum' type='text' required>
-        <select id="drop">
+        <select id="drop1" required>
+          <option value="" selected disabled hidden>---</option>
           <option>A</option>
           <option>B</option>
           <option>D</option>
@@ -108,7 +135,8 @@
           <option>R</option>
           <option>S</option>
         </select>
-        <select>
+        <select id="drop2" required>
+          <option value="" selected disabled hidden>---</option>
           <option>101</option>
           <option>102</option>
           <option>103</option>
@@ -149,6 +177,9 @@
           <option>502</option>
           <option>Performing Arts Center</option>
           <option>Library</option>
+          <option>Administration</option>
+          <option>Food Court</option>
+          <option>Gym</option>
         </select>
   </div>
   <div class='texts2'>
@@ -157,23 +188,22 @@
     <h3> End Time (hh:mm) </h3>
         <input autocomplete="off" id='newEnd' type='time' required>
   </div>
-<br>
-<br>
-<button class='button' id='addClassButton' onclick="addSchedule()">Add</button>
-
-<button class='button' id='remove'>Clear</button>
-<br>
-<br>
-<h3 class="title"> Classes </h3>
-        <table class="table" id="schedule" style="width: 100%; margin-left: auto; margin-right: auto;">
-          <tr>
-            <th class="cell">Period</th>
-            <th class="cell">Class Name</th>
-            <th class="cell">Class Number</th>
-            <th class="cell">Start Time</th>
-            <th class="cell">End Time</th>
-          </tr>
-        </table>
+  <div class="button">
+    <button class='button' id='addClassButton' onclick="addSchedule()">Add</button>
+    <button class='button' id='remove'>Clear</button>
+  </div>
+  <div class="data">
+    <p class="title">Classes</p>
+    <table class="table" id="schedule" style="width: 100%; margin-left: auto; margin-right: auto;">
+      <tr>
+        <th class="cell">Period</th>
+        <th class="cell">Class Name</th>
+        <th class="cell">Class Number</th>
+        <th class="cell">Start Time</th>
+        <th class="cell">End Time</th>
+      </tr>
+    </table>
+  </div>
 </div>
 
 <img src="images/school_map.jpg" id="map" alt="map" usemap="#map" hidden>
@@ -358,7 +388,8 @@ function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
 
 var periodInput = document.getElementById('newPeriod');
 var classInput = document.getElementById('newClass');
-var classNumber = document.getElementById('classNum');
+var classLetter = document.getElementById('drop1');
+var classNum = document.getElementById('drop2');
 var startInput = document.getElementById('newStart');
 var endInput = document.getElementById('newEnd');
 var addClassButton = document.getElementById('addClassButton');
@@ -377,7 +408,8 @@ function addSchedule() {
       periodX.push(periodInput.value)
     var classIn = classInput.value;
       class1X.push(classInput.value)
-    var classNum = document.getElementById('classNum').value;
+    var classNum = document.getElementById('drop1').value + document.getElementById('drop2').value;
+    console.log(classNum)
       classNumX.push(classNum)
     var start = startInput.value;
       startTimeX.push(startInput.value)
@@ -392,7 +424,7 @@ function addSchedule() {
       return new Promise(resolve => setTimeout(resolve, delayms));
     }
     const reRender = async () => {
-      let reloadDelay = await delay(500);
+      let reloadDelay = await delay(700);
       window.location.reload()
     }
     reRender();
@@ -403,19 +435,17 @@ function addSchedule() {
 var i = 0
 
 function addTask(period, classIn, classNum, start, end) {
-
-    var [h, m] = document.getElementById('newStart').value.split(":");
+    i+1
 
     var table = document.createElement('tr');
     table.innerHTML = "<th id='class' class='cell'>" + period + "</th>" +
-        "<th id='class' class='cell'>" + classIn + "</th>" +
+        "<th id='class' class='cell' ondblclick='editName()'>" + classIn + "</th>" +
         "<th id='class' class='cell'>" + classNum + "</th>" +
         "<th id='class' class='cell'>" + start + "</th>" +
         "<th id='class' class='cell'>" + end + "</th>";
     incompleteTasks.appendChild(table);
     document.getElementById('newPeriod').value = "";
     document.getElementById('newClass').value = "";
-    document.getElementById('classNum').value = "";
     document.getElementById('newStart').value = "";
     document.getElementById('newEnd').value = "";
 }
@@ -472,20 +502,34 @@ function addLocal(period, class1, classNum, startTime, endTime){
     });
 }
 
+function edit(period, class1, classNum, startTime, endTime) {
+  let data = {
+    "class1": class1
+  };
+  fetch(api + '/schedule', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
+function editName(className, classIn){
+  className = document.getElementById('className' + i)
+  console.log(className) 
+}
+
 function remove() {
   console.log("work")
   fetch(api + '/scheduleList', {
     method: 'DELETE'
   })
     .then((response) => response.json())
-
-  // getList().then(list => {
-  //   list.forEach(cls => {
-  //     const result = coords.find(({ room }) => room === cls.classNum);
-  //     console.log(result)
-  //     clearStroke(result.x, result.y, 5, 20, 10)
-  //   });
-  // });
   var x = 1
   
   const delay = (delayms) => {
@@ -502,5 +546,4 @@ function remove() {
     element.remove();
   }
 }
-  
 </script>
