@@ -47,10 +47,11 @@ fetch(api + '/note?id=1')
   .catch(error => console.error(error));
    function save_data() {
       fetch(api + '/note', {
-         method: 'POST',
+         method: 'PUT',
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify({
-            text: document.getElementById("input2"),
+            id: 1,
+            text: document.getElementById("input2").value,
             subject: 'Period 2'
   })
 })
