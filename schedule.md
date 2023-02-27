@@ -115,7 +115,7 @@
 
   <div class='texts1'>    
     <h3> Period </h3>
-        <input autocomplete="off" id='newPeriod' type='text' required>
+        <input autocomplete="off" id='newPeriod' type='number' required>
     <h3> Class </h3>
         <input autocomplete="off" id='newClass' type='text' required>
     <h3> Class Number </h3>
@@ -435,7 +435,6 @@ function addSchedule() {
 var i = 0
 
 function addTask(period, classIn, classNum, start, end) {
-    i+1
 
     var table = document.createElement('tr');
     table.innerHTML = "<th id='class' class='cell'>" + period + "</th>" +
