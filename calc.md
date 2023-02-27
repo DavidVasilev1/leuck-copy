@@ -28,7 +28,7 @@
    </style>
    <body>
       <div type="text" class="box" id="box">
-         <textarea class="input" placeholder="Take some notes!" id="input2"></textarea>
+         <textarea class="input" placeholder="Take some notes!" id="input2" onchange="bad_words()"></textarea>
       <button onclick="del_data()" id="delete" class="button">Delete All</button>
       <button onclick="save_data()" id="save" class="button">Save</button>
       </div>
