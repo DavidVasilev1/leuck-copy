@@ -47,7 +47,7 @@ fetch(api + '/note?id=1')
   .catch(error => console.error(error));
    function save_data() {
       fetch(api + '/note', {
-         method: 'PUT',
+         method: 'POST',
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify({
             id: 1,
