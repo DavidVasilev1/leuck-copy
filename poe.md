@@ -32,7 +32,7 @@
       <button onclick="del_data()" id="delete" class="button">Delete All</button>
       <button onclick="save_data()" id="save" class="button">Save</button>
       </div>
-      <button placeholder="Click me to see word count!" onclick="countWords()" id="count" class="button"></button>
+      <button placeholder="Click me to see word count!" onclick="countWords()" onclick="save_data()" id="count" class="button"></button>
    </body>
    <script>
       function save_data() {
