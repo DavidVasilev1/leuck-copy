@@ -1,5 +1,7 @@
+<!-- run on a Github Pages website, using a template from teacher, John Mortensen, on website layout and nothing else -->
 <html>
 <style>
+  /* personal styling on interface to make it look appealing */
   input {
     padding: 10px;
     background-color: #4a4a48;
@@ -108,18 +110,19 @@
   ::-webkit-scrollbar-thumb:window-inactive {
       background: #a881f7;
   }
-  
 </style>
 
 <div class='container'>
-
-  <div class='texts1'>    
+  <!-- visual interface that the user sees -->
+  <p style="text-align: center;">Enter your class information below and click enter when you are ready.</p> 
+  <div class='texts1'>
+  <!-- input cells used for gathering user data -->
     <h3> Period </h3>
-        <input autocomplete="off" id='newPeriod' type='text' required>
+        <input autocomplete="off" id='newPeriod' type='number' required>
     <h3> Class </h3>
         <input autocomplete="off" id='newClass' type='text' required>
     <h3> Class Number </h3>
-        <select id="drop1" required>
+        <select id="dropClass1" required>
           <option value="" selected disabled hidden>---</option>
           <option>A</option>
           <option>B</option>
@@ -135,7 +138,7 @@
           <option>R</option>
           <option>S</option>
         </select>
-        <select id="drop2" required>
+        <select id="dropClass2" required>
           <option value="" selected disabled hidden>---</option>
           <option>101</option>
           <option>102</option>
@@ -188,10 +191,12 @@
     <h3> End Time (hh:mm) </h3>
         <input autocomplete="off" id='newEnd' type='time' required>
   </div>
+  <!-- submission and clear button used to alter the table state (add or remove data entered by the user) -->
   <div class="button">
     <button class='button' id='addClassButton' onclick="addSchedule()">Add</button>
     <button class='button' id='remove'>Clear</button>
   </div>
+  <!-- data table used to display class information entered by the user -->
   <div class="data">
     <p class="title">Classes</p>
     <table class="table" id="schedule" style="width: 100%; margin-left: auto; margin-right: auto;">
@@ -205,343 +210,373 @@
     </table>
   </div>
 </div>
-
+<!-- hidden image used to create map canvas on which classes are marked -->
 <img src="images/school_map.jpg" id="map" alt="map" usemap="#map" hidden>
-
+<!-- canvas on which map and highlighted classes will be displayed -->
 <canvas id="canvas" width="652px" height="652px">
 </canvas>
 
-
+<!-- logic of the program -->
 <script>
-var c = document.getElementById("canvas");
-var ctx2 = c.getContext("2d");
-var img = document.getElementById("map");
 
+// variables created for the map canvas which is used to project classes for user to see
+var map = document.getElementById("canvas");
+var mapCanvas = map.getContext("2d");
+var imgMap = document.getElementById("map");
 
-
-if (img.complete) {
-    ctx2.drawImage(img, 0, 0, 652, 652);
+// redundancy, making sure map always loads on website
+if (imgMap.complete) {
+  mapCanvas.drawImage(imgMap, 0, 0, 652, 652); // if map is complete loading, don't try loading map again
 } else {
-    img.onload = function () {
-        ctx2.drawImage(img, 0, 0, 652, 652);    
+    imgMap.onload = function () {
+      mapCanvas.drawImage(imgMap, 0, 0, 652, 652); // if map hasn't loaded, map will attempt to load again, making sure it always shows
     };
 }
 
-function storeCoordinate(room, xVal, yVal, array) {
-    array.push({room: room, x: xVal, y: yVal});
+// help on how to draw a star on HTML canvas was found here: https://stackoverflow.com/questions/25837158/how-to-draw-a-star-by-using-canvas-html5
+// code is modified to meet my specific needs
+function starMark(cx, cy, spikes, outerRadius, innerRadius) {
+  // created variables for star location and orientation
+  var rot = Math.PI / 2 * 3;
+  var x = cx;
+  var y = cy;
+  var step = Math.PI / spikes;
+
+  // starting path of where the star is drawn and how it is drawn
+  mapCanvas.strokeStyle = "#000";
+  mapCanvas.beginPath();
+  mapCanvas.moveTo(cx, cy - outerRadius)
+  // moves brush to repeat a pattern in order to draw the spikes of the star
+  for (i = 0; i < spikes; i++) {
+      x = cx + Math.cos(rot) * outerRadius;
+      y = cy + Math.sin(rot) * outerRadius;
+      mapCanvas.lineTo(x, y)
+      rot += step
+
+      x = cx + Math.cos(rot) * innerRadius;
+      y = cy + Math.sin(rot) * innerRadius;
+      mapCanvas.lineTo(x, y)
+      rot += step
+  }
+  // ending the path of the brush in order to end the star and sets final color, line width, and infill of star
+  mapCanvas.lineTo(cx, cy - outerRadius)
+  mapCanvas.closePath();
+  mapCanvas.lineWidth=5;
+  mapCanvas.strokeStyle='red';
+  mapCanvas.stroke();
 }
 
+// setting formatting of keys used to store room information which is used to index the rooms on the map and their coordinates
+function storeRoomData(room, xVal, yVal, dataArray) {
+    dataArray.push({room: room, x: xVal, y: yVal});
+}
+
+// array of room numbers and coordinates is set and filled with 'storeRoomData()' function
 var coords = [];
 
-storeCoordinate("A101",347,507,coords)
-storeCoordinate("A102",325,509,coords)
-storeCoordinate("A107",302,501,coords)
-storeCoordinate("A116",283,487,coords)
-storeCoordinate("A124",261,484,coords)
-storeCoordinate("A125",243,469,coords)
-storeCoordinate("A126",228,445,coords)
-storeCoordinate("A136",253,425,coords)
-storeCoordinate("A138",267,436,coords)
-storeCoordinate("A144",313,462,coords)
-storeCoordinate("A148",325,437,coords)
-storeCoordinate("A150",330,469,coords)
-storeCoordinate("A151",349,471,coords)
-storeCoordinate("B111",573,358,coords)
-storeCoordinate("B113",594,356,coords)
-storeCoordinate("B115",619,354,coords)
-storeCoordinate("B121",592,239,coords)
-storeCoordinate("B123",571,247,coords)
-storeCoordinate("B125",551,255,coords)
-storeCoordinate("B128",521,263,coords)
-storeCoordinate("D101",450,260,coords)
-storeCoordinate("D102",431,241,coords)
-storeCoordinate("D103",463,247,coords)
-storeCoordinate("D104",445,229,coords)
-storeCoordinate("D111",471,203,coords)
-storeCoordinate("D112",489,221,coords)
-storeCoordinate("D113",485,189,coords)
-storeCoordinate("D114",503,208,coords)
-storeCoordinate("D115",499,176,coords)
-storeCoordinate("D116",517,194,coords)
-storeCoordinate("D117",513,162,coords)
-storeCoordinate("D118",531,183,coords)
-storeCoordinate("E101",435,175,coords)
-storeCoordinate("E102",419,169,coords)
-storeCoordinate("E103",451,153,coords)
-storeCoordinate("E104",427,144,coords)
-storeCoordinate("E105",461,129,coords)
-storeCoordinate("E106",437,119,coords)
-storeCoordinate("G101",373,215,coords)
-storeCoordinate("G102",345,213,coords)
-storeCoordinate("G103",374,199,coords)
-storeCoordinate("G104",346,353,coords)
-storeCoordinate("G111",349,162,coords)
-storeCoordinate("G112",377,163,coords)
-storeCoordinate("G113",350,143,coords)
-storeCoordinate("G114",377,144,coords)
-storeCoordinate("G115",350,123,coords)
-storeCoordinate("G116",376,125,coords)
-storeCoordinate("G117",352,104,coords)
-storeCoordinate("G118",379,105,coords)
-storeCoordinate("J101",281,233,coords)
-storeCoordinate("J102",305,222,coords)
-storeCoordinate("J103",272,215,coords)
-storeCoordinate("J104",297,204,coords)
-storeCoordinate("J110",260,188,coords)
-storeCoordinate("J111",254,177,coords)
-storeCoordinate("J112",249,165,coords)
-storeCoordinate("J113",283,175,coords)
-storeCoordinate("J114",275,157,coords)
-storeCoordinate("J115",241,151,coords)
-storeCoordinate("J116",266,139,coords)
-storeCoordinate("J117",233,133,coords)
-storeCoordinate("J118",257,122,coords)
-storeCoordinate("K101",222,208,coords)
-storeCoordinate("K102",209,223,coords)
-storeCoordinate("K103",206,186,coords)
-storeCoordinate("K104",185,206,coords)
-storeCoordinate("K105",186,167,coords)
-storeCoordinate("K106",165,187,coords)
-storeCoordinate("L101",234,283,coords)
-storeCoordinate("L102",224,307,coords)
-storeCoordinate("L103",218,276,coords)
-storeCoordinate("L104",208,299,coords)
-storeCoordinate("L110",179,287,coords)
-storeCoordinate("L111",167,282,coords)
-storeCoordinate("L112",155,276,coords)
-storeCoordinate("L113",186,261,coords)
-storeCoordinate("L114",169,252,coords)
-storeCoordinate("L115",140,270,coords)
-storeCoordinate("L116",151,245,coords)
-storeCoordinate("L117",121,262,coords)
-storeCoordinate("L118",133,237,coords)
-storeCoordinate("M101",103,312,coords)
-storeCoordinate("M116",75,350,coords)
-storeCoordinate("N113",170,422,coords)
-storeCoordinate("N122",157,359,coords)
-storeCoordinate("P101",176,468,coords)
-storeCoordinate("P104",156,462,coords)
-storeCoordinate("P107",152,479,coords)
-storeCoordinate("P108",133,490,coords)
-storeCoordinate("P111",106,482,coords)
-storeCoordinate("P116",98,456,coords)
-storeCoordinate("R300",452,66,coords)
-storeCoordinate("R301",481,76,coords)
-storeCoordinate("R302",506,89,coords)
-storeCoordinate("R303",530,103,coords)
-storeCoordinate("R401",392,49,coords)
-storeCoordinate("R402",418,53,coords)
-storeCoordinate("R501",334,42,coords)
-storeCoordinate("R502",361,44,coords)
-storeCoordinate("S101",100,147,coords)
-storeCoordinate("S102",118,132,coords)
-storeCoordinate("S103",137,114,coords)
-storeCoordinate("S104",155,100,coords)
-storeCoordinate("S105",170,85,coords)
-storeCoordinate("S106",186,72,coords)
-storeCoordinate("S107",201,58,coords)
-storeCoordinate("Performing Arts Center",137,395,coords)
-storeCoordinate("Library",380,477,coords)
-storeCoordinate("Administration",423,454,coords)
-storeCoordinate("Food Court",477,323,coords)
-storeCoordinate("Gym",571,304,coords)
+// data for room numbers
+storeRoomData("A101",347,507,coords)
+storeRoomData("A102",325,509,coords)
+storeRoomData("A107",302,501,coords)
+storeRoomData("A116",283,487,coords)
+storeRoomData("A124",261,484,coords)
+storeRoomData("A125",243,469,coords)
+storeRoomData("A126",228,445,coords)
+storeRoomData("A136",253,425,coords)
+storeRoomData("A138",267,436,coords)
+storeRoomData("A144",313,462,coords)
+storeRoomData("A148",325,437,coords)
+storeRoomData("A150",330,469,coords)
+storeRoomData("A151",349,471,coords)
+storeRoomData("B111",573,358,coords)
+storeRoomData("B113",594,356,coords)
+storeRoomData("B115",619,354,coords)
+storeRoomData("B121",592,239,coords)
+storeRoomData("B123",571,247,coords)
+storeRoomData("B125",551,255,coords)
+storeRoomData("B128",521,263,coords)
+storeRoomData("D101",450,260,coords)
+storeRoomData("D102",431,241,coords)
+storeRoomData("D103",463,247,coords)
+storeRoomData("D104",445,229,coords)
+storeRoomData("D111",471,203,coords)
+storeRoomData("D112",489,221,coords)
+storeRoomData("D113",485,189,coords)
+storeRoomData("D114",503,208,coords)
+storeRoomData("D115",499,176,coords)
+storeRoomData("D116",517,194,coords)
+storeRoomData("D117",513,162,coords)
+storeRoomData("D118",531,183,coords)
+storeRoomData("E101",435,175,coords)
+storeRoomData("E102",419,169,coords)
+storeRoomData("E103",451,153,coords)
+storeRoomData("E104",427,144,coords)
+storeRoomData("E105",461,129,coords)
+storeRoomData("E106",437,119,coords)
+storeRoomData("G101",373,215,coords)
+storeRoomData("G102",345,213,coords)
+storeRoomData("G103",374,199,coords)
+storeRoomData("G104",346,353,coords)
+storeRoomData("G111",349,162,coords)
+storeRoomData("G112",377,163,coords)
+storeRoomData("G113",350,143,coords)
+storeRoomData("G114",377,144,coords)
+storeRoomData("G115",350,123,coords)
+storeRoomData("G116",376,125,coords)
+storeRoomData("G117",352,104,coords)
+storeRoomData("G118",379,105,coords)
+storeRoomData("J101",281,233,coords)
+storeRoomData("J102",305,222,coords)
+storeRoomData("J103",272,215,coords)
+storeRoomData("J104",297,204,coords)
+storeRoomData("J110",260,188,coords)
+storeRoomData("J111",254,177,coords)
+storeRoomData("J112",249,165,coords)
+storeRoomData("J113",283,175,coords)
+storeRoomData("J114",275,157,coords)
+storeRoomData("J115",241,151,coords)
+storeRoomData("J116",266,139,coords)
+storeRoomData("J117",233,133,coords)
+storeRoomData("J118",257,122,coords)
+storeRoomData("K101",222,208,coords)
+storeRoomData("K102",209,223,coords)
+storeRoomData("K103",206,186,coords)
+storeRoomData("K104",185,206,coords)
+storeRoomData("K105",186,167,coords)
+storeRoomData("K106",165,187,coords)
+storeRoomData("L101",234,283,coords)
+storeRoomData("L102",224,307,coords)
+storeRoomData("L103",218,276,coords)
+storeRoomData("L104",208,299,coords)
+storeRoomData("L110",179,287,coords)
+storeRoomData("L111",167,282,coords)
+storeRoomData("L112",155,276,coords)
+storeRoomData("L113",186,261,coords)
+storeRoomData("L114",169,252,coords)
+storeRoomData("L115",140,270,coords)
+storeRoomData("L116",151,245,coords)
+storeRoomData("L117",121,262,coords)
+storeRoomData("L118",133,237,coords)
+storeRoomData("M101",103,312,coords)
+storeRoomData("M116",75,350,coords)
+storeRoomData("N113",170,422,coords)
+storeRoomData("N122",157,359,coords)
+storeRoomData("P101",176,468,coords)
+storeRoomData("P104",156,462,coords)
+storeRoomData("P107",152,479,coords)
+storeRoomData("P108",133,490,coords)
+storeRoomData("P111",106,482,coords)
+storeRoomData("P116",98,456,coords)
+storeRoomData("R300",452,66,coords)
+storeRoomData("R301",481,76,coords)
+storeRoomData("R302",506,89,coords)
+storeRoomData("R303",530,103,coords)
+storeRoomData("R401",392,49,coords)
+storeRoomData("R402",418,53,coords)
+storeRoomData("R501",334,42,coords)
+storeRoomData("R502",361,44,coords)
+storeRoomData("S101",100,147,coords)
+storeRoomData("S102",118,132,coords)
+storeRoomData("S103",137,114,coords)
+storeRoomData("S104",155,100,coords)
+storeRoomData("S105",170,85,coords)
+storeRoomData("S106",186,72,coords)
+storeRoomData("S107",201,58,coords)
+storeRoomData("Performing Arts Center",137,395,coords)
+storeRoomData("Library",380,477,coords)
+storeRoomData("Administration",423,454,coords)
+storeRoomData("Food Court",477,323,coords)
+storeRoomData("Gym",571,304,coords)
 
+// initializes the format of the function which will be used to populate array, using parameters and assigning them to initial values 
 coords[0].room == "A101"
 coords[0].x == 347
 coords[0].y == 507
 
+// loop continues organization of data into array based on key, value pairs and indexing with the use of 'i'
 for (var i = 0; i < coords.length; i++) {
     var room = coords[i].room;
     var x = coords[i].x;
     var y = coords[i].y;
-} 
-
-var d = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-
-function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
-    var rot = Math.PI / 2 * 3;
-    var x = cx;
-    var y = cy;
-    var step = Math.PI / spikes;
-
-    ctx.strokeStyle = "#000";
-    ctx.beginPath();
-    ctx.moveTo(cx, cy - outerRadius)
-    for (i = 0; i < spikes; i++) {
-        x = cx + Math.cos(rot) * outerRadius;
-        y = cy + Math.sin(rot) * outerRadius;
-        ctx.lineTo(x, y)
-        rot += step
-
-        x = cx + Math.cos(rot) * innerRadius;
-        y = cy + Math.sin(rot) * innerRadius;
-        ctx.lineTo(x, y)
-        rot += step
-    }
-    ctx.lineTo(cx, cy - outerRadius)
-    ctx.closePath();
-    ctx.lineWidth=5;
-    ctx.strokeStyle='red';
-    ctx.stroke();
 }
 
+// setting variables used to gather data from user inputs in above HTML
 var periodInput = document.getElementById('newPeriod');
 var classInput = document.getElementById('newClass');
-var classLetter = document.getElementById('drop1');
-var classNum = document.getElementById('drop2');
 var startInput = document.getElementById('newStart');
 var endInput = document.getElementById('newEnd');
 var addClassButton = document.getElementById('addClassButton');
 var clear = document.getElementById('remove')
-var incompleteTasks = document.getElementById('schedule');
+var schedule = document.getElementById('schedule');
 
-//local
+// delay set to reload page after user adds data
+const delay = (delayms) => {
+      return new Promise(resolve => setTimeout(resolve, delayms))
+    }
+// rerendering function using above delay to reload page when called, allowing stars to be drawn on map canvas
+const reRender = async () => {
+  let reloadDelay = await delay(700)
+  window.location.reload()
+}
 
-var periodX = []
-var class1X = []
-var classNumX = []
-var startTimeX = []
-var endTimeX = []
+
+
+//function used to add data to the backend database
 function addSchedule() {
-    var period = periodInput.value;
-      periodX.push(periodInput.value)
-    var classIn = classInput.value;
-      class1X.push(classInput.value)
-    var classNum = document.getElementById('drop1').value + document.getElementById('drop2').value;
-    console.log(classNum)
-      classNumX.push(classNum)
-    var start = startInput.value;
-      startTimeX.push(startInput.value)
-    var end = endInput.value;
-      endTimeX.push(endInput.value)
-    localStorage.setItem('period', JSON.stringify(periodX))
-    localStorage.setItem('class1', JSON.stringify(class1X))
-    localStorage.setItem('classNum', JSON.stringify(classNumX))
-    localStorage.setItem('startTime', JSON.stringify(startTimeX))
-    localStorage.setItem('endTime', JSON.stringify(endTimeX))
-    const delay = (delayms) => {
-      return new Promise(resolve => setTimeout(resolve, delayms));
+
+  // defines the variables that are to be pushed into the backend api
+  var period = periodInput.value
+  var class1 = classInput.value
+  var classNum = document.getElementById('dropClass1').value + document.getElementById('dropClass2').value;
+  var startTime = startInput.value
+  var endTime = endInput.value
+
+  // this checks is all cells are complete before pushing the data to the backend
+  // this creates an array with the variables that are used to define the values entered by the user
+  var cellIds = ['newPeriod', 'newClass', 'dropClass1', 'dropClass2', 'newStart', 'newEnd']
+
+  // this iterates through the variables used to define the input cells
+  for (let i = 0; i < cellIds.length; i++) {
+    var getData = document.getElementById(cellIds[i]).value
+    // checks if the cells are empty or not and if they are, it prompts the user to fill in the empty cells
+    if (getData === ''){
+      alert('Please fill out the empty cells.')
+      return
     }
-    const reRender = async () => {
-      let reloadDelay = await delay(700);
-      window.location.reload()
-    }
-    reRender();
-    addTask(period, classIn, classNum, start, end)
-    addLocal(period, classIn, classNum, start, end)
+  }
+
+  // reloads the page, allowing for the stars to be drawn onto the map and for the data to be loaded into the table
+  //reRender()
+  addTask(period, class1, classNum, startTime, endTime)
+  // runs the function responsible for adding the data to an api where the data is stored, called, and can be deleted from
+  addData(period, class1, classNum, startTime, endTime)
 }
 
-var i = 0
+// this function adds data into the table for the user to see, based on the data that is read from the database in the api
+// this functoin calls the parameters which are defined to match with the values of the input from the user which are pulled from the api
+// function addTask(period, class1, classNum, startTime, endTime) {
+  
+//   // creates an array with the variables defining the user data pulled form the api, allowing for quick iteration through the rows and cells of the table, to display data quickly
+//   var tableCells = [period, class1, classNum, startTime, endTime]
+//   // creates the rows of information
+//   var row = document.createElement('tr')
+//   // for each cell, the program pulls the data from the api based on the variables defined in the above array, and displays them as text for the user to see
+//   tableCells.forEach((cell) => {
+//     var tableCell = document.createElement('th')
+//     tableCell.textContent = cell
+//     tableCell.className = 'cell'
+//     // creates a new cell for each piece of information
+//     row.appendChild(tableCell)
+//   })
+//   // creates a new row for further information to be placed
+//   schedule.appendChild(row)
+// }
 
-function addTask(period, classIn, classNum, start, end) {
-    i+1
-
-    var table = document.createElement('tr');
-    table.innerHTML = "<th id='class' class='cell'>" + period + "</th>" +
-        "<th id='class' class='cell' ondblclick='editName()'>" + classIn + "</th>" +
-        "<th id='class' class='cell'>" + classNum + "</th>" +
-        "<th id='class' class='cell'>" + start + "</th>" +
-        "<th id='class' class='cell'>" + end + "</th>";
-    incompleteTasks.appendChild(table);
-    document.getElementById('newPeriod').value = "";
-    document.getElementById('newClass').value = "";
-    document.getElementById('newStart').value = "";
-    document.getElementById('newEnd').value = "";
+function addTask(period, class1, classNum, startTime, endTime) {
+  
+  // creates an array with the variables defining the user data pulled form the api, allowing for quick iteration through the rows and cells of the table, to display data quickly
+  var tableCells = [period, class1, classNum, startTime, endTime]
+  // creates the rows of information
+  var row = document.createElement('tr')
+  // for each cell, the program pulls the data from the api based on the variables defined in the above array, and displays them as text for the user to see
+  for (var i = 0; i < tableCells.length; i++) {
+    var tableCell = document.createElement('th')
+    tableCell.textContent = tableCells[i]
+    tableCell.className = 'cell'
+    // creates a new cell for each piece of information
+    if (i === 0) {
+      tableCell.id = 'period'
+    } else if (i === 1) {
+      tableCell.id = 'class'
+    } else if (i === 2) {
+      tableCell.id = 'classNum'
+    } else if (i === 3) {
+      tableCell.id = 'classStart'
+    } else if (i === 4) {
+      tableCell.id = 'classEnd'
+    }
+    row.appendChild(tableCell)
+  }
+  // creates a new row for further information to be placed
+  schedule.appendChild(row)
 }
 
-// API connect
+// connection to the api 
 
+// creates the ability to call the local api, if full stack is run entirely locally
 const isLocalhost = Boolean(
 	window.location.hostname === "localhost" ||
-		window.location.hostname === "[::1]" ||
-		window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
-);
+	window.location.hostname === "[::1]" ||
+	window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+)
+// checks whether the site is run locally and decides whether or not to use the local api or hosted api
 const api = isLocalhost ? "http://localhost:8199" : "https://saakd.nighthawkcodingsociety.com";
 
-clear.addEventListener("click", function(){
-  remove();
-});
+// adds data that the user inputs into the api, based on the parameters which are defined per the values of the input boxes in the above logic
+function addData(period, class1, classNum, startTime, endTime){
 
+// a dictionary is made, to organize the data before sending it to the backend for storage
+let data = {
+  "period": period,
+  "class1": class1,
+  "classNumber": classNum,
+  "startTime": startTime,
+  "endTime": endTime
+}
+
+// this fetches the post link for the api, allowing for the data to be added into the api database
+fetch(api + '/schedule', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+})
+  // error checking, to make sure everything works and if there are errors, the program stops
+  .then((response) => response.json())
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+
+// gathers all data from the api backend and send it for the frontend to process through the get link, which contains all the data in the database
 const getList = async () => {
 	const list = await fetch(api + "/scheduleList").then((r) => r.json());
-	scheduleLocal = list;
+	scheduleLocal = list
   return list
 };
 
+// gathers data and prepares it to be displayed for the user to see
 getList().then(list => {
+  // for each class in the data, which is defined as list, that is pulled into the frontend, it is run through the 'addTask()' function in order to display the data for the user to see
   list.forEach(cls => {
-
     addTask(cls.period, cls.class1, cls.classNum, cls.startTime, cls.endTime)
     
+    // adds the markings on the map for each class that is in the dataset
     const result = coords.find(({ room }) => room === cls.classNum);
-    console.log(result)
-    drawStar(result.x, result.y, 5, 20, 10)
-  });
+    starMark(result.x, result.y, 5, 20, 10)
+  })
 })
 
-function addLocal(period, class1, classNum, startTime, endTime){
+// allows data to be cleared from the table and the api once the clear button is clicked
+clear.addEventListener("click", function(){
+  // runs the 'remove()' function
+  remove()
+});
 
-  let data = {
-    "period": period,
-    "class1": class1,
-    "classNumber": classNum,
-    "startTime": startTime,
-    "endTime": endTime
-}
-  fetch(api + '/schedule', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-}
-
-function edit(period, class1, classNum, startTime, endTime) {
-  let data = {
-    "class1": class1
-  };
-  fetch(api + '/schedule', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-}
-
-function editName(className, classIn){
-  className = document.getElementById('className' + i)
-  console.log(className) 
-}
-
+// this fetches the delete link for the api, allowing for the data to be removed entirely from the api database, preventing program from regenerating stars and text
 function remove() {
-  console.log("work")
   fetch(api + '/scheduleList', {
     method: 'DELETE'
   })
     .then((response) => response.json())
-  var x = 1
-  
-  const delay = (delayms) => {
-    return new Promise(resolve => setTimeout(resolve, delayms));
-  }
-  const reRender = async () => {
-    let reloadDelay = await delay(700);
-    window.location.reload()
-  }
-  reRender();
 
-  while (x=1) {
+  // sets arbitrary for while loop to clear table
+  var x = 1
+  // this triggers the page to reload in order to entirely clear the table and map of it's contents
+  reRender();
+  // entirely clears contents of table
+  while (x = 1) {
     const element = document.getElementById("class");
     element.remove();
   }
